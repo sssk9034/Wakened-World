@@ -1,0 +1,34 @@
+[gd_resource type="TileSet" format=3 uid="uid://b85kdhmse2fvd"]
+
+[ext_resource type="Texture2D" uid="uid://biad6x5np8akl" path="res://resources/texures/Straight 1.png" id="1_kqjtb"]
+[ext_resource type="Texture2D" uid="uid://df6pmhtffowrh" path="res://resources/texures/Straight 1.2.png" id="2_ilouf"]
+[ext_resource type="Texture2D" uid="uid://c7ixcifay0na8" path="res://resources/texures/Straight 1.3.png" id="3_ky10g"]
+[ext_resource type="Texture2D" uid="uid://hrxdvbn0mdkl" path="res://resources/texures/Straight 2.png" id="4_nf3i8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jh32y"]
+texture = ExtResource("1_kqjtb")
+texture_region_size = Vector2i(300, 192)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_be0no"]
+texture = ExtResource("2_ilouf")
+texture_region_size = Vector2i(300, 192)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_blm8a"]
+texture = ExtResource("3_ky10g")
+texture_region_size = Vector2i(300, 192)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mlgqr"]
+texture = ExtResource("4_nf3i8")
+texture_region_size = Vector2i(300, 192)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(300, 192)
+uv_clipping = true
+sources/1 = SubResource("TileSetAtlasSource_jh32y")
+sources/2 = SubResource("TileSetAtlasSource_be0no")
+sources/3 = SubResource("TileSetAtlasSource_blm8a")
+sources/4 = SubResource("TileSetAtlasSource_mlgqr")

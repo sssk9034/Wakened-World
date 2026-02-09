@@ -1,0 +1,23 @@
+[gd_resource type="TileSet" format=3 uid="uid://cy3588byjg4rn"]
+
+[ext_resource type="Texture2D" uid="uid://dpex4nubp5rg2" path="res://resources/texures/map_trees.png" id="1_4w05l"]
+[ext_resource type="Texture2D" uid="uid://ijktfw1m5jmx" path="res://resources/texures/map_straight.png" id="2_t7wyf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4pru"]
+texture = ExtResource("1_4w05l")
+texture_region_size = Vector2i(300, 192)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ojd7w"]
+texture = ExtResource("2_t7wyf")
+texture_region_size = Vector2i(300, 192)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[resource]
+tile_size = Vector2i(300, 192)
+uv_clipping = true
+sources/0 = SubResource("TileSetAtlasSource_u4pru")
+sources/1 = SubResource("TileSetAtlasSource_ojd7w")
