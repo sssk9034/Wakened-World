@@ -19,5 +19,4 @@ frame = 6
 position = Vector2(-4, -14)
 shape = SubResource("RectangleShape2D_hqtel")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=456058776]
-root_node = NodePath("../Character")
+[node name="Camera2D" type="Camera2D" parent="." unique_id=952090298]
