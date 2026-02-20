@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://cs24mj8yauxd0"]
 
-[ext_resource type="TileSet" uid="uid://cy3588byjg4rn" path="res://resources/map_tile_set.tres" id="1_4xfga"]
+[ext_resource type="Script" uid="uid://dmp2hq3j0f8bt" path="res://scripts/map.gd" id="1_gldc4"]
+[ext_resource type="TileSet" uid="uid://c3y8646xm7hq2" path="res://resources/tile_sets/map_tile_set.tres" id="2_gldc4"]
 [ext_resource type="Script" uid="uid://chh3nq8tq8xre" path="res://scripts/map_tile_map_layer.gd" id="2_paxxb"]
 
-[node name="Map" type="Node2D" unique_id=29621266]
+[node name="Map" type="Node2D" unique_id=642434477]
+script = ExtResource("1_gldc4")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1163937508]
-position = Vector2(-150, -192)
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0)
-tile_set = ExtResource("1_4xfga")
+position = Vector2(-75, 0)
+tile_set = ExtResource("2_gldc4")
+navigation_enabled = false
 script = ExtResource("2_paxxb")
-seed = "test"
+map_seed = "test"

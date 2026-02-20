@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpex4nubp5rg2"
-path="res://.godot/imported/map_trees.png-cb9b1d176b008dda6a457d6733f07595.ctex"
+uid="uid://8fljkkoe7h6n"
+path="res://.godot/imported/map_tileset.png-bc98c1c0d5b74ae5e11679af8ab6eea9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/texures/map_trees.png"
-dest_files=["res://.godot/imported/map_trees.png-cb9b1d176b008dda6a457d6733f07595.ctex"]
+source_file="res://resources/texures/map_tileset.png"
+dest_files=["res://.godot/imported/map_tileset.png-bc98c1c0d5b74ae5e11679af8ab6eea9.ctex"]
 
 [params]
 

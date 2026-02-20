@@ -1,57 +1,111 @@
 extends TileMapLayer
 
-const TILESET_SOURCE_ID = 1
-var tile_list: Array[TileLocator] = []
+const TILESET_SOURCE_IDS: Array[int] = [2]
+var rng = RandomNumberGenerator.new()
+var tile_list: Array[MapTile] = []
+var tile_list_probabilitys: PackedFloat32Array = []
 
-@export var seed: String = ""
+@export var map_seed: String = ""
 
-# might be a way to make map move instead of player.
-# if camera is following player, solves corner issue
 
-class TileLocator:
-	var source_id: int
-	var tile_id: Vector2i
-	var alternative_tile_id: int
+class MapTile:
+	var _tileset: TileSet
+	var _source_id: int
+	var _atlas_coords: Vector2i
+	var _alternative_tile: int
 	
-	func _init(p_source_id: int, p_tile_id: Vector2i, p_alternative_tile_id: int):
-		source_id = p_source_id
-		tile_id = p_tile_id
-		alternative_tile_id = p_alternative_tile_id
+	func _init(tileset: TileSet, source_id: int, atlas_coords: Vector2i, alternative_tile: int):
+		_tileset = tileset
+		_source_id = source_id
+		_atlas_coords = atlas_coords
+		_alternative_tile = alternative_tile
 		
 	func _to_string() -> String:
-		return "Source: %s, Tile: %s, Alternative: %s" % [source_id, tile_id, alternative_tile_id]
+		return "Source: %s, Tile: %s, Alternative: %s" % [_source_id, _atlas_coords, _alternative_tile]
 		
-
-func _populate_tile_list() -> void:
-	var source_id := TILESET_SOURCE_ID
-	var source := tile_set.get_source(source_id)
+	func get_tileset_source() -> TileSetAtlasSource:
+		return _tileset.get_source(_source_id)
 	
-	for i in source.get_tiles_count():
-		var tile_id := source.get_tile_id(i)
-		var tile := TileLocator.new(source_id, tile_id, 0)
-		tile_list.append(tile)
+	func get_tile_data() -> TileData:
+		return get_tileset_source().get_tile_data(_atlas_coords, _alternative_tile)
 		
-func set_seed() -> void:
-	if seed:
-		var hashed_seed := seed.hash()
-		print("Using seed: %s (%d)" % [seed, hashed_seed])
-		seed(hashed_seed)
+	func get_custom_property(name: String) -> Variant:
+		if not get_tile_data().has_custom_data(name):
+			printerr("Tile %s missing custom data property %s" % [self, name])
+			return null
+		
+		return get_tile_data().get_custom_data(name)
+		
+	func get_start_offset() -> int:
+		return get_custom_property("start_offset")
+		
+	func get_end_offset() -> int:
+		return get_custom_property("end_offset")
+		
+	func get_probability() -> float:
+		return get_tile_data().probability
+		
+	# Takes in the TileMapLayer and TileMap coords to begin placing the tile.
+	# Returns the TileMap coords for the next tile.
+	func place_tile(tilemap: TileMapLayer, coords: Vector2i) -> Vector2i:
+		var place_offset := coords + Vector2i(get_start_offset(), 0)
+		var next_offset := place_offset + Vector2i(
+			get_end_offset(),
+			get_tileset_source().get_tile_size_in_atlas(_atlas_coords).y)
+		
+		tilemap.set_cell(place_offset, _source_id, _atlas_coords, _alternative_tile)
+		
+		return next_offset
+		
+		
+func _update_map_seed() -> void:
+	if map_seed:
+		var hashed_seed := map_seed.hash()
+		print("Using seed: %s (%d)" % [map_seed, hashed_seed])
+		rng.seed = hashed_seed
 	else:
 		print("No seed provided, using random seed.")
+		rng.randomize()
 
+
+func _populate_tile_list() -> void:
+	# Auto populate standard tilesets
+	for source_id in TILESET_SOURCE_IDS:
+		if not tile_set.get_source(source_id) is TileSetAtlasSource:
+			printerr("TileSet Source ID %s in TILESET_SOURCE_IDS is not of type TileSetAtlasSource." % [source_id])
+			continue
+			
+		var source: TileSetAtlasSource = tile_set.get_source(source_id)
+	
+		for tile_index in source.get_tiles_count():
+			var atlas_coords := source.get_tile_id(tile_index)
+			_append_to_tile_list(MapTile.new(tile_set, source_id, atlas_coords, 0))
+			
+			for alternative_index in source.get_alternative_tiles_count(atlas_coords):
+				var alternative_tile = source.get_alternative_tile_id(atlas_coords, alternative_index)
+				_append_to_tile_list(MapTile.new(tile_set, source_id, atlas_coords, alternative_tile))
+		
+	# Populate special tiles
+	# TODO
+	
+	
+func _append_to_tile_list(tile: MapTile) -> void:
+	tile_list.append(tile)
+	tile_list_probabilitys.append(tile.get_probability())
+	
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_update_map_seed()
 	_populate_tile_list()
-	set_seed()
 	clear()
 	
 	var coords = Vector2i(0, 0)
 	for y in 10:
-		var tile: TileLocator = tile_list.pick_random()
+		var tile: MapTile = tile_list[rng.rand_weighted(tile_list_probabilitys)]
 		print(tile)
-		set_cell(coords, tile.source_id, tile.tile_id, tile.alternative_tile_id)
-		coords.y = y
+		coords = tile.place_tile(self, coords)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+
+func _physics_process(_delta: float) -> void:
 	pass

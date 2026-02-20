@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cfm6oxedeiben"]
+
+[ext_resource type="PackedScene" uid="uid://cs24mj8yauxd0" path="res://scenes/map.tscn" id="1_1tawp"]
+[ext_resource type="Script" uid="uid://bth30whdpulwn" path="res://scripts/test_player.gd" id="2_nsx7x"]
+[ext_resource type="Texture2D" uid="uid://bou8cir3ov48m" path="res://resources/texures/player.png" id="3_ydt7i"]
+[ext_resource type="Script" uid="uid://casihvj02tlhp" path="res://scripts/fps_counter.gd" id="4_nsx7x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
+size = Vector2(10.74, 20)
+
+[node name="TestGame" type="Node2D" unique_id=1698642825]
+
+[node name="Map" parent="." unique_id=29621266 instance=ExtResource("1_1tawp")]
+
+[node name="TestPlayer" type="CharacterBody2D" parent="." unique_id=1463689103]
+motion_mode = 1
+script = ExtResource("2_nsx7x")
+
+[node name="Sprite2D" type="Sprite2D" parent="TestPlayer" unique_id=792891249]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("3_ydt7i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestPlayer" unique_id=883527752]
+shape = SubResource("RectangleShape2D_lnu2h")
+
+[node name="Camera2D" type="Camera2D" parent="TestPlayer" unique_id=1914817936]
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="TestPlayer/Camera2D" unique_id=674187519]
+
+[node name="UI" type="Control" parent="TestPlayer/Camera2D/UICanvasLayer" unique_id=1074148771]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FPS Counter" type="Label" parent="TestPlayer/Camera2D/UICanvasLayer/UI" unique_id=846704675]
+layout_mode = 1
+offset_right = 30.0
+offset_bottom = 23.0
+scale = Vector2(0.25, 0.25)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "test"
+script = ExtResource("4_nsx7x")
