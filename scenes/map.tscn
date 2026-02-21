@@ -9,6 +9,7 @@ script = ExtResource("1_gldc4")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1163937508]
 position = Vector2(-75, 0)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 2, 0, 8, 0, 2, 0, 0, 0)
 tile_set = ExtResource("2_gldc4")
 navigation_enabled = false
 script = ExtResource("2_paxxb")

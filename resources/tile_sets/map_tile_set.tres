@@ -8,7 +8,10 @@
 texture = ExtResource("1_rapw6")
 texture_region_size = Vector2i(150, 384)
 0:0/size_in_atlas = Vector2i(4, 1)
+0:0/next_alternative_id = 2
 0:0/0 = 0
+0:0/1 = 1
+0:0/1/modulate = Color(1, 0.71000004, 0.71000004, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ky10g"]
 texture = ExtResource("3_kqjtb")
@@ -71,21 +74,20 @@ texture_region_size = Vector2i(150, 384)
 4:2/0/custom_data_1 = -1
 8:2/size_in_atlas = Vector2i(4, 1)
 8:2/0 = 0
+8:2/0/custom_data_2 = true
 12:2/size_in_atlas = Vector2i(4, 1)
 12:2/0 = 0
+12:2/0/custom_data_2 = true
 12:3/size_in_atlas = Vector2i(4, 1)
 12:3/0 = 0
 8:3/size_in_atlas = Vector2i(4, 1)
 8:3/next_alternative_id = 2
 8:3/0 = 0
-8:3/1 = 1
-8:3/1/flip_h = true
-8:3/1/modulate = Color(1, 0.7, 0.7, 1)
-8:3/1/probability = 2.0
 4:3/size_in_atlas = Vector2i(4, 1)
 4:3/0 = 0
 0:3/size_in_atlas = Vector2i(4, 1)
 0:3/0 = 0
+0:3/0/custom_data_2 = true
 
 [resource]
 tile_size = Vector2i(150, 384)
@@ -93,6 +95,8 @@ custom_data_layer_0/name = "start_offset"
 custom_data_layer_0/type = 2
 custom_data_layer_1/name = "end_offset"
 custom_data_layer_1/type = 2
+custom_data_layer_2/name = "safe_zone"
+custom_data_layer_2/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ilouf")
 sources/1 = SubResource("TileSetAtlasSource_ky10g")
 sources/2 = SubResource("TileSetAtlasSource_0cso3")
