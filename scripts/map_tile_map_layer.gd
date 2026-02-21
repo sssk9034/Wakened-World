@@ -151,7 +151,7 @@ func _update_map_seed() -> void:
 func _update_map_length() -> void:
 	if map_length <= 0:
 		# Generate based on map_seed
-		var length: float = sqrt(map_seed.length()) * 30.0
+		var length: float = sqrt(map_seed.length()) * 10.0
 		var max_length: int = ceil(length * 1.10)
 		var min_length: int = floor(length * 0.90)
 		
