@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cx1jd0hxf35rw"
-path="res://.godot/imported/slug_sprites.png-56093dfb10d32ae70acafa4b0f111ca3.ctex"
+path="res://.godot/imported/slug_sprites.png-a1cf7c34e00ee5d068d8d1f2425bfe7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/monster/assets/slug_sprites.png"
-dest_files=["res://.godot/imported/slug_sprites.png-56093dfb10d32ae70acafa4b0f111ca3.ctex"]
+source_file="res://entities/moss_slug/assets/slug_sprites.png"
+dest_files=["res://.godot/imported/slug_sprites.png-a1cf7c34e00ee5d068d8d1f2425bfe7f.ctex"]
 
 [params]
 
