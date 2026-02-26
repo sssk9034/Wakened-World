@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by8rj60uu8dwk"
-path="res://.godot/imported/PC Sprites2.png-13c50c0c924bb207700ad80f2ea037aa.ctex"
+uid="uid://dm2808h4tcgje"
+path="res://.godot/imported/Moss Slug Sprites.png-42f6f3c97842bba05e406ddb75f13f6e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/PC Sprites2.png"
-dest_files=["res://.godot/imported/PC Sprites2.png-13c50c0c924bb207700ad80f2ea037aa.ctex"]
+source_file="res://entities/monster/assets/Moss Slug Sprites.png"
+dest_files=["res://.godot/imported/Moss Slug Sprites.png-42f6f3c97842bba05e406ddb75f13f6e.ctex"]
 
 [params]
 
