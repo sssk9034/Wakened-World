@@ -1,24 +1,24 @@
 [gd_resource type="TileSet" format=3 uid="uid://c3y8646xm7hq2"]
 
-[ext_resource type="Texture2D" uid="uid://8fljkkoe7h6n" path="res://resources/texures/map_tileset.png" id="1_66kqw"]
-[ext_resource type="Texture2D" uid="uid://cly3p1d2uo31t" path="res://resources/texures/map_background_tileset.png" id="1_rapw6"]
-[ext_resource type="Texture2D" uid="uid://bg80y1cr84j00" path="res://resources/texures/map_special_tileset.png" id="3_kqjtb"]
+[ext_resource type="Texture2D" uid="uid://cly3p1d2uo31t" path="res://scenes/map/assets/texures/map_background_tileset.png" id="1_tga2c"]
+[ext_resource type="Texture2D" uid="uid://bg80y1cr84j00" path="res://scenes/map/assets/texures/map_special_tileset.png" id="2_d6nud"]
+[ext_resource type="Texture2D" uid="uid://8fljkkoe7h6n" path="res://scenes/map/assets/texures/map_tileset.png" id="3_m5757"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ilouf"]
-texture = ExtResource("1_rapw6")
+texture = ExtResource("1_tga2c")
 texture_region_size = Vector2i(150, 384)
 0:0/size_in_atlas = Vector2i(4, 1)
 0:0/next_alternative_id = 2
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ky10g"]
-texture = ExtResource("3_kqjtb")
+texture = ExtResource("2_d6nud")
 texture_region_size = Vector2i(150, 384)
 0:0/size_in_atlas = Vector2i(4, 1)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0cso3"]
-texture = ExtResource("1_66kqw")
+texture = ExtResource("3_m5757")
 texture_region_size = Vector2i(150, 384)
 0:0/size_in_atlas = Vector2i(4, 1)
 0:0/0 = 0
