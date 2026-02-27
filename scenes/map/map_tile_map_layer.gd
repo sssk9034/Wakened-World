@@ -14,16 +14,115 @@ extends TileMapLayer
 ## Implement safe zones
 ## Special tiles?
 
-
 const MAP_TILE_SOURCE_IDS: Array[int] = [2]
 const BACKGROUND_TILE_SOURCE_IDS: Array[int] = [0]
+
+@export var map_seed: String = ""
+@export var map_length: int = 0 # Set to 0 to generate based on map_seed
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var map_tiles: TileList = TileList.new(tile_set)
 var background_tiles: TileList = TileList.new(tile_set)
 
-@export var map_seed: String = ""
-@export var map_length: int = 0 # Set to 0 to generate based on map_seed
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	map_tiles.set_rng(rng)
+	background_tiles.set_rng(rng)
+	
+	_update_map_seed()
+	_update_map_length()
+	_populate_tile_lists()
+	clear()
+	
+	var coords: Vector2i = Vector2i(0, 0)
+	for y: int in map_length:
+		var tile: MapTile = map_tiles.pick_random_weighted()
+		print(tile)
+		tile.place_tile(self, coords)
+		
+		# Background tiles
+		for y_offset: int in tile.get_tile_size().y:
+			var background_tile: BackgroundTile
+			var pos: Vector2i = tile.get_place_position(coords)
+			
+			# Left (negative)
+			background_tile = background_tiles.pick_random_weighted() as BackgroundTile
+			background_tile.place_tile(
+					self,
+					pos + Vector2i(-background_tile.get_offset_from_tile(tile), y_offset))
+			
+			# Right (positive)
+			background_tile = background_tiles.pick_random_weighted() as BackgroundTile
+			background_tile.place_tile(
+					self,
+					pos + Vector2i(background_tile.get_offset_from_tile(tile), y_offset))
+		
+		coords = tile.get_next_position(coords)
+
+
+## Updates the rng seed if map_seed is not empty, otherwise uses a random seed.
+func _update_map_seed() -> void:
+	if map_seed:
+		var hashed_seed: int = map_seed.hash()
+		print("Using seed: %s (%d)" % [map_seed, hashed_seed])
+		rng.seed = hashed_seed
+	else:
+		print("No seed provided, using random seed.")
+		rng.randomize()
+		
+
+## Updates the map length.
+## If map_length is <= 0 then the length is determine using the number of
+## characters in the map_seed, pseudo randomized by that seed.
+## If map_length is >= 1 then it is used as the map_length
+func _update_map_length() -> void:
+	if map_length <= 0:
+		# Generate based on map_seed
+		var length: float = sqrt(map_seed.length()) * 10.0
+		var max_length: int = ceil(length * 1.10)
+		var min_length: int = floor(length * 0.90)
+		
+		map_length = rng.randi_range(min_length, max_length)
+		print("Generated map length: %s" % [map_length])
+	else:
+		# Use specified map length
+		print("Using provided map length: %s" % [map_length])
+
+
+## Used to populate the tile lists with all useable tiles.
+func _populate_tile_lists() -> void:
+	# Auto populate standard tilesets
+	var map_tile_lambda: Callable = func (
+			tile_list: TileList,
+			tile_set_: TileSet,
+			source_id: int,
+			atlas_coords: Vector2i,
+			alternative_tile: int) -> void:
+		tile_list.add_tile(MapTile.new(
+				tile_set_,
+				source_id,
+				atlas_coords,
+				alternative_tile))
+		
+	for source_id: int in MAP_TILE_SOURCE_IDS:
+		map_tiles.populate_from_source(source_id, map_tile_lambda)
+		
+	var background_tile_lambda: Callable = func (
+			tile_list: TileList,
+			tile_set_: TileSet,
+			source_id: int,
+			atlas_coords: Vector2i,
+			alternative_tile: int) -> void:
+		tile_list.add_tile(BackgroundTile.new(
+				tile_set_,
+				source_id,
+				atlas_coords,
+				alternative_tile))
+	
+	for source_id: int in BACKGROUND_TILE_SOURCE_IDS:
+		background_tiles.populate_from_source(source_id, background_tile_lambda)
+
 
 ## List of Tiles.
 ## Allows randomly picking tiles
@@ -45,7 +144,8 @@ class TileList:
 	## and calls add_tile(). Not a great way of doing this, but here we are.
 	func populate_from_source(source_id: int, callback: Callable) -> void:
 		if not _tile_set.get_source(source_id) is TileSetAtlasSource:
-			printerr("TileSet Source ID %s in TILESET_SOURCE_IDS is not of type TileSetAtlasSource." % [source_id])
+			printerr("TileSet Source ID %s in TILESET_SOURCE_IDS is not of"
+					+ " type TileSetAtlasSource." % [source_id])
 			return
 			
 		var source: TileSetAtlasSource = _tile_set.get_source(source_id)
@@ -55,16 +155,22 @@ class TileList:
 			callback.call(self, _tile_set, source_id, atlas_coords, 0)
 			
 			for alternative_index: int in source.get_alternative_tiles_count(atlas_coords):
-				var alternative_tile: int = source.get_alternative_tile_id(atlas_coords, alternative_index)
+				var alternative_tile: int = source.get_alternative_tile_id(
+						atlas_coords,
+						alternative_index)
 				callback.call(self, _tile_set, source_id, atlas_coords, alternative_tile)
 	
+	## Appends a tile to the TileList
 	func add_tile(tile: Tile) -> void:
 		_tile_list.append(tile)
 		_tile_list_probabilities.append(tile.get_probability())
-		
+	
+	## Picks a random tile based on the provided rng.
 	func pick_random() -> Tile:
 		return _tile_list[_rng.randi_range(0, _tile_list.size())]
 	
+	## Picks a random tile taking into account their respective probabilities
+	## using the provided rng.
 	func pick_random_weighted() -> Tile:
 		return _tile_list[_rng.rand_weighted(_tile_list_probabilities)]
 	
@@ -76,58 +182,74 @@ class Tile:
 	var _atlas_coords: Vector2i
 	var _alternative_tile: int
 	
-	func _init(tileset: TileSet, source_id: int, atlas_coords: Vector2i, alternative_tile: int) -> void:
+	func _init(
+			tileset: TileSet,
+			source_id: int,
+			atlas_coords: Vector2i,
+			alternative_tile: int) -> void:
 		_tileset = tileset
 		_source_id = source_id
 		_atlas_coords = atlas_coords
 		_alternative_tile = alternative_tile
 		
 	func _to_string() -> String:
-		return "Source: %s, Tile: %s, Alternative: %s" % [_source_id, _atlas_coords, _alternative_tile]
+		return ("Source: %s, Tile: %s, Alternative: %s"
+				% [_source_id, _atlas_coords, _alternative_tile])
 	
 	func get_tileset_source() -> TileSetAtlasSource:
 		return _tileset.get_source(_source_id)
 		
 	func get_tile_data() -> TileData:
-		return get_tileset_source().get_tile_data(_atlas_coords, _alternative_tile)
+		return get_tileset_source().get_tile_data(
+				_atlas_coords,
+				_alternative_tile)
 		
-	func get_custom_property(name: String) -> Variant:
-		if not get_tile_data().has_custom_data(name):
-			printerr("Tile %s missing custom data property %s" % [self, name])
+	## Gets the custom data layer layer_name for this tile.
+	## Returns null if it does not exist
+	func get_custom_data(layer_name: String) -> Variant:
+		if not get_tile_data().has_custom_data(layer_name):
+			printerr("Tile %s missing custom data property %s" 
+					% [self, layer_name])
 			return null
 		
-		return get_tile_data().get_custom_data(name)
-		
+		return get_tile_data().get_custom_data(layer_name)
+	
+	## Returns the size of the tile in tiles.
 	func get_tile_size() -> Vector2i:
 		return get_tileset_source().get_tile_size_in_atlas(_atlas_coords)
 		
 	func get_probability() -> float:
 		return get_tile_data().probability
-		
+	
+	## Returns the position that this tile will be placed at relative to coords.
 	func get_place_position(coords: Vector2i) -> Vector2i:
 		return coords
-		
+	
+	## Returns the position that the next tile should be placed at relative to
+	## coords.
 	func get_next_position(coords: Vector2i) -> Vector2i:
-		return coords + Vector2i(0, get_tile_size().y)
+		return get_place_position(coords) + Vector2i(0, get_tile_size().y)
 		
-	## Takes in the TileMapLayer and TileMap coords to begin placing the tile.
+	## Places a tile relative to coords on the given TileMapLayer.
 	func place_tile(tilemap: TileMapLayer, coords: Vector2i) -> void:
 		tilemap.set_cell(
-			get_place_position(coords),
-			_source_id,
-			_atlas_coords,
-			_alternative_tile)
+				get_place_position(coords),
+				_source_id,
+				_atlas_coords,
+				_alternative_tile)
 
 
 class MapTile extends Tile:
 	func get_place_position(coords: Vector2i) -> Vector2i:
+	 	# start_offset is defined as an int in the custom data layer
 		@warning_ignore("unsafe_cast")
-		return coords + Vector2i(get_custom_property("start_offset") as int, 0)
+		return coords + Vector2i(get_custom_data("start_offset") as int, 0)
 		
 	func get_next_position(coords: Vector2i) -> Vector2i:
+		# end_offset is defined as an int in the custom data layer
 		@warning_ignore("unsafe_cast")
 		return get_place_position(coords) + Vector2i(
-			get_custom_property("end_offset") as int,
+			get_custom_data("end_offset") as int,
 			get_tile_size().y)
 		
 
@@ -136,89 +258,3 @@ class BackgroundTile extends Tile:
 	## Note: does not include place_position offsets.
 	func get_offset_from_tile(tile: Tile) -> int:
 		return floor((tile.get_tile_size().x / 2.0) + (get_tile_size().x / 2.0))
-
-
-func _update_map_seed() -> void:
-	if map_seed:
-		var hashed_seed: int = map_seed.hash()
-		print("Using seed: %s (%d)" % [map_seed, hashed_seed])
-		rng.seed = hashed_seed
-	else:
-		print("No seed provided, using random seed.")
-		rng.randomize()
-		
-		
-func _update_map_length() -> void:
-	if map_length <= 0:
-		# Generate based on map_seed
-		var length: float = sqrt(map_seed.length()) * 10.0
-		var max_length: int = ceil(length * 1.10)
-		var min_length: int = floor(length * 0.90)
-		
-		map_length = rng.randi_range(min_length, max_length)
-		print("Generated map length: %s" % [map_length])
-	else:
-		# Use specified map length
-		print("Using provided map length: %s" % [map_length])
-
-
-func _populate_tile_lists() -> void:
-	# Auto populate standard tilesets
-	var map_tile_lambda: Callable = func (
-			tile_list: TileList,
-			tile_set_: TileSet,
-			source_id: int,
-			atlas_coords: Vector2i,
-			alternative_tile: int) -> void:
-		tile_list.add_tile(MapTile.new(tile_set_, source_id, atlas_coords, alternative_tile))
-		
-	for source_id: int in MAP_TILE_SOURCE_IDS:
-		map_tiles.populate_from_source(source_id, map_tile_lambda)
-		
-	var background_tile_lambda: Callable = func (
-			tile_list: TileList,
-			tile_set_: TileSet,
-			source_id: int,
-			atlas_coords: Vector2i,
-			alternative_tile: int) -> void:
-		tile_list.add_tile(BackgroundTile.new(tile_set_, source_id, atlas_coords, alternative_tile))
-	
-	for source_id: int in BACKGROUND_TILE_SOURCE_IDS:
-		background_tiles.populate_from_source(source_id, background_tile_lambda)
-
-	
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	map_tiles.set_rng(rng)
-	background_tiles.set_rng(rng)
-	
-	_update_map_seed()
-	_update_map_length()
-	_populate_tile_lists()
-	clear()
-	
-	var coords: Vector2i = Vector2i(0, 0)
-	for y: int in map_length:
-		var tile: MapTile = map_tiles.pick_random_weighted()
-		print(tile)
-		tile.place_tile(self, coords)
-		
-		# Background tiles
-		var background_tile: BackgroundTile
-		var pos: Vector2i
-		for y_offset: int in tile.get_tile_size().y:
-			# Left (negative)
-			background_tile = background_tiles.pick_random_weighted() as BackgroundTile
-			pos = tile.get_place_position(coords) + Vector2i(-background_tile.get_offset_from_tile(tile), y_offset)
-			background_tile.place_tile(self, pos)
-			
-			# Right (positive)
-			background_tile = background_tiles.pick_random_weighted() as BackgroundTile
-			pos = tile.get_place_position(coords) + Vector2i(background_tile.get_offset_from_tile(tile), y_offset)
-			background_tile.place_tile(self, pos)
-		
-		coords = tile.get_next_position(coords)
-
-
-func _physics_process(_delta: float) -> void:
-	pass
