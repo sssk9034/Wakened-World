@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dlt1q6s3nvjx"]
+
+[ext_resource type="Script" uid="uid://cj0vm8moxu838" path="res://entities/moss_slug/moss_slug.gd" id="1_4u5g1"]
+
+[node name="MossSlug" type="CharacterBody2D" unique_id=390090232]
+script = ExtResource("1_4u5g1")
