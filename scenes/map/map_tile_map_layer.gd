@@ -242,14 +242,14 @@ class Tile:
 class MapTile extends Tile:
 	func get_place_position(coords: Vector2i) -> Vector2i:
 	 	# start_offset is defined as an int in the custom data layer
-		@warning_ignore("unsafe_cast")
-		return coords + Vector2i(get_custom_data("start_offset") as int, 0)
+		var start_offset: int = get_custom_data("start_offset")
+		return coords + Vector2i(start_offset, 0)
 		
 	func get_next_position(coords: Vector2i) -> Vector2i:
 		# end_offset is defined as an int in the custom data layer
-		@warning_ignore("unsafe_cast")
+		var end_offset: int = get_custom_data("end_offset")
 		return get_place_position(coords) + Vector2i(
-			get_custom_data("end_offset") as int,
+			end_offset,
 			get_tile_size().y)
 		
 
