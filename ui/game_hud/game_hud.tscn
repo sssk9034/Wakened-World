@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://si18qr0v5vxh"]
 
 [ext_resource type="Script" uid="uid://v6a8ovc54swq" path="res://ui/game_hud/game_hud.gd" id="1_ylh68"]
+[ext_resource type="PackedScene" uid="uid://1oum86alc8e0" path="res://ui/debug_ui/debug_ui.tscn" id="2_l7n28"]
 
 [node name="GameHud" type="Control" unique_id=1640925269]
 layout_mode = 3
@@ -13,3 +14,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ylh68")
 metadata/_edit_use_anchors_ = true
+
+[node name="DebugUI" parent="." unique_id=1254667565 instance=ExtResource("2_l7n28")]
+layout_mode = 1

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://1oum86alc8e0"]
+
+[ext_resource type="Script" uid="uid://dx04sl12npvjn" path="res://ui/debug_ui/debug_ui.gd" id="1_12j1l"]
+
+[node name="DebugUI" type="Control" unique_id=1254667565]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_12j1l")
+
+[node name="DebugOverlay" type="MarginContainer" parent="." unique_id=1849145798]
+layout_mode = 1
+offset_right = 5.0
+offset_bottom = 32.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="DebugOverlay" unique_id=2034734450]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugOverlay/MarginContainer2" unique_id=353257997]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ColorRect" type="ColorRect" parent="DebugOverlay" unique_id=1760960911]
+layout_mode = 2
+color = Color(0, 0, 0, 0.1254902)
