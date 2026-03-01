@@ -23,6 +23,6 @@ func _process(delta: float) -> void:
 	
 	position += Vector2(input, 0) * speed * delta
 
-	position_history.append(global_position)
+	position_history.append(global_position.x)
 	
 	

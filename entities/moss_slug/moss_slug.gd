@@ -18,18 +18,20 @@ func _process(delta):
 	
 
 	if player.position_history.size() > delay_frames:
-		var target_pos = player.position_history[0]
+		var target_x = player.position_history[0]
 		player.position_history.pop_front()
 		
-		var direction = (target_pos - global_position).normalized()
+		var distance = target_x - global_position.x
 
-		# Movement
-		global_position += direction * speed * delta
+		if abs(distance) > 1.0:
+			# Movement
+			global_position += Vector2(distance, 0).normalized() * speed * delta
 
-		# Animation
-		if direction.x > 0.1:
-			$Character.frame = 5
-		elif direction.x < -0.1:
-			$Character.frame = 4
+			# Animation
+			if distance > 0:
+				$Character.frame = 5
+			elif distance < 0:
+				$Character.frame = 4
+
 		else:
 			$Character.frame = 6
