@@ -18,7 +18,9 @@ func _process(delta):
 	
 
 	if player.position_history.size() > delay_frames:
-		var target_pos = player.position_history[player.position_history.size() - delay_frames]
+		var target_pos = player.position_history[0]
+		player.position_history.pop_front()
+		
 		var direction = (target_pos - global_position).normalized()
 
 		# Movement

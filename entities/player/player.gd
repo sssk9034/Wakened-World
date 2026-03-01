@@ -24,6 +24,5 @@ func _process(delta: float) -> void:
 	position += Vector2(input, 0) * speed * delta
 
 	position_history.append(global_position)
-
-	if position_history.size()>300:
-		position_history.pop_front()
+	
+	
