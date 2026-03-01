@@ -1,6 +1,15 @@
-[gd_scene format=3 uid="uid://bdy1nipmmcqy8"]
+[gd_scene format=3 uid="uid://cs24mj8yauxd0"]
 
-[ext_resource type="Script" uid="uid://ckwwvivhygehg" path="res://scenes/map/map.gd" id="1_sxf4j"]
+[ext_resource type="Script" uid="uid://dmp2hq3j0f8bt" path="res://scenes/map/map.gd" id="1_a2pkv"]
+[ext_resource type="TileSet" uid="uid://c3y8646xm7hq2" path="res://scenes/map/assets/tile_sets/map_tile_set.tres" id="2_ph54e"]
+[ext_resource type="Script" uid="uid://chh3nq8tq8xre" path="res://scenes/map/map_tile_map_layer.gd" id="3_fcby6"]
 
-[node name="Map" type="Node2D" unique_id=1800559609]
-script = ExtResource("1_sxf4j")
+[node name="Map" type="Node2D" unique_id=642434477]
+script = ExtResource("1_a2pkv")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1163937508]
+position = Vector2(-75, 0)
+tile_set = ExtResource("2_ph54e")
+navigation_enabled = false
+script = ExtResource("3_fcby6")
+map_seed = "test"
