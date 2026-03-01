@@ -12,19 +12,19 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var input = Input.get_vector("left","right","up","down")
+	var input = Input.get_axis("player_left", "player_right")
 
-	if input.x > 0:
+	if input > 0:
 		$Character.frame = 7
-	elif input.x < 0:
+	elif input < 0:
 		$Character.frame = 6
 	else:
 		$Character.frame = 5
 	
-	position += input * speed * delta
+	position += Vector2(input, 0) * speed * delta
 	position = position.clamp(Vector2(20,45), screensize - Vector2(20,45))
-	
+
 	position_history.append(global_position)
-	
+
 	if position_history.size()>300:
 		position_history.pop_front()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vmfbknf8jok"
-path="res://.godot/imported/player_sprites.png-9679f3f3f5f90b96d95dd57b8219bc87.ctex"
+uid="uid://bg80y1cr84j00"
+path="res://.godot/imported/map_special_tileset.png-a95b2c9ecf1e83a4ebdb296f064f0c3f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/assets/player_sprites.png"
-dest_files=["res://.godot/imported/player_sprites.png-9679f3f3f5f90b96d95dd57b8219bc87.ctex"]
+source_file="res://scenes/map/assets/texures/map_special_tileset.png"
+dest_files=["res://.godot/imported/map_special_tileset.png-a95b2c9ecf1e83a4ebdb296f064f0c3f.ctex"]
 
 [params]
 
