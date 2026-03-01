@@ -22,7 +22,6 @@ func _process(delta: float) -> void:
 		$Character.frame = 5
 	
 	position += Vector2(input, 0) * speed * delta
-	position = position.clamp(Vector2(20,45), screensize - Vector2(20,45))
 
 	position_history.append(global_position)
 
