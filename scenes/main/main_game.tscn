@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dutmkunr3pyn3" path="res://scenes/main/main_game.gd" id="1_exxld"]
 [ext_resource type="PackedScene" uid="uid://cs24mj8yauxd0" path="res://scenes/map/map.tscn" id="2_36pl1"]
 [ext_resource type="PackedScene" uid="uid://3jj2diuimg1l" path="res://entities/player/player.tscn" id="3_bebfr"]
-[ext_resource type="PackedScene" uid="uid://dlt1q6s3nvjx" path="res://entities/moss_slug/moss_slug.tscn" id="4_esv8v"]
+[ext_resource type="PackedScene" uid="uid://bsgasasb5dgq5" path="res://entities/moss_slug/moss_slug.tscn" id="4_esv8v"]
 
 [node name="MainGame" type="Node2D" unique_id=1490609936]
 script = ExtResource("1_exxld")
