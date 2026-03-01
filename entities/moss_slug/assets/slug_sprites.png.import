@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctaobnwcy303j"
-path="res://.godot/imported/PC Sprites.png-60fc26ecd97407ac6146efdbcdc0bae7.ctex"
+uid="uid://k7jm1ey5if0"
+path="res://.godot/imported/slug_sprites.png-a1cf7c34e00ee5d068d8d1f2425bfe7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/PC Sprites.png"
-dest_files=["res://.godot/imported/PC Sprites.png-60fc26ecd97407ac6146efdbcdc0bae7.ctex"]
+source_file="res://entities/moss_slug/assets/slug_sprites.png"
+dest_files=["res://.godot/imported/slug_sprites.png-a1cf7c34e00ee5d068d8d1f2425bfe7f.ctex"]
 
 [params]
 

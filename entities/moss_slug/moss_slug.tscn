@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bsgasasb5dgq5"]
 
-[ext_resource type="Script" uid="uid://bqa68h68dnptv" path="res://slug.gd" id="1_hd4k1"]
-[ext_resource type="Texture2D" uid="uid://k7jm1ey5if0" path="res://sprites/Moss Slug Sprites 2.png" id="2_hd4k1"]
+[ext_resource type="Script" uid="uid://bqa68h68dnptv" path="res://entities/moss_slug/moss_slug.gd" id="1_hd4k1"]
+[ext_resource type="Texture2D" uid="uid://k7jm1ey5if0" path="res://entities/moss_slug/assets/slug_sprites.png" id="2_hd4k1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hd4k1"]
 size = Vector2(79, 55)
