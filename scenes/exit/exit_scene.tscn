@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://fwhvdloep814"]
+
+[ext_resource type="Script" uid="uid://bx8fndfph6wd0" path="res://scenes/exit/exit_scene.gd" id="1_2dobv"]
+
+[node name="ExitScene" type="Node2D" unique_id=1369352609]
+script = ExtResource("1_2dobv")
