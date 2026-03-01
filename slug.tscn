@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bsgasasb5dgq5"]
+
+[ext_resource type="Script" uid="uid://bqa68h68dnptv" path="res://slug.gd" id="1_hd4k1"]
+[ext_resource type="Texture2D" uid="uid://k7jm1ey5if0" path="res://sprites/Moss Slug Sprites 2.png" id="2_hd4k1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hd4k1"]
+size = Vector2(79, 55)
+
+[node name="slug" type="Area2D" unique_id=2084236317]
+script = ExtResource("1_hd4k1")
+
+[node name="Character" type="Sprite2D" parent="." unique_id=1876704160]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_hd4k1")
+hframes = 7
+frame = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1719152595]
+position = Vector2(-0.5, 17.5)
+shape = SubResource("RectangleShape2D_hd4k1")
