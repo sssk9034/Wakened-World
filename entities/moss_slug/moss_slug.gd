@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var character: Sprite2D = $Character
 
-@export var delay_frames : int = 12  # how many frames behind the player to follow
+@export var delay_frames : int = 25  # how many frames behind the player to follow
 @export var speed: int = 150 # slug speed
 
 var player: Player

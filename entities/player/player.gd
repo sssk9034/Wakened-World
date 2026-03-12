@@ -20,7 +20,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # How we are handling movement WITH Character2DBody (using move_and_slide)
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
 	#Tracks player position for use in moss_slug script
@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var input: float = Input.get_axis("player_left", "player_right")
 
 #set sprite frame to left slide for left input, right frame for right input, straight frame for no input
