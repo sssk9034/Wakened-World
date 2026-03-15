@@ -28,8 +28,8 @@ gdscript/warnings/missing_await=1
 
 [display]
 
-window/size/viewport_width=490
-window/size/viewport_height=358
+window/size/viewport_width=192
+window/size/viewport_height=108
 window/size/window_width_override=1152
 window/size/window_height_override=648
 window/stretch/mode="canvas_items"

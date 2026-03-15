@@ -4,5 +4,7 @@
 [ext_resource type="Script" uid="uid://d10slaggupev0" path="res://ui/debug_ui/stat_label.gd" id="2_15sri"]
 
 [node name="StatLabel" type="Label" unique_id=727491836]
+offset_right = 1.0
+offset_bottom = 5.0
 label_settings = ExtResource("1_qf8pe")
 script = ExtResource("2_15sri")
