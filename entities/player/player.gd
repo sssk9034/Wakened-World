@@ -23,6 +23,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
+	# Lock y axis position
+	position.y = 0
+	
 	#Tracks player position for use in moss_slug script
 	position_history.append(global_position.x)
 
