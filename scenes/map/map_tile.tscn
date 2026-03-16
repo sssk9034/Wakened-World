@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://y4kmm78nykcc"]
+
+[ext_resource type="Script" uid="uid://dmtl0bs0g0ly" path="res://scenes/map/map_tile.gd" id="1_njwib"]
+[ext_resource type="Texture2D" uid="uid://b3kbher14tpp4" path="res://scenes/map/assets/texures/map_tileset.png" id="2_5ere8"]
+
+[node name="MapTile" type="Node2D" unique_id=1407241641]
+script = ExtResource("1_njwib")
+
+[node name="TerrainLayerTexture" type="Sprite2D" parent="." unique_id=178507704]
+texture = ExtResource("2_5ere8")
+offset = Vector2(0, 179)
+region_enabled = true
+
+[node name="TreeLayerTexture" type="Sprite2D" parent="." unique_id=758751447]
+z_index = 50
+texture = ExtResource("2_5ere8")
+offset = Vector2(0, 179)
+region_enabled = true
+
+[node name="NextTileMarker" type="Marker2D" parent="." unique_id=37438559]
+z_index = 500
+position = Vector2(0, 358)
+gizmo_extents = 50.0
+
+[node name="MapTileWalls" type="StaticBody2D" parent="." unique_id=566238000]
+z_index = 500
+
+[node name="LeftCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=2133401722]
+
+[node name="RightCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=47519974]
+
+[node name="ObstaclePositions" type="Node2D" parent="." unique_id=142244158]

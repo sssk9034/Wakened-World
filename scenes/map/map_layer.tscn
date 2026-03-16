@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://diwqikovdab3g"]
+
+[ext_resource type="Script" uid="uid://bvojic6eqp1sh" path="res://scenes/map/map_layer.gd" id="1_1blly"]
+[ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/assets/tiles/map_tile_straight_1.tscn" id="2_avxtj"]
+[ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/assets/tiles/map_tile_diagonal_right_1.tscn" id="3_yfexr"]
+
+[node name="MapLayer" type="Node2D" unique_id=1794894720]
+script = ExtResource("1_1blly")
+
+[node name="MapTileStraight1" parent="." unique_id=1407241641 instance=ExtResource("2_avxtj")]
+
+[node name="MapTileDiagonalRight1" parent="." unique_id=1282263642 instance=ExtResource("3_yfexr")]
+position = Vector2(0, 358)
+
+[node name="MapTileStraight2" parent="." unique_id=1961464544 instance=ExtResource("2_avxtj")]
+position = Vector2(165, 716)

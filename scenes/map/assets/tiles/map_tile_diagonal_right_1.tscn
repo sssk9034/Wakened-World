@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://df4j4125ksytx"]
+
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tile.tscn" id="1_ekukj"]
+
+[node name="MapTileDiagonalRight1" unique_id=1407241641 instance=ExtResource("1_ekukj")]
+
+[node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
+offset = Vector2(50, 179)
+region_rect = Rect2(1590, 416, 490, 358)
+
+[node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
+offset = Vector2(50, 179)
+region_rect = Rect2(1590, 800, 490, 358)
+
+[node name="NextTileMarker" parent="." index="2" unique_id=37438559]
+position = Vector2(165, 358)
+
+[node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
+polygon = PackedVector2Array(-142, -1, -196, -1, -196, 359, 6, 359, -46, 296, -76, 231, -110, 147, -128, 78)
+
+[node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
+polygon = PackedVector2Array(130, -1, 296, -1, 296, 359, 275, 359, 267, 304, 241, 242, 209, 183, 168, 97, 140, 27)

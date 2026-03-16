@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d4lkv0w46x1qe"]
+
+[ext_resource type="Script" uid="uid://cpt6x7q2q0ere" path="res://scenes/map/obstacles/obstacle_spawner.gd" id="1_l04cf"]
+
+[node name="ObstacleSpawner" type="Node2D" unique_id=1997563372]
+script = ExtResource("1_l04cf")
