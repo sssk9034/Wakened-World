@@ -1,31 +1,36 @@
-[gd_scene format=3 uid="uid://3jj2diuimg1l"]
+[gd_scene format=3 uid="uid://dxgs5oj5ojbkg"]
 
-[ext_resource type="Script" uid="uid://s6m2nk753anr" path="res://entities/player/player.gd" id="1_abrql"]
-[ext_resource type="Texture2D" uid="uid://vmfbknf8jok" path="res://entities/player/assets/player_sprites.png" id="2_abrql"]
+[ext_resource type="Texture2D" uid="uid://vmfbknf8jok" path="res://entities/player/assets/player_sprites.png" id="1_i25i0"]
+[ext_resource type="Script" uid="uid://6gcl0w7t8ow" path="res://entities/player/player.gd" id="1_rihsh"]
 [ext_resource type="PackedScene" uid="uid://si18qr0v5vxh" path="res://ui/game_hud/game_hud.tscn" id="3_sglur"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
-size = Vector2(51, 59)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rihsh"]
+size = Vector2(35, 81)
 
-[node name="Player" type="Area2D" unique_id=2068932348]
-script = ExtResource("1_abrql")
+[node name="Player" type="CharacterBody2D" unique_id=267217265]
+script = ExtResource("1_rihsh")
 
-[node name="Character" type="Sprite2D" parent="." unique_id=1373291440]
-position = Vector2(1.5, 0)
-texture = ExtResource("2_abrql")
+[node name="Area2D" type="Area2D" parent="." unique_id=1994460311]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1533512543]
+position = Vector2(-11, -5)
+shape = SubResource("RectangleShape2D_rihsh")
+
+[node name="Character" type="Sprite2D" parent="." unique_id=201899216]
+texture = ExtResource("1_i25i0")
 hframes = 9
-frame = 6
+frame = 8
 
-[node name="SlideStraightCollision" type="CollisionShape2D" parent="." unique_id=314376645]
-position = Vector2(-4, -14)
-shape = SubResource("RectangleShape2D_hqtel")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=37950386]
+position = Vector2(-11.5, -5.5)
+shape = SubResource("RectangleShape2D_rihsh")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=952090298]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=346281184]
 zoom = Vector2(0.5, 0.5)
 limit_enabled = false
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=894233891]
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=2065057715]
 
 [node name="GameHud" parent="Camera2D/CanvasLayer" unique_id=1640925269 instance=ExtResource("3_sglur")]
