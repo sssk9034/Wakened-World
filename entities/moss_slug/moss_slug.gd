@@ -5,16 +5,16 @@ extends Area2D
 @export var delay_frames : int = 12  # how many frames behind the player to follow
 @export var speed: int = 150 # slug speed
 
-var player: Player
+@export var player: Player
 
 func _ready()-> void:
-	player = get_node("../Player")
+	pass
 
 func _physics_process(delta: float) -> void:
 	
 	if player.position_history.size() > delay_frames:
 		var target_x: float = player.position_history[0]
-		player.position_history.pop_front()
+		player.position_history.remove_at(0)
 		
 		var distance: float = target_x - global_position.x
 
