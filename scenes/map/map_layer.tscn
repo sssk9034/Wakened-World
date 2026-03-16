@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bvojic6eqp1sh" path="res://scenes/map/map_layer.gd" id="1_1blly"]
 [ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/assets/tiles/map_tile_straight_1.tscn" id="2_avxtj"]
 [ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/assets/tiles/map_tile_diagonal_right_1.tscn" id="3_yfexr"]
+[ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/assets/tiles/map_tile_diagonal_left_1.tscn" id="4_54ogk"]
+[ext_resource type="PackedScene" uid="uid://b28t8xmu454nn" path="res://scenes/map/assets/tiles/map_tile_corner_left_1.tscn" id="5_jjm87"]
+[ext_resource type="PackedScene" uid="uid://dp7g5bqwshptc" path="res://scenes/map/assets/tiles/map_tile_corner_right_1.tscn" id="6_fa44s"]
 
 [node name="MapLayer" type="Node2D" unique_id=1794894720]
 script = ExtResource("1_1blly")
@@ -14,3 +17,21 @@ position = Vector2(0, 358)
 
 [node name="MapTileStraight2" parent="." unique_id=1961464544 instance=ExtResource("2_avxtj")]
 position = Vector2(165, 716)
+
+[node name="MapTileDiagonalLeft1" parent="." unique_id=448093537 instance=ExtResource("4_54ogk")]
+position = Vector2(165, 1074)
+
+[node name="MapTileStraight3" parent="." unique_id=177518678 instance=ExtResource("2_avxtj")]
+position = Vector2(60, 1432)
+
+[node name="MapTileCornerLeft1" parent="." unique_id=827202491 instance=ExtResource("5_jjm87")]
+position = Vector2(60, 1790)
+
+[node name="MapTileStraight4" parent="." unique_id=720686201 instance=ExtResource("2_avxtj")]
+position = Vector2(-440, 2148)
+
+[node name="MapTileCornerRight1" parent="." unique_id=1476025609 instance=ExtResource("6_fa44s")]
+position = Vector2(-440, 2506)
+
+[node name="MapTileStraight5" parent="." unique_id=1955063520 instance=ExtResource("2_avxtj")]
+position = Vector2(70, 2864)

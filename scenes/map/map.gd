@@ -86,8 +86,8 @@ func _update_map_layer_position(delta: float) -> void:
 	_following_map_layer.position = _leading_map_layer.get_end_position()
 	
 
-# Check if _leading_map_layer is fully off screen.
-# This happens when _following_map_layer.global_position.y is above the camera.
+## Check if _leading_map_layer is fully off screen.
+## This happens when _following_map_layer.global_position.y is above the camera.
 func _check_for_layer_swap() -> bool:
 	#var pos: float = get_viewport().get_camera_2d().get_screen_center_position().y
 	#var offset: float = (get_viewport_rect().size.y / get_viewport().get_camera_2d().zoom.y) / 2

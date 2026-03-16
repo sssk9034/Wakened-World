@@ -5,10 +5,10 @@
 [node name="MapTileStraight1" unique_id=1407241641 instance=ExtResource("1_rjnnf")]
 
 [node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
-region_rect = Rect2(1072, 416, 490, 358)
+region_rect = Rect2(33, 32, 490, 358)
 
 [node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
-region_rect = Rect2(1072, 800, 490, 358)
+region_rect = Rect2(33, 422, 490, 358)
 
 [node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
 polygon = PackedVector2Array(118, -2, 245, -2, 248, 361, 121, 361)

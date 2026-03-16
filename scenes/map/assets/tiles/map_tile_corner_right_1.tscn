@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dp7g5bqwshptc"]
+
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tile.tscn" id="1_00rc0"]
+
+[node name="MapTileCornerRight1" unique_id=1407241641 instance=ExtResource("1_00rc0")]
+
+[node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
+offset = Vector2(-238, 0)
+region_rect = Rect2(1601, 32, 980, 358)
+
+[node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
+offset = Vector2(-238, 0)
+region_rect = Rect2(1601, 422, 980, 358)
+
+[node name="NextTileMarker" parent="." index="2" unique_id=37438559]
+position = Vector2(510, 358)

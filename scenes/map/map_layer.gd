@@ -1,7 +1,7 @@
 class_name MapLayer
 extends Node2D
 
-var _next_tile_position: Vector2 = Vector2(165, 1074)
+var _next_tile_position: Vector2 = Vector2(165, 10000000)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

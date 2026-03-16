@@ -8,14 +8,18 @@ script = ExtResource("1_njwib")
 
 [node name="TerrainLayerTexture" type="Sprite2D" parent="." unique_id=178507704]
 texture = ExtResource("2_5ere8")
-offset = Vector2(0, 179)
+centered = false
+offset = Vector2(-245, 0)
 region_enabled = true
+region_filter_clip_enabled = true
 
 [node name="TreeLayerTexture" type="Sprite2D" parent="." unique_id=758751447]
 z_index = 50
 texture = ExtResource("2_5ere8")
-offset = Vector2(0, 179)
+centered = false
+offset = Vector2(-245, 0)
 region_enabled = true
+region_filter_clip_enabled = true
 
 [node name="NextTileMarker" type="Marker2D" parent="." unique_id=37438559]
 z_index = 500

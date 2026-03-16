@@ -5,12 +5,12 @@
 [node name="MapTileDiagonalRight1" unique_id=1407241641 instance=ExtResource("1_ekukj")]
 
 [node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
-offset = Vector2(50, 179)
-region_rect = Rect2(1590, 416, 490, 358)
+offset = Vector2(-195, 0)
+region_rect = Rect2(1079, 32, 490, 358)
 
 [node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
-offset = Vector2(50, 179)
-region_rect = Rect2(1590, 800, 490, 358)
+offset = Vector2(-195, 0)
+region_rect = Rect2(1079, 422, 490, 358)
 
 [node name="NextTileMarker" parent="." index="2" unique_id=37438559]
 position = Vector2(165, 358)
