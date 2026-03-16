@@ -1,27 +1,22 @@
 extends Area2D
 
-@export var delay_frames := 18  # how many frames behind the player to follow
-@export var speed := 150
+@onready var character: Sprite2D = $Character
 
-var player
+@export var delay_frames : int = 12  # how many frames behind the player to follow
+@export var speed: int = 150 # slug speed
 
-func _ready():
-	player = get_node("../Player")  # adjust path as needed
+@export var player: Player
 
-func _process(delta):
-	
-	
-	
-	
-	#var history = player.position_history
-	
-	
+func _ready()-> void:
+	pass
 
+func _physics_process(delta: float) -> void:
+	
 	if player.position_history.size() > delay_frames:
-		var target_x = player.position_history[0]
-		player.position_history.pop_front()
+		var target_x: float = player.position_history[0]
+		player.position_history.remove_at(0)
 		
-		var distance = target_x - global_position.x
+		var distance: float = target_x - global_position.x
 
 		if abs(distance) > 1.0:
 			# Movement
@@ -29,9 +24,9 @@ func _process(delta):
 
 			# Animation
 			if distance > 0:
-				$Character.frame = 5
+				character.frame = 5
 			elif distance < 0:
-				$Character.frame = 4
+				character.frame = 4
 
 		else:
-			$Character.frame = 6
+			character.frame = 6
