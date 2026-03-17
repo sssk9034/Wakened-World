@@ -4,18 +4,13 @@ extends Node2D
 ##
 ## Map movement is done once per frame.
 ## Map changes in velocity are also calculated once per frame.
-## 
-## Velocity may be updated either one of two ways:
-## change_velocity(new_velocity: float) -> void
-##		Smoothly changes the maps velocity using the defined acceleration values.
-##
-## set_velocity(new_velocity: float) -> void
-##		Instantly changes the maps velocity, (aka, infinite acceleration)
-
-const MAPTILE_STRAIGHT: PackedScene = preload("res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn")
-const MAPTILE_DIAGONAL: PackedScene = preload("res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn")
 
 const TILES_PER_MAP_LAYER: int = 10
+
+static var singleton: Map:
+	get:
+		return _singleton
+static var _singleton: Map = null
 
 @export_group("Generation")
 @export var map_seed: String = ""
@@ -37,6 +32,11 @@ var _rng_use_seed: bool = false
 
 @onready var _leading_map_layer: MapLayer = $MapLayer1
 @onready var _following_map_layer: MapLayer = $MapLayer2
+
+
+func _enter_tree() -> void:
+	if singleton == null:
+		_singleton = self
 
 
 # Called when the node enters the scene tree for the first time.
@@ -78,6 +78,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		_update_map_layer_position(delta)
 		
+
+func _exit_tree() -> void:
+	if singleton == self:
+		_singleton = null
+
 
 ## Smoothly changes velocity to new_velocity by acceleration values.
 func change_velocity(new_velocity: float) -> void:
@@ -121,6 +126,7 @@ func _add_velocity_modifier(modifier: VelocityModifier, array: Array[VelocityMod
 	var index: int = array.bsearch_custom(
 			modifier, VelocityModifier.sort_priority, false)
 	array.insert(index, modifier)
+	print(array)
 	
 
 # Removes a velocity modifer from the given array
@@ -133,6 +139,7 @@ func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[Velocity
 		return
 	
 	array.remove_at(index)
+	print(array)
 
 
 ## Updates _target_velocity if _current_velocity != _target_velocity, using acceleration values.
