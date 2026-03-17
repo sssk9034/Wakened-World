@@ -5,20 +5,34 @@
 [ext_resource type="PackedScene" uid="uid://si18qr0v5vxh" path="res://ui/game_hud/game_hud.tscn" id="3_sglur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rihsh"]
-size = Vector2(35, 81)
+size = Vector2(36, 58)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_sglur"]
+a = Vector2(-29, 33)
+b = Vector2(7, 33)
 
 [node name="Player" type="CharacterBody2D" unique_id=267217265]
-collision_layer = 6
+collision_layer = 4
 script = ExtResource("1_rihsh")
 
 [node name="Character" type="Sprite2D" parent="." unique_id=201899216]
 texture = ExtResource("1_i25i0")
 hframes = 9
-frame = 8
+frame = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=37950386]
-position = Vector2(-11.5, -5.5)
+[node name="WallCollisionShape2D" type="CollisionShape2D" parent="." unique_id=37950386]
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_rihsh")
+
+[node name="ObstacleArea2D" type="Area2D" parent="." unique_id=125134058]
+collision_layer = 2
+collision_mask = 0
+input_pickable = false
+
+[node name="ObstacleCollisionShape2D" type="CollisionShape2D" parent="ObstacleArea2D" unique_id=1948725305]
+position = Vector2(11, -18)
+shape = SubResource("SegmentShape2D_sglur")
+debug_color = Color(0.7022407, 0.274324, 1, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=346281184]
 zoom = Vector2(0.5, 0.5)
