@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dxgs5oj5ojbkg"]
+[gd_scene format=3 uid="uid://3jj2diuimg1l"]
 
 [ext_resource type="Texture2D" uid="uid://vmfbknf8jok" path="res://entities/player/assets/player_sprites.png" id="1_i25i0"]
 [ext_resource type="Script" uid="uid://6gcl0w7t8ow" path="res://entities/player/player.gd" id="1_rihsh"]
@@ -11,11 +11,48 @@ size = Vector2(36, 58)
 a = Vector2(-29, 33)
 b = Vector2(7, 33)
 
+[sub_resource type="Animation" id="Animation_sglur"]
+resource_name = "HoleFall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(0.5, 0.5), Vector2(0.25, 0.25), Vector2(1e-05, 1e-05), Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="Animation" id="Animation_bls4j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkugw"]
+_data = {
+&"HoleFall": SubResource("Animation_sglur"),
+&"RESET": SubResource("Animation_bls4j")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=267217265]
 collision_layer = 4
 script = ExtResource("1_rihsh")
 
 [node name="Character" type="Sprite2D" parent="." unique_id=201899216]
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("1_i25i0")
 hframes = 9
 frame = 5
@@ -43,3 +80,7 @@ drag_horizontal_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=2065057715]
 
 [node name="GameHud" parent="Camera2D/CanvasLayer" unique_id=1640925269 instance=ExtResource("3_sglur")]
+
+[node name="FallAnimation" type="AnimationPlayer" parent="." unique_id=924586342]
+libraries/ = SubResource("AnimationLibrary_fkugw")
+autoplay = &"HoleFall"

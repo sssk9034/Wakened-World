@@ -22,3 +22,9 @@ region_rect = Rect2(1602, 812, 490, 358)
 
 [node name="NextTileMarker" parent="." index="4" unique_id=37438559]
 position = Vector2(-105, 358)
+
+[node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
+polygon = PackedVector2Array(-163, -26, -318, 402, -518, 395, -353, -16)
+
+[node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
+polygon = PackedVector2Array(180, -15, 43, 411, 321, 406, 496, -26)
