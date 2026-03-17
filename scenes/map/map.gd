@@ -5,7 +5,7 @@ extends Node2D
 ## Map movement is done once per frame.
 ## Map changes in velocity are also calculated once per frame.
 
-const TILES_PER_MAP_LAYER: int = 10
+const TILES_PER_MAP_LAYER: int = 5
 
 static var singleton: Map:
 	get:
@@ -13,9 +13,7 @@ static var singleton: Map:
 static var _singleton: Map = null
 
 @export_group("Generation")
-@export var map_seed: String = ""
-## Set to 0 to generate based on map_seed
-@export_range(0, 100, 1, "or_greater") var map_length: int = 0 
+@export var map_builder: MapBuilder
 
 @export_group("Movement")
 @export_range(1, 500, 0.01, "suffix:px/s²") var acceleration: float = 100.0
@@ -27,8 +25,7 @@ var _target_velocity_modifiers: Array[VelocityModifier] = []
 var _current_velocity: float = 0.0 # pixels/sec
 var _current_velocity_modifiers: Array[VelocityModifier] = []
 
-var _rng_seed: int = 0
-var _rng_use_seed: bool = false
+var _deferred_build_layer: MapLayer = null
 
 @onready var _leading_map_layer: MapLayer = $MapLayer1
 @onready var _following_map_layer: MapLayer = $MapLayer2
@@ -41,9 +38,13 @@ func _enter_tree() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_update_map_seed()
-	_update_map_length()
-	# TODO Trigger initial build
+	# Build the _leading_map_layer
+	for i: int in TILES_PER_MAP_LAYER:
+		var tile: MapTile = map_builder.get_next_tile()
+		_leading_map_layer.add_tile(tile)
+	
+	# Schedule _following_map_layer for deferred build
+	_deferred_build_layer = _following_map_layer
 
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame.
@@ -72,16 +73,17 @@ func _physics_process(delta: float) -> void:
 		
 		_update_map_layer_position(delta)
 		
-		# TODO trigger build of following
-		
+		# Schedule new _following_map_layer for deferred build
+		_deferred_build_layer = _following_map_layer
 		
 	else:
 		_update_map_layer_position(delta)
+		_do_deferred_build()
 		
 
 func _exit_tree() -> void:
 	if singleton == self:
-		_singleton = null
+		_singleton.queue_free()
 
 
 ## Smoothly changes velocity to new_velocity by acceleration values.
@@ -140,6 +142,18 @@ func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[Velocity
 	array.remove_at(index)
 
 
+func _do_deferred_build() -> void:
+	if _deferred_build_layer == null:
+		return
+		
+	var tile: MapTile = map_builder.get_next_tile()
+	_deferred_build_layer.add_tile(tile)
+	
+	if _deferred_build_layer.tile_count >= TILES_PER_MAP_LAYER:
+		# We are done building
+		_deferred_build_layer = null
+
+
 ## Updates _target_velocity if _current_velocity != _target_velocity, using acceleration values.
 func _calc_acceleration(delta: float) -> void:
 	if _target_velocity > _current_velocity:
@@ -174,36 +188,6 @@ func _check_for_layer_swap() -> bool:
 	var offset: float = get_viewport_rect().size.y
 
 	return _following_map_layer.global_position.y < (pos - offset)
-	
-
-## Updates the rng seed if map_seed is not empty, otherwise uses a random seed.
-func _update_map_seed() -> void:
-	if map_seed:
-		_rng_seed = map_seed.hash()
-		_rng_use_seed = true
-		print("[Map]: Using seed: %s (%d)" % [map_seed, _rng_seed])
-	else:
-		print("[Map]: No seed provided, using random seed.")
-		_rng_use_seed = false
-		
-
-## Updates the map length.
-## If map_length is <= 0 then the length is determine by summing the ord()
-## of all the characters in map_seed.
-## If map_length is >= 1 then it is used as the map_length
-func _update_map_length() -> void:
-	if map_length <= 0:
-		# Generate based on map_seed
-		var sum: int = 0
-		
-		for c: String in map_seed:
-			sum += ord(c)
-		
-		map_length = sum
-		print("[Map]: Generated map length: %s" % [map_length])
-	else:
-		# Use specified map length
-		print("[Map]: Using provided map length: %s" % [map_length])
 	
 
 ## Class for changing map velocity, without having to save the original.

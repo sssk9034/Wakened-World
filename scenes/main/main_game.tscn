@@ -2,16 +2,33 @@
 
 [ext_resource type="Script" uid="uid://dutmkunr3pyn3" path="res://scenes/main/main_game.gd" id="1_exxld"]
 [ext_resource type="PackedScene" uid="uid://cs24mj8yauxd0" path="res://scenes/map/map.tscn" id="2_36pl1"]
+[ext_resource type="Script" uid="uid://cpqgpww4icaog" path="res://scenes/map/test_map_builder.gd" id="2_bebfr"]
 [ext_resource type="PackedScene" uid="uid://bsgasasb5dgq5" path="res://entities/moss_slug/moss_slug.tscn" id="4_esv8v"]
 [ext_resource type="PackedScene" uid="uid://dxgs5oj5ojbkg" path="res://entities/player/player.tscn" id="5_bebfr"]
+[ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn" id="6_4d1xd"]
+[ext_resource type="Script" uid="uid://cdyoaitx4dfud" path="res://scenes/map/procedural_map_builder.gd" id="6_esv8v"]
+[ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_right_1.tscn" id="7_wmrn4"]
+[ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn" id="8_wwv60"]
+[ext_resource type="PackedScene" uid="uid://dp7g5bqwshptc" path="res://scenes/map/map_tiles/tiles/map_tile_corner_right_1.tscn" id="9_aqdx0"]
+[ext_resource type="PackedScene" uid="uid://b28t8xmu454nn" path="res://scenes/map/map_tiles/tiles/map_tile_corner_left_1.tscn" id="10_xu7aq"]
 
 [node name="MainGame" type="Node2D" unique_id=1490609936]
 script = ExtResource("1_exxld")
 
-[node name="Map" parent="." unique_id=1800559609 instance=ExtResource("2_36pl1")]
+[node name="Map" parent="." unique_id=1800559609 node_paths=PackedStringArray("map_builder") instance=ExtResource("2_36pl1")]
+map_builder = NodePath("../TestMapBuilder")
 
 [node name="MossSlug" parent="." unique_id=390090232 node_paths=PackedStringArray("player") instance=ExtResource("4_esv8v")]
 position = Vector2(0, -140)
 player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]
+
+[node name="TestMapBuilder" type="Node" parent="." unique_id=1512480185]
+script = ExtResource("2_bebfr")
+tile_scenes = Array[PackedScene]([ExtResource("6_4d1xd"), ExtResource("7_wmrn4"), ExtResource("8_wwv60"), ExtResource("9_aqdx0"), ExtResource("10_xu7aq")])
+metadata/_custom_type_script = "uid://cpqgpww4icaog"
+
+[node name="ProceduralMapBuilder" type="Node" parent="." unique_id=1549680491]
+script = ExtResource("6_esv8v")
+metadata/_custom_type_script = "uid://cdyoaitx4dfud"
