@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://df4j4125ksytx"]
 
-[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tile.tscn" id="1_ekukj"]
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_ekukj"]
 
 [node name="MapTileDiagonalRight1" unique_id=1407241641 instance=ExtResource("1_ekukj")]
 
@@ -12,7 +12,15 @@ region_rect = Rect2(1079, 32, 490, 358)
 offset = Vector2(-195, 0)
 region_rect = Rect2(1079, 422, 490, 358)
 
-[node name="NextTileMarker" parent="." index="2" unique_id=37438559]
+[node name="LeftBackgroundTexture" parent="." index="2" unique_id=1526904559]
+offset = Vector2(-685, 0)
+region_rect = Rect2(556, 812, 490, 358)
+
+[node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
+offset = Vector2(295, 0)
+region_rect = Rect2(33, 812, 490, 358)
+
+[node name="NextTileMarker" parent="." index="4" unique_id=37438559]
 position = Vector2(165, 358)
 
 [node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]

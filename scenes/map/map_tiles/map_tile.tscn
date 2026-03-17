@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://y4kmm78nykcc"]
 
-[ext_resource type="Script" uid="uid://dmtl0bs0g0ly" path="res://scenes/map/map_tile.gd" id="1_njwib"]
-[ext_resource type="Texture2D" uid="uid://b3kbher14tpp4" path="res://scenes/map/assets/texures/map_tileset.png" id="2_5ere8"]
+[ext_resource type="Script" uid="uid://dmtl0bs0g0ly" path="res://scenes/map/map_tiles/map_tile.gd" id="1_njwib"]
+[ext_resource type="Texture2D" uid="uid://b3kbher14tpp4" path="res://scenes/map/map_tiles/texures/map_tileset.png" id="2_5ere8"]
 
 [node name="MapTile" type="Node2D" unique_id=1407241641]
 script = ExtResource("1_njwib")
@@ -18,6 +18,22 @@ z_index = 50
 texture = ExtResource("2_5ere8")
 centered = false
 offset = Vector2(-245, 0)
+region_enabled = true
+region_filter_clip_enabled = true
+
+[node name="LeftBackgroundTexture" type="Sprite2D" parent="." unique_id=1526904559]
+z_index = 50
+texture = ExtResource("2_5ere8")
+centered = false
+offset = Vector2(-735, 0)
+region_enabled = true
+region_filter_clip_enabled = true
+
+[node name="RightBackgroundTexture" type="Sprite2D" parent="." unique_id=456350986]
+z_index = 50
+texture = ExtResource("2_5ere8")
+centered = false
+offset = Vector2(245, 0)
 region_enabled = true
 region_filter_clip_enabled = true
 
