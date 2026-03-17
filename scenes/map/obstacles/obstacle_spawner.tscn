@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://cpt6x7q2q0ere" path="res://scenes/map/obstacles/obstacle_spawner.gd" id="1_l04cf"]
 
-[node name="ObstacleSpawner" type="Node2D" unique_id=1997563372]
+[node name="ObstacleSpawner" type="Node2D" unique_id=628526227]
 script = ExtResource("1_l04cf")
