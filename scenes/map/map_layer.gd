@@ -1,7 +1,7 @@
 class_name MapLayer
 extends Node2D
 
-var _next_tile_position: Vector2 = Vector2(0, 0)
+var _next_tile_position: Vector2 = Vector2(0, 1000000)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,9 +22,9 @@ func add_tile(tile: MapTile) -> void:
 
 ## Clears all tiles from the layer.
 func clear() -> void:
-	for tile: MapTile in get_children():
-		#remove_child(tile)
-		tile.queue_free()
+	for n: Node in get_children():
+		#remove_child(n)
+		n.queue_free()
 		
 	_next_tile_position = Vector2(0, 0)
 	
