@@ -49,5 +49,3 @@ collision_mask = 0
 [node name="LeftCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=2133401722]
 
 [node name="RightCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=47519974]
-
-[node name="ObstaclePositions" type="Node2D" parent="." unique_id=142244158]
