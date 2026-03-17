@@ -45,3 +45,7 @@ func get_end_position() -> Vector2:
 ## Position is relative to this node.
 func get_relative_end_position() -> Vector2:
 	return _next_tile_position
+	
+
+func is_empty() -> bool:
+	return _tile_count <= 0

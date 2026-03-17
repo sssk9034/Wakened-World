@@ -40,8 +40,9 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	# Build the _leading_map_layer
 	for i: int in TILES_PER_MAP_LAYER:
-		var tile: MapTile = map_builder.get_next_tile()
-		_leading_map_layer.add_tile(tile)
+		if not map_builder.has_next_tile():
+			break
+		_leading_map_layer.add_tile(map_builder.get_next_tile())
 	
 	# Schedule _following_map_layer for deferred build
 	_deferred_build_layer = _following_map_layer
@@ -63,7 +64,10 @@ func _physics_process(delta: float) -> void:
 	
 	_current_velocity = max(_current_velocity, 0) # Prevent moving backward
 	
-	if _check_for_layer_swap():
+	var can_swap: bool = _check_for_layer_swap()
+	var following_is_empty: bool = _following_map_layer.is_empty()
+	
+	if can_swap and (not following_is_empty):
 		print("[Map]: Swapping MapLayers")
 		_leading_map_layer.clear()
 		
@@ -144,13 +148,17 @@ func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[Velocity
 
 func _do_deferred_build() -> void:
 	if _deferred_build_layer == null:
+		# No current deferred build layer
 		return
 		
-	var tile: MapTile = map_builder.get_next_tile()
-	_deferred_build_layer.add_tile(tile)
+	if not map_builder.has_next_tile():
+		# Map has been completed
+		return
+		
+	_deferred_build_layer.add_tile(map_builder.get_next_tile())
 	
 	if _deferred_build_layer.tile_count >= TILES_PER_MAP_LAYER:
-		# We are done building
+		# We have filled this layer
 		_deferred_build_layer = null
 
 
