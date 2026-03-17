@@ -24,13 +24,31 @@ func _process(_delta: float) -> void:
 	pass
 	
 	
-# Called when the player enters the obstacle bounds.
+# Called when an Area2D enters the obstacle bounds.
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	_apply_velocity_modifier()
+
+
+# Called when an Area2D exits the obstacle bounds.
+func _on_area_2d_area_exited(_area: Area2D) -> void:
+	_remove_velocity_modifier()
+	
+
+# Called when a PhysicsBody2D enters the obstacle bounds.
 func _on_area_2d_body_entered(_body: Node2D) -> void:
-	Map.singleton.add_current_velocity_modifier(_velocity_modifier)
+	_apply_velocity_modifier()
 
 
-# Called when the player exits the obstacle bounds.
+# Called when a PhysicsBody2D exits the obstacle bounds.
 func _on_area_2d_body_exited(_body: Node2D) -> void:
+	_remove_velocity_modifier()
+
+
+func _apply_velocity_modifier() -> void:
+	Map.singleton.add_current_velocity_modifier(_velocity_modifier)
+	
+	
+func _remove_velocity_modifier() -> void:
 	Map.singleton.remove_current_velocity_modifier(_velocity_modifier)
 
 
