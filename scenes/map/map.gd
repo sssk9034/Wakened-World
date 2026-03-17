@@ -27,7 +27,11 @@ const TILES_PER_MAP_LAYER: int = 10
 @export_range(1, 500, 0.01, "suffix:px/s²") var deceleration: float = 200.0
 @export_range(0, 200, 0.01, "suffix:px/s") var velocity: float = 100.0
 
+var _target_velocity: float = 0.0 # pixels/sec
+var _target_velocity_modifiers: Array[VelocityModifier] = []
 var _current_velocity: float = 0.0 # pixels/sec
+var _current_velocity_modifiers: Array[VelocityModifier] = []
+
 var _rng_seed: int = 0
 var _rng_use_seed: bool = false
 
@@ -39,12 +43,24 @@ var _rng_use_seed: bool = false
 func _ready() -> void:
 	_update_map_seed()
 	_update_map_length()
-	# Trigger initial build
+	# TODO Trigger initial build
 
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	_update_velocity(delta)
+	_target_velocity = velocity
+	
+	# Apply target velocity modifiers
+	for mod: VelocityModifier in _target_velocity_modifiers:
+		_target_velocity = mod.mod_velocity(_target_velocity, velocity)
+	
+	_calc_acceleration(delta)
+	
+	# Apply current velocity modifers
+	for mod: VelocityModifier in _current_velocity_modifiers:
+		_current_velocity = mod.mod_velocity(_current_velocity, velocity)
+	
+	_current_velocity = max(_current_velocity, 0) # Prevent moving backward
 	
 	if _check_for_layer_swap():
 		print("[Map]: Swapping MapLayers")
@@ -74,19 +90,64 @@ func set_velocity(new_velocity: float) -> void:
 	_current_velocity = new_velocity
 
 
-## Updates velocity if _current_velocity != velocity, using acceleration values.
-func _update_velocity(delta: float) -> void:
-	if velocity > _current_velocity:
+## Adds a velocity modifier to the target velocity modifiers.
+## Will be sorted in order of VelocityModifier.priority, from smallest to
+## greatest.
+func add_target_velocity_modifier(modifier: VelocityModifier) -> void:
+	_add_velocity_modifier(modifier, _target_velocity_modifiers)
+
+
+## Adds a velocity modifier to the current velocity modifiers.
+## Will be sorted in order of VelocityModifier.priority, from smallest to
+## greatest.
+func add_current_velocity_modifier(modifier: VelocityModifier) -> void:
+	_add_velocity_modifier(modifier, _current_velocity_modifiers)
+
+
+## Removes a velocity modifier from the target velocity modifiers.
+## Prints an error if the modifier is not in the list.
+func remove_target_velocity_modifier(modifier: VelocityModifier) -> void:
+	_remove_velocity_modifier(modifier, _target_velocity_modifiers)
+
+
+## Removes a velocity modifier from the current velocity modifiers.
+## Prints an error if the modifier is not in the list.
+func remove_current_velocity_modifier(modifier: VelocityModifier) -> void:
+	_remove_velocity_modifier(modifier, _current_velocity_modifiers)
+
+
+## Adds a velocity modifer to the given array.
+func _add_velocity_modifier(modifier: VelocityModifier, array: Array[VelocityModifier]) -> void:
+	var index: int = array.bsearch_custom(
+			modifier, VelocityModifier.sort_priority, false)
+	array.insert(index, modifier)
+	
+
+# Removes a velocity modifer from the given array
+func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[VelocityModifier]) -> void:
+	var index: int = array.find(modifier)
+	
+	if index <= -1:
+		printerr("[Map]: VelocityModifier was not found on remove (priority: %d)"
+				% [modifier.priority])
+		return
+	
+	array.remove_at(index)
+
+
+## Updates _target_velocity if _current_velocity != _target_velocity, using acceleration values.
+func _calc_acceleration(delta: float) -> void:
+	if _target_velocity > _current_velocity:
 		# Increasing velocity
 		_current_velocity = min(
 				_current_velocity + (acceleration * delta),
-				velocity)
+				_target_velocity)
 				
-	elif velocity < _current_velocity:
+	elif _target_velocity < _current_velocity:
 		# Decreasing velocity
 		_current_velocity = max(
 				_current_velocity - (deceleration * delta),
-				velocity)
+				_target_velocity)
 	
 
 ## Moves map by current_velocity
@@ -138,4 +199,22 @@ func _update_map_length() -> void:
 	else:
 		# Use specified map length
 		print("[Map]: Using provided map length: %s" % [map_length])
+	
+
+## Class for changing map velocity, without having to save the original.
+## Primarily to prevent conflics when two systems change the velocity.
+@abstract
+class VelocityModifier:
+	## Sets the order in which modifiers will be applied. Modifiers with lower
+	## priority are applied first, and higher priority is applied last.
+	var priority: int = 0
+	
+	## Sorts based on priority value. Higher priority values will be applied last,
+	## therefore giving them the ability to override other modifiers.
+	static func sort_priority(a: VelocityModifier, b: VelocityModifier) -> bool:
+		return a.priority < b.priority
+	
+	## Override to modify velocity.
+	@abstract
+	func mod_velocity(old_velocity: float, _original_velocity: float) -> float
 	

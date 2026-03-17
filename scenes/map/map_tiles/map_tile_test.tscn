@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c2t3egeq1j3fm"]
 
 [ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn" id="1_y1syk"]
-[ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="2_db1lx"]
+[ext_resource type="PackedScene" uid="uid://bnp11nh28mkf6" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_1.tscn" id="2_db1lx"]
 [ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_right_1.tscn" id="2_dw7v8"]
 [ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn" id="3_ett5m"]
 [ext_resource type="PackedScene" uid="uid://b28t8xmu454nn" path="res://scenes/map/map_tiles/tiles/map_tile_corner_left_1.tscn" id="4_lnrt0"]
@@ -11,8 +11,14 @@
 
 [node name="MapTileStraight1" parent="." unique_id=1407241641 instance=ExtResource("1_y1syk")]
 
-[node name="ObstacleTile" parent="MapTileStraight1" unique_id=2133705382 instance=ExtResource("2_db1lx")]
-position = Vector2(-1, 214)
+[node name="ObstacleTileStump1" parent="MapTileStraight1" unique_id=2133705382 instance=ExtResource("2_db1lx")]
+position = Vector2(0, 200)
+
+[node name="ObstacleTileStump2" parent="MapTileStraight1" unique_id=889969651 instance=ExtResource("2_db1lx")]
+position = Vector2(-60, 300)
+
+[node name="ObstacleTileStump3" parent="MapTileStraight1" unique_id=10807892 instance=ExtResource("2_db1lx")]
+position = Vector2(60, 100)
 
 [node name="MapTileDiagonalRight1" parent="." unique_id=163658633 instance=ExtResource("2_dw7v8")]
 position = Vector2(0, 358)
