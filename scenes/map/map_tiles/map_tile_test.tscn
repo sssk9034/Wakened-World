@@ -15,7 +15,7 @@
 position = Vector2(0, 200)
 
 [node name="ObstacleTileStump2" parent="MapTileStraight1" unique_id=889969651 instance=ExtResource("2_db1lx")]
-position = Vector2(-60, 300)
+position = Vector2(60, 300)
 
 [node name="ObstacleTileStump3" parent="MapTileStraight1" unique_id=10807892 instance=ExtResource("2_db1lx")]
 position = Vector2(60, 100)
