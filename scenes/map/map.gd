@@ -126,7 +126,6 @@ func _add_velocity_modifier(modifier: VelocityModifier, array: Array[VelocityMod
 	var index: int = array.bsearch_custom(
 			modifier, VelocityModifier.sort_priority, false)
 	array.insert(index, modifier)
-	print(array)
 	
 
 # Removes a velocity modifer from the given array
@@ -139,7 +138,6 @@ func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[Velocity
 		return
 	
 	array.remove_at(index)
-	print(array)
 
 
 ## Updates _target_velocity if _current_velocity != _target_velocity, using acceleration values.
