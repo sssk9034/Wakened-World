@@ -64,6 +64,7 @@ open_debug_ui={
 
 2d_physics/layer_1="Map Boundary (Walls)"
 2d_physics/layer_2="Obstacles (All types)"
+2d_physics/layer_3="Moss Slug"
 
 [rendering]
 
