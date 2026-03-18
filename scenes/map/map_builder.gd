@@ -1,6 +1,6 @@
 @abstract
 class_name MapBuilder
-extends Node
+extends Resource
 ## Class for building a map using MapTiles.
 
 
