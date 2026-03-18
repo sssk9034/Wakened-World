@@ -2,7 +2,7 @@ class_name TestMapBuilder
 extends MapBuilder
 
 var tile_scenes_index: int = 0
-@export var tile_scenes: Array[PackedScene] = []:
+@export var tile_scenes: Array[PackedScene]:
 	set(value):
 		tile_scenes = value
 		if map_length <= 0:

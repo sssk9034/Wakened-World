@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c8gna8yf6stf4"]
 
 [ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_rjnnf"]
-[ext_resource type="PackedScene" uid="uid://d4lkv0w46x1qe" path="res://scenes/map/obstacles/obstacle_spawner.tscn" id="2_h28ai"]
 
 [node name="MapTileStraight1" unique_id=1407241641 instance=ExtResource("1_rjnnf")]
 
@@ -22,6 +21,3 @@ polygon = PackedVector2Array(118, -2, 245, -2, 248, 361, 121, 361)
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
 polygon = PackedVector2Array(-138, -1, -246, -1, -246, 358, -139, 359)
-
-[node name="ObstacleSpawner" parent="." index="6" unique_id=628526227 instance=ExtResource("2_h28ai")]
-position = Vector2(0, 179)
