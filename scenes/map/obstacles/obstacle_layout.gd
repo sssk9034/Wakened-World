@@ -5,4 +5,4 @@ extends Resource
 ##
 
 @abstract
-func get_positions() -> Array[Vector2]
+func get_transforms() -> Array[Transform2D]
