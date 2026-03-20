@@ -8,6 +8,7 @@
 size = Vector2(35, 81)
 
 [node name="Player" type="CharacterBody2D" unique_id=267217265]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_rihsh")
 
 [node name="Character" type="Sprite2D" parent="." unique_id=201899216]
