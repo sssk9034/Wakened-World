@@ -13,7 +13,7 @@ class_name Player
 @onready var character: Sprite2D = $Character
 
 #init position history list for moss slug script
-var position_history: Array = []
+var position_history: PackedFloat32Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

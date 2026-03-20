@@ -10,7 +10,8 @@ script = ExtResource("1_exxld")
 
 [node name="Map" parent="." unique_id=1800559609 instance=ExtResource("2_36pl1")]
 
-[node name="MossSlug" parent="." unique_id=390090232 instance=ExtResource("4_esv8v")]
+[node name="MossSlug" parent="." unique_id=390090232 node_paths=PackedStringArray("player") instance=ExtResource("4_esv8v")]
 position = Vector2(0, -140)
+player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]

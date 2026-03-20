@@ -15,8 +15,8 @@ script = ExtResource("1_12j1l")
 
 [node name="DebugOverlay" type="MarginContainer" parent="." unique_id=1849145798]
 layout_mode = 1
-offset_right = 5.0
-offset_bottom = 32.0
+offset_right = 4.0
+offset_bottom = 4.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="DebugOverlay" unique_id=2034734450]
 layout_mode = 2
