@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dxgs5oj5ojbkg" path="res://entities/player/player.tscn" id="5_bebfr"]
 [ext_resource type="Script" uid="uid://6txe0a80gugu" path="res://scenes/main/audio_stream_player_2d.gd" id="5_esv8v"]
 [ext_resource type="AudioStream" uid="uid://cwv2bbwbnrp3l" path="res://sliding.wav" id="5_v4wsd"]
+[ext_resource type="AudioStream" uid="uid://dfkdfxtwstalj" path="res://jorisvermeer-ominous-horror-game-background-418850.mp3" id="7_v4wsd"]
 
 [node name="MainGame" type="Node2D" unique_id=1490609936]
 script = ExtResource("1_exxld")
@@ -22,3 +23,7 @@ player = NodePath("../Player")
 stream = ExtResource("5_v4wsd")
 volume_db = -30.0
 script = ExtResource("5_esv8v")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1328322930]
+stream = ExtResource("7_v4wsd")
+autoplay = true
