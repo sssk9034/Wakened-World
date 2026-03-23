@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://cs24mj8yauxd0" path="res://scenes/map/map.tscn" id="2_36pl1"]
 [ext_resource type="PackedScene" uid="uid://bsgasasb5dgq5" path="res://entities/moss_slug/moss_slug.tscn" id="4_esv8v"]
 [ext_resource type="PackedScene" uid="uid://dxgs5oj5ojbkg" path="res://entities/player/player.tscn" id="5_bebfr"]
+[ext_resource type="Script" uid="uid://6txe0a80gugu" path="res://scenes/main/audio_stream_player_2d.gd" id="5_esv8v"]
+[ext_resource type="AudioStream" uid="uid://cwv2bbwbnrp3l" path="res://sliding.wav" id="5_v4wsd"]
 
 [node name="MainGame" type="Node2D" unique_id=1490609936]
 script = ExtResource("1_exxld")
@@ -15,3 +17,8 @@ position = Vector2(0, -140)
 player = NodePath("../Player")
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]
+
+[node name="Sliding" type="AudioStreamPlayer2D" parent="Player" unique_id=1268293163]
+stream = ExtResource("5_v4wsd")
+volume_db = -30.0
+script = ExtResource("5_esv8v")

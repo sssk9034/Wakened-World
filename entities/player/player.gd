@@ -42,7 +42,11 @@ func _process(_delta: float) -> void:
 	#Update velocity
 	velocity.x = input * speed
 	
-	
+	if Input.is_action_just_pressed("player_left"):
+		$Sliding.play_slide()
+
+	if Input.is_action_just_pressed("player_right"):
+		$Sliding.play_slide()
 # How we were handling movement before using CharacterBody2D
 	##apply velocity
 	#position += velocity * delta
