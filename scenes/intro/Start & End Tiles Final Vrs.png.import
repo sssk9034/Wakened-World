@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctpwnd7g1ny1f"
-path="res://.godot/imported/StartEndTiles.png-fcdffdfc2ee282a0841934dc11466c32.ctex"
+uid="uid://dje3h3bo21mmm"
+path="res://.godot/imported/Start & End Tiles Final Vrs.png-f156d74b115282b7135dbf1a1138d19b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/intro/StartEndTiles.png"
-dest_files=["res://.godot/imported/StartEndTiles.png-fcdffdfc2ee282a0841934dc11466c32.ctex"]
+source_file="res://scenes/intro/Start & End Tiles Final Vrs.png"
+dest_files=["res://.godot/imported/Start & End Tiles Final Vrs.png-f156d74b115282b7135dbf1a1138d19b.ctex"]
 
 [params]
 
