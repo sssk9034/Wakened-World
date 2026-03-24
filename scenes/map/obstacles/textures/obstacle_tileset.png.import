@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cly3p1d2uo31t"
-path="res://.godot/imported/map_background_tileset.png-90aaaa201d1d25fea15482649a2d3fdd.ctex"
+uid="uid://ccthq1lktf6ki"
+path="res://.godot/imported/obstacle_tileset.png-2d5d8182fa0df54a5b117915e39981fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/map/assets/texures/map_background_tileset.png"
-dest_files=["res://.godot/imported/map_background_tileset.png-90aaaa201d1d25fea15482649a2d3fdd.ctex"]
+source_file="res://scenes/map/obstacles/textures/obstacle_tileset.png"
+dest_files=["res://.godot/imported/obstacle_tileset.png-2d5d8182fa0df54a5b117915e39981fe.ctex"]
 
 [params]
 

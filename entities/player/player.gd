@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
+
 #Make Player a class name so moss slug script can init player variable as type Player
 class_name Player
 
 #Add player speed as a variable in inspector
 @export var speed: int = 200
+
+
 
 # We aren't using this variable right now but I suspect it will come in handy...maybe not
 #@onready var screensize: Vector2 = get_viewport_rect().size
@@ -17,15 +20,28 @@ var position_history: PackedFloat32Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$FallAnimation.set_current_animation("")
 
 # How we are handling movement WITH Character2DBody (using move_and_slide)
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
+	# Lock y axis position
+	position.y = 0
+	
 	#Tracks player position for use in moss_slug script
 	position_history.append(global_position.x)
+	
+	#fall animation gets triggered when player collides with any hole obstacle
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		
+		if collider.is_in_group("Holes"):
+			trigger_animation()
 
+func trigger_animation():
+	$FallAnimation.play("HoleFall")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

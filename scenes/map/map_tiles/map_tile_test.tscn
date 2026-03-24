@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://c2t3egeq1j3fm"]
+
+[ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn" id="1_y1syk"]
+[ext_resource type="PackedScene" uid="uid://bnp11nh28mkf6" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_1.tscn" id="2_db1lx"]
+[ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_right_1.tscn" id="2_dw7v8"]
+[ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn" id="3_ett5m"]
+[ext_resource type="PackedScene" uid="uid://b28t8xmu454nn" path="res://scenes/map/map_tiles/tiles/map_tile_corner_left_1.tscn" id="4_lnrt0"]
+[ext_resource type="PackedScene" uid="uid://dp7g5bqwshptc" path="res://scenes/map/map_tiles/tiles/map_tile_corner_right_1.tscn" id="5_rhini"]
+
+[node name="MapTileTest" type="Node2D" unique_id=644074095]
+
+[node name="MapTileStraight1" parent="." unique_id=1407241641 instance=ExtResource("1_y1syk")]
+
+[node name="ObstacleTileStump1" parent="MapTileStraight1" unique_id=2133705382 instance=ExtResource("2_db1lx")]
+position = Vector2(0, 200)
+
+[node name="ObstacleTileStump2" parent="MapTileStraight1" unique_id=889969651 instance=ExtResource("2_db1lx")]
+position = Vector2(60, 300)
+
+[node name="ObstacleTileStump3" parent="MapTileStraight1" unique_id=10807892 instance=ExtResource("2_db1lx")]
+position = Vector2(60, 100)
+
+[node name="MapTileDiagonalRight1" parent="." unique_id=163658633 instance=ExtResource("2_dw7v8")]
+position = Vector2(0, 358)
+
+[node name="MapTileStraight2" parent="." unique_id=1344603809 instance=ExtResource("1_y1syk")]
+position = Vector2(165, 716)
+
+[node name="MapTileDiagonalLeft1" parent="." unique_id=1031919208 instance=ExtResource("3_ett5m")]
+position = Vector2(165, 1074)
+
+[node name="MapTileStraight3" parent="." unique_id=61279987 instance=ExtResource("1_y1syk")]
+position = Vector2(60, 1432)
+
+[node name="MapTileCornerLeft1" parent="." unique_id=1380791730 instance=ExtResource("4_lnrt0")]
+position = Vector2(60, 1790)
+
+[node name="MapTileStraight4" parent="." unique_id=1704705344 instance=ExtResource("1_y1syk")]
+position = Vector2(-440, 2148)
+
+[node name="MapTileCornerRight1" parent="." unique_id=526883001 instance=ExtResource("5_rhini")]
+position = Vector2(-440, 2506)
+
+[node name="MapTileStraight5" parent="." unique_id=1900516085 instance=ExtResource("1_y1syk")]
+position = Vector2(70, 2864)

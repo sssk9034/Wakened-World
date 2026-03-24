@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://c8gna8yf6stf4"]
+
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_rjnnf"]
+[ext_resource type="Script" uid="uid://bl6sr4efasv7j" path="res://scenes/map/obstacles/manual_obstacle_position.gd" id="2_1avqh"]
+[ext_resource type="Script" uid="uid://bboa6j0yse5tj" path="res://scenes/map/obstacles/manual_obstacle_layout.gd" id="3_iwm4v"]
+[ext_resource type="PackedScene" uid="uid://bnp11nh28mkf6" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_1.tscn" id="3_mlpn3"]
+[ext_resource type="PackedScene" uid="uid://c1d3rmmgu6k25" path="res://scenes/map/obstacles/tiles/obstacle_tile_slow.tscn" id="4_mlpn3"]
+
+[sub_resource type="Resource" id="Resource_iwm4v"]
+script = ExtResource("2_1avqh")
+tile_scene = ExtResource("3_mlpn3")
+position = Vector2(-60, 30)
+metadata/_custom_type_script = "uid://bl6sr4efasv7j"
+
+[sub_resource type="Resource" id="Resource_mlpn3"]
+script = ExtResource("2_1avqh")
+tile_scene = ExtResource("4_mlpn3")
+position = Vector2(60, 300)
+metadata/_custom_type_script = "uid://bl6sr4efasv7j"
+
+[sub_resource type="Resource" id="Resource_uiwsi"]
+resource_local_to_scene = true
+script = ExtResource("3_iwm4v")
+positions = Array[ExtResource("2_1avqh")]([SubResource("Resource_iwm4v"), SubResource("Resource_mlpn3")])
+metadata/_custom_type_script = "uid://bboa6j0yse5tj"
+
+[node name="MapTileStraight1" unique_id=1407241641 instance=ExtResource("1_rjnnf")]
+
+[node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
+region_rect = Rect2(33, 32, 490, 358)
+
+[node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
+region_rect = Rect2(33, 422, 490, 358)
+
+[node name="LeftBackgroundTexture" parent="." index="2" unique_id=1526904559]
+region_rect = Rect2(1602, 812, 490, 358)
+
+[node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
+region_rect = Rect2(1602, 812, 490, 358)
+
+[node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
+polygon = PackedVector2Array(118, -2, 245, -2, 248, 361, 121, 361)
+
+[node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
+polygon = PackedVector2Array(-138, -1, -246, -1, -246, 358, -139, 359)
+
+[node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
+obstacle_layout = SubResource("Resource_uiwsi")

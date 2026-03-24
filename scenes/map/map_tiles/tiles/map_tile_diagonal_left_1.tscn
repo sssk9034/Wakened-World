@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://b03qwupxlw75p"]
+
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_iifhh"]
+[ext_resource type="Script" uid="uid://bl6sr4efasv7j" path="res://scenes/map/obstacles/manual_obstacle_position.gd" id="2_53a38"]
+[ext_resource type="PackedScene" uid="uid://cxx8j8o7ua1xp" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost_1.tscn" id="3_53a38"]
+[ext_resource type="Script" uid="uid://bboa6j0yse5tj" path="res://scenes/map/obstacles/manual_obstacle_layout.gd" id="4_m6qt5"]
+
+[sub_resource type="Resource" id="Resource_25xt4"]
+script = ExtResource("2_53a38")
+tile_scene = ExtResource("3_53a38")
+position = Vector2(30, 100)
+metadata/_custom_type_script = "uid://bl6sr4efasv7j"
+
+[sub_resource type="Resource" id="Resource_m6qt5"]
+resource_local_to_scene = true
+script = ExtResource("4_m6qt5")
+positions = Array[ExtResource("2_53a38")]([SubResource("Resource_25xt4")])
+metadata/_custom_type_script = "uid://bboa6j0yse5tj"
+
+[node name="MapTileDiagonalLeft1" unique_id=1407241641 instance=ExtResource("1_iifhh")]
+
+[node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
+offset = Vector2(-295, 0)
+region_rect = Rect2(556, 32, 490, 358)
+
+[node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
+offset = Vector2(-295, 0)
+region_rect = Rect2(556, 422, 490, 358)
+
+[node name="LeftBackgroundTexture" parent="." index="2" unique_id=1526904559]
+offset = Vector2(-785, 0)
+region_rect = Rect2(1079, 812, 490, 358)
+
+[node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
+offset = Vector2(195, 0)
+region_rect = Rect2(1602, 812, 490, 358)
+
+[node name="NextTileMarker" parent="." index="4" unique_id=37438559]
+position = Vector2(-105, 358)
+
+[node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
+polygon = PackedVector2Array(-163, -26, -318, 402, -518, 395, -353, -16)
+
+[node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
+polygon = PackedVector2Array(180, -15, 43, 411, 321, 406, 496, -26)
+
+[node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
+obstacle_layout = SubResource("Resource_m6qt5")
