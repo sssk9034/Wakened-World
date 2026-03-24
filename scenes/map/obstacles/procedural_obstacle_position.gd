@@ -5,7 +5,6 @@ extends ObstaclePosition
 ## Includes the positioning information of the obstacle, as well as what obstacles
 ## are allowed to be placed here.
 
-@export_group("Generation")
 ## Links positions that are "next to" one another.
 ## If two or more positions have the same ID, then their ObstacleType.allowed_next_to
 ## is considered in placing the group. All already placed obstacles with the same ID
