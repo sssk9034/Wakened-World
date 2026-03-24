@@ -1,4 +1,4 @@
-class_name TestMapBuilder
+class_name ManualMapBuilder
 extends MapBuilder
 
 var tile_scenes_index: int = 0
