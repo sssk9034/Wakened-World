@@ -27,4 +27,4 @@ class MudVelocityModifier extends Map.VelocityModifier:
 		priority = 50
 	
 	func mod_velocity(old_velocity: float, _original_velocity: float) -> float:
-		return old_velocity * 0.8
+		return old_velocity * 0.5

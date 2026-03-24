@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bl6sr4efasv7j" path="res://scenes/map/obstacles/manual_obstacle_position.gd" id="2_1avqh"]
 [ext_resource type="Script" uid="uid://bboa6j0yse5tj" path="res://scenes/map/obstacles/manual_obstacle_layout.gd" id="3_iwm4v"]
 [ext_resource type="PackedScene" uid="uid://bnp11nh28mkf6" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_1.tscn" id="3_mlpn3"]
+[ext_resource type="PackedScene" uid="uid://cxx8j8o7ua1xp" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost_1.tscn" id="4_mlpn3"]
 
 [sub_resource type="Resource" id="Resource_iwm4v"]
 script = ExtResource("2_1avqh")
@@ -13,7 +14,7 @@ metadata/_custom_type_script = "uid://bl6sr4efasv7j"
 
 [sub_resource type="Resource" id="Resource_mlpn3"]
 script = ExtResource("2_1avqh")
-tile_scene = ExtResource("3_mlpn3")
+tile_scene = ExtResource("4_mlpn3")
 position = Vector2(60, 150)
 metadata/_custom_type_script = "uid://bl6sr4efasv7j"
 
