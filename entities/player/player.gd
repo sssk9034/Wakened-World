@@ -13,7 +13,7 @@ class_name Player
 #@onready var screensize: Vector2 = get_viewport_rect().size
 
 #create character variable for the Node as type Sprite2D
-@onready var character: Sprite2D = $Character
+@onready var character: AnimatedSprite2D = $Character
 
 #init position history list for moss slug script
 var position_history: PackedFloat32Array = []
@@ -49,11 +49,11 @@ func _process(_delta: float) -> void:
 
 #set sprite frame to left slide for left input, right frame for right input, straight frame for no input
 	if input > 0:
-		character.frame = 7
+		character.animation = "right"
 	elif input < 0:
-		character.frame = 6
+		character.animation = "left"
 	else:
-		character.frame = 5
+		character.animation = "straight"
 	
 	#Update velocity
 	velocity.x = input * speed

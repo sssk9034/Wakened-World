@@ -1,8 +1,10 @@
 extends Area2D
 
-@onready var character: Sprite2D = $Character
+@onready var character: AnimatedSprite2D = $Character
+@onready var drag_path: AnimatedSprite2D = $DragPath
 
-@export var delay_frames : int = 12  # how many frames behind the player to follow
+
+@export var delay_frames : int = 25  # how many frames behind the player to follow
 @export var speed: int = 150 # slug speed
 
 @export var player: Player
@@ -24,9 +26,12 @@ func _physics_process(delta: float) -> void:
 
 			# Animation
 			if distance > 0:
-				character.frame = 5
+				character.animation = "right"
+				drag_path.animation = "right"
 			elif distance < 0:
-				character.frame = 4
+				character.animation = "left"
+				drag_path.animation = "left"
 
 		else:
-			character.frame = 6
+			character.animation = "straight"
+			drag_path.animation = "straight"
