@@ -1,9 +1,23 @@
 extends Node2D
 
+@onready var _root_node: Node = get_tree().root
+var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
+@onready var _fade_animation: AnimationPlayer = $FadeAnimation
+
 
 func _ready() -> void:
-	pass
+	_fade_animation_func()
 
 
 func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main/main_game.tscn")
+	_root_node.add_child(_main_scene.instantiate())
+	await _fade_animation_reverse()
+	queue_free()
+
+func _fade_animation_func() -> void:
+	_fade_animation.play("FadeAnimation")
+	await _fade_animation.animation_finished
+
+func _fade_animation_reverse() -> void:
+	_fade_animation.play_backwards("FadeAnimation")
+	await _fade_animation.animation_finished

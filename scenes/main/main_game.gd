@@ -1,57 +1,39 @@
 extends Node2D
 
-## Constant speed at which the slug approaches the player on screen (px/s).
-## Independent of map velocity — the slug always visually crawls at this rate.
-@export var slug_approach_speed: float = 5.0
-## How fast the slug follows the player horizontally (px/s).
-@export var slug_follow_speed: float = 150.0
-
 @onready var _player: Player = $Player
-@onready var _moss_slug: Area2D = $MossSlug
-@onready var _slug_character: AnimatedSprite2D = $MossSlug/Character
-@onready var _slug_drag_path: AnimatedSprite2D = $MossSlug/DragPath
+@onready var _moss_slug: MossSlug = $MossSlug
+@onready var _map: Map = $Map
 
 var _slug_start_y: float = 0.0
-var _elapsed_time: float = 0.0
+
+@onready var _root_node: Node = get_tree().root
+var _death_scene: PackedScene = preload("res://ui/death/death_scene.tscn")
+var _dead: bool = false
+
+const PLAYER_VELOCITY: float = 100.00
+const SLUG_VELOCITY: float = 90.00
 
 
 func _ready() -> void:
+	_map.change_velocity(PLAYER_VELOCITY)
+	
 	SignalBus.obstacle_collided.connect(_on_obstacle_collided)
 	SignalBus.obstacle_cleared.connect(_on_obstacle_cleared)
-	_moss_slug.body_entered.connect(_on_moss_slug_caught_player)
+	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
 	_slug_start_y = _moss_slug.position.y
 
-
 func _physics_process(delta: float) -> void:
-	_update_moss_slug(delta)
+	_moss_slug.target = _player.global_position
+	_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
+	print(_moss_slug.velocity)
+	print(_map.get_velocity())
+	
 
-
-func _update_moss_slug(delta: float) -> void:
-	_elapsed_time += delta
-
-	# Vertical: position calculated from start, guaranteeing constant speed
-	_moss_slug.position.y = _slug_start_y + slug_approach_speed * _elapsed_time
-
-	# Horizontal: follow the player directly
-	var target_x: float = _player.global_position.x
-	var distance_x: float = target_x - _moss_slug.global_position.x
-
-	if abs(distance_x) > 1.0:
-		_moss_slug.global_position.x += sign(distance_x) * slug_follow_speed * delta
-
-		if distance_x > 0:
-			_slug_character.animation = "right"
-			_slug_drag_path.animation = "right"
-		else:
-			_slug_character.animation = "left"
-			_slug_drag_path.animation = "left"
-	else:
-		_slug_character.animation = "straight"
-		_slug_drag_path.animation = "straight"
-
-
-func _on_moss_slug_caught_player(_body: Node2D) -> void:
-	get_tree().change_scene_to_file("res://ui/death/death_scene.tscn")
+func _on_moss_slug_caught_player() -> void:
+	if not _dead:
+		_root_node.add_child(_death_scene.instantiate())
+		get_tree().create_timer(1.5).timeout.connect(queue_free)
+		_dead = true
 
 
 func _on_obstacle_collided(obstacle: ObstacleTile) -> void:
