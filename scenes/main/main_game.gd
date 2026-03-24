@@ -25,15 +25,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_moss_slug.target = _player.global_position
 	_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
-	print(_moss_slug.velocity)
-	print(_map.get_velocity())
 	
 
 func _on_moss_slug_caught_player() -> void:
 	if not _dead:
+		_dead = true
 		_root_node.add_child(_death_scene.instantiate())
 		get_tree().create_timer(1.5).timeout.connect(queue_free)
-		_dead = true
 
 
 func _on_obstacle_collided(obstacle: ObstacleTile) -> void:

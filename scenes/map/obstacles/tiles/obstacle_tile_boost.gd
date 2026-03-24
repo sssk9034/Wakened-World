@@ -27,4 +27,4 @@ class BoostVelocityModifier extends Map.VelocityModifier:
 		priority = 50
 	
 	func mod_velocity(old_velocity: float, _original_velocity: float) -> float:
-		return old_velocity * 1.2
+		return old_velocity * 2

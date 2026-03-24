@@ -9,23 +9,15 @@ var _rng_seed: int = 0
 var _rng_use_seed: bool = false
 
 func _init() -> void:
-	pass
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# TODO these here?
 	_update_map_seed()
 	_update_map_length()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
-
 func get_next_tile() -> MapTile:
 	return null
+
+
+func has_next_tile() -> bool:
+	return false
 
 
 ## Updates the rng seed if map_seed is not empty, otherwise uses a random seed.
