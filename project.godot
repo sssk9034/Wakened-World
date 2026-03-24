@@ -16,6 +16,10 @@ run/main_scene="uid://bftis3418o211"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://bfw8u6k8ots2r"
 
+[autoload]
+
+SignalBus="*res://autoload/signal_bus.gd"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1

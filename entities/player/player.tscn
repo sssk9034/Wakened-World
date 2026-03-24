@@ -71,6 +71,11 @@ position = Vector2(11, -18)
 shape = SubResource("SegmentShape2D_sglur")
 debug_color = Color(0.7022407, 0.274324, 1, 0.41960785)
 
+[node name="ObstacleCollisionShape2D2" type="CollisionShape2D" parent="ObstacleArea2D" unique_id=718918653]
+position = Vector2(11, -44)
+shape = SubResource("SegmentShape2D_sglur")
+debug_color = Color(0.7022407, 0.274324, 1, 0.41960785)
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=346281184]
 zoom = Vector2(0.5, 0.5)
 limit_enabled = false
