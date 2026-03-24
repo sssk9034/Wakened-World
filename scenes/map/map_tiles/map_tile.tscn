@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmtl0bs0g0ly" path="res://scenes/map/map_tiles/map_tile.gd" id="1_njwib"]
 [ext_resource type="Texture2D" uid="uid://b3kbher14tpp4" path="res://scenes/map/map_tiles/texures/map_tileset.png" id="2_5ere8"]
+[ext_resource type="PackedScene" uid="uid://uuy58g84oq3m" path="res://scenes/map/obstacles/obstacle_layer.tscn" id="3_ai36d"]
 
 [node name="MapTile" type="Node2D" unique_id=1407241641]
 script = ExtResource("1_njwib")
@@ -49,3 +50,5 @@ collision_mask = 0
 [node name="LeftCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=2133401722]
 
 [node name="RightCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=47519974]
+
+[node name="ObstacleLayer" parent="." unique_id=1756401816 instance=ExtResource("3_ai36d")]
