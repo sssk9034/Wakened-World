@@ -23,6 +23,8 @@ player = NodePath("../Player")
 position = Vector2(0, 140)
 stream = ExtResource("8_0wxsa")
 script = ExtResource("9_25ngl")
+min_delay = null
+max_delay = null
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]
 
