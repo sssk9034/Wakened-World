@@ -5,7 +5,7 @@ class_name Player
 
 @export var speed: int = 200
 
-@onready var character: Sprite2D = $Character
+@onready var character: AnimatedSprite2D = $Character
 
 
 func _ready() -> void:
@@ -32,10 +32,11 @@ func _process(_delta: float) -> void:
 	var input: float = Input.get_axis("player_left", "player_right")
 
 	if input > 0:
-		character.frame = 7
+		character.animation = "right"
 	elif input < 0:
-		character.frame = 6
+		character.animation = "left"
 	else:
-		character.frame = 5
+		character.animation = "straight"
+
 
 	velocity.x = input * speed
