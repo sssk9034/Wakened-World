@@ -44,19 +44,19 @@ func _physics_process(delta: float) -> void:
 #makes sure to play the roar at the start of the game
 func start_roar(distance: float) -> void:
 	if abs(distance) > 1.0:
-			var roar_state = check_roar()
+			var roar_state = true
 			if (roar_state == false):
 				play_roar()
-			
-#detects if the monster has roared at that start of the game.
-func check_roar() -> bool:
-	# Track if the monster has moved and already roared
-
-	if (roar_detector == 1):
-		has_roared_this_move = true
-	
-	roar_detector = 1
-	return has_roared_this_move
+				
+#detects if the monster is close to the player.
+#func close_roar() -> bool:
+	## Track if the monster has moved and already roared
+#
+	#if (roar_detector == 1):
+		#has_roared_this_move = true
+	#
+	#roar_detector = 1
+	#return has_roared_this_move
 
 func play_roar() -> void:
 	roar.stop()
