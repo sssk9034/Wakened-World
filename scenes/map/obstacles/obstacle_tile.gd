@@ -19,25 +19,25 @@ func _process(_delta: float) -> void:
 	
 # Called when an Area2D enters the obstacle bounds.
 func _on_area_2d_area_entered(_area: Area2D) -> void:
-	SignalBus.obstacle_collided.emit(self)
+	
 	_apply_velocity_modifier()
 
 
 # Called when an Area2D exits the obstacle bounds.
 func _on_area_2d_area_exited(_area: Area2D) -> void:
-	SignalBus.obstacle_cleared.emit(self)
+	
 	_remove_velocity_modifier()
 	
 
 # Called when a PhysicsBody2D enters the obstacle bounds.
 func _on_area_2d_body_entered(_body: Node2D) -> void:
-	SignalBus.obstacle_collided.emit(self)
+	
 	_apply_velocity_modifier()
 
 
 # Called when a PhysicsBody2D exits the obstacle bounds.
 func _on_area_2d_body_exited(_body: Node2D) -> void:
-	SignalBus.obstacle_cleared.emit(self)
+	
 	_remove_velocity_modifier()
 
 

@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-@onready var _root_node: Node = get_tree().root
 var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
 @onready var _fade_animation: AnimationPlayer = $FadeAnimation
 
@@ -19,6 +18,6 @@ func _fade_animation_reverse() -> void:
 
 
 func _on_texture_button_pressed() -> void:
-	_root_node.add_child(_main_scene.instantiate())
+	get_tree().root.add_child(_main_scene.instantiate())
 	await _fade_animation_reverse()
 	queue_free()

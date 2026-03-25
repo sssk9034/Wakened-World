@@ -10,8 +10,6 @@ static var _singleton: MainGame = null
 @onready var _moss_slug: MossSlug = $MossSlug
 @onready var _map: Map = $Map
 
-var _slug_start_y: float = 0.0
-
 var _death_scene: PackedScene = preload("res://ui/death/death_scene.tscn")
 var _dead: bool = false
 
@@ -29,10 +27,7 @@ func _exit_tree() -> void:
 func _ready() -> void:
 	_map.change_velocity(PLAYER_VELOCITY)
 	
-	SignalBus.obstacle_collided.connect(_on_obstacle_collided)
-	SignalBus.obstacle_cleared.connect(_on_obstacle_cleared)
 	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
-	_slug_start_y = _moss_slug.position.y
 
 func _physics_process(_delta: float) -> void:
 	_moss_slug.target = _player.global_position
@@ -43,12 +38,6 @@ func _on_moss_slug_caught_player() -> void:
 	if not _dead:
 		_dead = true
 		scene_switcher(_death_scene)
-
-
-func _on_obstacle_collided(obstacle: ObstacleTile) -> void:
-	if obstacle.is_in_group("Holes"):
-		print("[MainGame]: Player fell in a hole! Game Over!")
-
 
 func _on_obstacle_cleared(_obstacle: ObstacleTile) -> void:
 	pass
