@@ -1,7 +1,7 @@
 extends AudioStreamPlayer2D
 
-@export var min_delay: float = 30
-@export var max_delay: float = 40
+@export var min_delay: float = 5
+@export var max_delay: float = 10
 
 var timer: float = 0.0
 

@@ -28,9 +28,10 @@ script = ExtResource("9_25ngl")
 
 [node name="Sliding" type="AudioStreamPlayer2D" parent="Player" unique_id=1268293163]
 stream = ExtResource("5_v4wsd")
-volume_db = -30.0
+volume_db = -17.52
 script = ExtResource("5_esv8v")
 
 [node name="Background" type="AudioStreamPlayer2D" parent="." unique_id=1328322930]
 stream = ExtResource("7_v4wsd")
+volume_db = 15.947
 autoplay = true
