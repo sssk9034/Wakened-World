@@ -9,6 +9,7 @@ extends Area2D
 
 @export var player: Player
 
+var has_roared_this_move: bool = false
 var roar_detector = 0
 
 func _ready() -> void:
@@ -50,7 +51,7 @@ func start_roar(distance: float) -> void:
 #detects if the monster has roared at that start of the game.
 func check_roar() -> bool:
 	# Track if the monster has moved and already roared
-	var has_roared_this_move: bool = false
+
 	if (roar_detector == 1):
 		has_roared_this_move = true
 	
