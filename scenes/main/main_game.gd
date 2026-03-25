@@ -34,7 +34,7 @@ func _ready() -> void:
 	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
 	_slug_start_y = _moss_slug.position.y
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	_moss_slug.target = _player.global_position
 	_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
 	

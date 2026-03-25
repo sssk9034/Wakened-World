@@ -2,7 +2,6 @@ class_name MossSlug
 
 extends CharacterBody2D
 
-@export var _slug_approach_speed: float = 5.0
 @export var _slug_follow_speed: float = 150.0
 
 @onready var _slug_character: AnimatedSprite2D = $Character
@@ -63,5 +62,5 @@ func _update_moss_slug(delta: float) -> void:
 	_update_collision_shape(_slug_character.animation)
 
 
-func _on_slug_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_slug_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	caught_player.emit()
