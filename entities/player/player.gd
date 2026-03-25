@@ -1,35 +1,33 @@
-extends CharacterBody2D
-
-#Make Player a class name so moss slug script can init player variable as type Player
 class_name Player
 
-#Add player speed as a variable in inspector
+extends CharacterBody2D
+
+static var singleton: Player:
+	get:
+		return _singleton
+static var _singleton: Player = null
+
 @export var speed: int = 200
 
-# We aren't using this variable right now but I suspect it will come in handy...maybe not
-#@onready var screensize: Vector2 = get_viewport_rect().size
+@onready var character: AnimatedSprite2D = $Character
 
-#create character variable for the Node as type Sprite2D
-@onready var character: Sprite2D = $Character
+@onready var _fall_animation: AnimationPlayer = $FallAnimation
 
-#init position history list for moss slug script
-var position_history: PackedFloat32Array = []
+var can_user_control: bool = true
+@export var computer_target: Vector2
 
-# Called when the node enters the scene tree for the first time.
+var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
+
+func _enter_tree() -> void:
+	if singleton == null:
+		_singleton = self
+
+func _exit_tree() -> void:
+	if singleton == self:
+		_singleton.queue_free()
+
 func _ready() -> void:
-	pass # Replace with function body.
-
-# How we are handling movement WITH Character2DBody (using move_and_slide)
-func _physics_process(_delta: float) -> void:
-	move_and_slide()
-	
-	#Tracks player position for use in moss_slug script
-	position_history.append(global_position.x)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	var input: float = Input.get_axis("player_left", "player_right")
+	_fall_animation.set_current_animation("")
 
 #set sprite frame to left slide for left input, right frame for right input, straight frame for no input
 	if input > 0:
@@ -54,4 +52,33 @@ func _process(_delta: float) -> void:
 	##append players position to the position history list
 	#position_history.append(global_position.x)
 	
+
+func _physics_process(delta: float) -> void:
+	if can_user_control:
+		var input: float = Input.get_axis("player_left", "player_right")
+		update_character_animation(input)
+		velocity.x = input * speed
 	
+		move_and_slide()
+		position.y = 0
+	elif computer_target != null:
+		position = position.move_toward(computer_target, delta * speed)
+
+func is_at_target() -> bool:
+	return position.is_equal_approx(computer_target)  
+
+func update_character_animation(direction: float) -> void:
+	if direction > 0:
+		character.animation = "right"
+	elif direction < 0:
+		character.animation = "left"
+	else:
+		character.animation = "straight"
+
+func trigger_hole_death(hole_position: Vector2) -> void:
+	computer_target = hole_position
+	can_user_control = false
+	_fall_animation.play("HoleFall")
+
+func _on_fall_animation_animation_finished(_anim_name: StringName) -> void:
+	MainGame.singleton.scene_switcher(_death_scene)

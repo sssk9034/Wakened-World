@@ -1,23 +1,266 @@
-[gd_scene format=3 uid="uid://dxgs5oj5ojbkg"]
+[gd_scene format=3 uid="uid://3jj2diuimg1l"]
 
-[ext_resource type="Texture2D" uid="uid://vmfbknf8jok" path="res://entities/player/assets/player_sprites.png" id="1_i25i0"]
 [ext_resource type="Script" uid="uid://6gcl0w7t8ow" path="res://entities/player/player.gd" id="1_rihsh"]
+[ext_resource type="Texture2D" uid="uid://3x21kdofptpr" path="res://entities/player/assets/PCSlidingAnimationsSheetBigDragPath.png" id="2_sglur"]
 [ext_resource type="PackedScene" uid="uid://si18qr0v5vxh" path="res://ui/game_hud/game_hud.tscn" id="3_sglur"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rihsh"]
-size = Vector2(35, 81)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bls4j"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 0, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkugw"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 94, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fjmc"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 188, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qiwj3"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 282, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26q78"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 376, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bectd"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 470, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvtmh"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 564, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7thud"]
+atlas = ExtResource("2_sglur")
+region = Rect2(0, 658, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1qjk"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 0, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3ovn"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 94, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afbqv"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 188, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gx6sm"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 282, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqrof"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 376, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wlsy"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 470, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2kln"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 564, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we0b7"]
+atlas = ExtResource("2_sglur")
+region = Rect2(160, 658, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtric"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 0, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyb6c"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 94, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_221hk"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 188, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghoj8"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 282, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1t22"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 376, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50fht"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 470, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuv6x"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 564, 80, 94)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpopc"]
+atlas = ExtResource("2_sglur")
+region = Rect2(80, 658, 80, 94)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gt4e4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bls4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkugw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fjmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qiwj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26q78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bectd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvtmh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7thud")
+}],
+"loop": true,
+"name": &"left",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1qjk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3ovn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afbqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gx6sm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqrof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wlsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2kln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we0b7")
+}],
+"loop": true,
+"name": &"right",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtric")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyb6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_221hk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghoj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1t22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50fht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuv6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpopc")
+}],
+"loop": true,
+"name": &"straight",
+"speed": 14.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sglur"]
+radius = 21.0
+height = 66.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_sglur"]
+a = Vector2(-29, 33)
+b = Vector2(7, 33)
+
+[sub_resource type="Animation" id="Animation_sglur"]
+resource_name = "HoleFall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_bls4j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Character:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkugw"]
+_data = {
+&"HoleFall": SubResource("Animation_sglur"),
+&"RESET": SubResource("Animation_bls4j")
+}
 
 [node name="Player" type="CharacterBody2D" unique_id=267217265]
+collision_layer = 4
 script = ExtResource("1_rihsh")
 
-[node name="Character" type="Sprite2D" parent="." unique_id=201899216]
-texture = ExtResource("1_i25i0")
-hframes = 9
-frame = 8
+[node name="Character" type="AnimatedSprite2D" parent="." unique_id=196492017]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_gt4e4")
+animation = &"straight"
+autoplay = "straight"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=37950386]
-position = Vector2(-11.5, -5.5)
-shape = SubResource("RectangleShape2D_rihsh")
+[node name="WallCollisionShape2D" type="CollisionShape2D" parent="." unique_id=37950386]
+shape = SubResource("CapsuleShape2D_sglur")
+
+[node name="ObstacleArea2D" type="Area2D" parent="." unique_id=125134058]
+collision_layer = 2
+collision_mask = 0
+input_pickable = false
+
+[node name="ObstacleCollisionShape2D" type="CollisionShape2D" parent="ObstacleArea2D" unique_id=1948725305]
+position = Vector2(11, -3.845)
+shape = SubResource("SegmentShape2D_sglur")
+debug_color = Color(0.7022407, 0.274324, 1, 0.41960785)
+
+[node name="ObstacleCollisionShape2D2" type="CollisionShape2D" parent="ObstacleArea2D" unique_id=718918653]
+position = Vector2(10, -31)
+shape = SubResource("SegmentShape2D_sglur")
+debug_color = Color(0.7022407, 0.274324, 1, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=346281184]
 zoom = Vector2(0.5, 0.5)
@@ -28,3 +271,8 @@ drag_horizontal_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=2065057715]
 
 [node name="GameHud" parent="Camera2D/CanvasLayer" unique_id=1640925269 instance=ExtResource("3_sglur")]
+
+[node name="FallAnimation" type="AnimationPlayer" parent="." unique_id=924586342]
+libraries/ = SubResource("AnimationLibrary_fkugw")
+
+[connection signal="animation_finished" from="FallAnimation" to="." method="_on_fall_animation_animation_finished"]

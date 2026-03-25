@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c5753ljgvufem"]
+
+[ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_s5nyf"]
+[ext_resource type="Script" uid="uid://rjr13bya3qpa" path="res://scenes/map/obstacles/tiles/obstacle_tile_hole.gd" id="2_4o4q3"]
+
+[node name="ObstacleTileHole1" unique_id=2133705382 instance=ExtResource("1_s5nyf")]
+script = ExtResource("2_4o4q3")
+
+[node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
+region_rect = Rect2(44, 354, 137, 76)
+
+[node name="CollisionPolygon2D" parent="Area2D" parent_id_path=PackedInt32Array(271840421) index="0" unique_id=757952542]
+polygon = PackedVector2Array(45, -27, -2, -34, -43, -26, -61, -4, -52, 21, -18, 33, 22, 33, 55, 17, 64, -4)

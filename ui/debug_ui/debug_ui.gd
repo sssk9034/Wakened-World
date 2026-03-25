@@ -1,10 +1,11 @@
 extends Control
 
-const stat_label: PackedScene = preload("uid://ckng37s0a3a7p") # stat_label.tscn
+const STAT_LABEL: PackedScene = preload("uid://ckng37s0a3a7p") # stat_label.tscn
 
 @onready var stat_container: VBoxContainer = $DebugOverlay/MarginContainer2/VBoxContainer
 @onready var overlay_container: MarginContainer = $DebugOverlay
 
+@onready var _root_viewport: Viewport = get_tree().root
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +15,7 @@ func _ready() -> void:
 	overlay_container.size = Vector2(0, 0)
 	
 	# Game version info
-	var stat: StatLabel = stat_label.instantiate()
+	var stat: StatLabel = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.STATIC_TEXT
 	stat.prefix_str = "%s (v%s) Debug UI" % [
 			ProjectSettings.get_setting("application/config/name"),
@@ -22,14 +23,14 @@ func _ready() -> void:
 	stat_container.add_child(stat)
 	
 	# Engine version info
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.STATIC_TEXT
 	stat.prefix_str = Engine.get_version_info().string
 	stat_container.add_child(stat)
 	
 	# Window resolution
 	var window_res_callable: Callable = Callable(self, "_get_window_resolution")
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.CALLABLE
 	stat.prefix_str = "Window Resolution: "
 	stat.callable = window_res_callable
@@ -38,16 +39,25 @@ func _ready() -> void:
 	
 	# Render resolution
 	var render_res_callable: Callable = Callable(self, "_get_render_resolution")
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.CALLABLE
 	stat.prefix_str = "Render Resolution: "
 	stat.callable = render_res_callable
 	stat.format_string = "%dx%d"
 	stat_container.add_child(stat)
 	
+	# Camera resolution
+	var camera_res_callable: Callable = Callable(self, "_get_camera_resolution")
+	stat = STAT_LABEL.instantiate()
+	stat.type = StatLabel.StatType.CALLABLE
+	stat.prefix_str = "Camera Resolution: "
+	stat.callable = camera_res_callable
+	stat.format_string = "%dx%d"
+	stat_container.add_child(stat)
+	
 	# Camera position
 	var camera_pos_callable: Callable = Callable(self, "_get_camera_position")
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.CALLABLE
 	stat.prefix_str = "Camera Position: "
 	stat.callable = camera_pos_callable
@@ -55,7 +65,7 @@ func _ready() -> void:
 	stat_container.add_child(stat)
 	
 	# Frame time
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.PERFORMANCE_MONITOR
 	stat.prefix_str = "Frame time: "
 	stat.postfix_str = " sec"
@@ -64,7 +74,7 @@ func _ready() -> void:
 	stat_container.add_child(stat)
 	
 	# Physics frame time
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.PERFORMANCE_MONITOR
 	stat.prefix_str = "Physics frame time: "
 	stat.postfix_str = " sec"
@@ -73,7 +83,7 @@ func _ready() -> void:
 	stat_container.add_child(stat)
 	
 	# Frames/sec
-	stat = stat_label.instantiate()
+	stat = STAT_LABEL.instantiate()
 	stat.type = StatLabel.StatType.PERFORMANCE_MONITOR
 	stat.prefix_str = "FPS: "
 	stat.monitor = Performance.TIME_FPS
@@ -89,15 +99,21 @@ func _input(event: InputEvent) -> void:
 
 
 func _get_window_resolution() -> Array[int]:
-	var res: Vector2i = get_window().size
+	var res: Vector2i = _root_viewport.get_window().size
 	return [res.x, res.y]
 	
 	
 func _get_render_resolution() -> Array[int]:
-	var res: Vector2i = get_viewport_rect().size
+	var res: Vector2i = _root_viewport.get_visible_rect().size
+	return [res.x, res.y]
+	
+
+func _get_camera_resolution() -> Array[int]:
+	var res: Vector2i = (_root_viewport.get_visible_rect().size
+			/ _root_viewport.get_camera_2d().zoom)
 	return [res.x, res.y]
 	
 	
 func _get_camera_position() -> Array[int]:
-	var pos: Vector2i = get_viewport().get_camera_2d().global_position
+	var pos: Vector2i = _root_viewport.get_camera_2d().get_screen_center_position()
 	return [pos.x, pos.y]

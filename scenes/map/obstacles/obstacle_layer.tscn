@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://uuy58g84oq3m"]
+
+[ext_resource type="Script" uid="uid://bbxg3stkj6u70" path="res://scenes/map/obstacles/obstacle_layer.gd" id="1_17q1v"]
+
+[node name="ObstacleLayer" type="Node2D" unique_id=1756401816]
+script = ExtResource("1_17q1v")

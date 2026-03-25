@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b65g3tlp0gs5p"]
+
+[ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_4enmt"]
+
+[node name="ObstacleTileRock4" unique_id=2133705382 instance=ExtResource("1_4enmt")]
+
+[node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
+offset = Vector2(19.755, 0)
+region_rect = Rect2(667, 199, 112, 65)
+
+[node name="CollisionPolygon2D" parent="Area2D" parent_id_path=PackedInt32Array(271840421) index="0" unique_id=757952542]
+polygon = PackedVector2Array(-9, -31, 14, -25, 43, 28, -34, 30)
