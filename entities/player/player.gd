@@ -1,42 +1,61 @@
+class_name Player
+
 extends CharacterBody2D
 
-
-class_name Player
+static var singleton: Player:
+	get:
+		return _singleton
+static var _singleton: Player = null
 
 @export var speed: int = 200
 
 @onready var character: AnimatedSprite2D = $Character
 
+@onready var _fall_animation: AnimationPlayer = $FallAnimation
+
+var can_user_control: bool = true
+@export var computer_target: Vector2
+
+var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
+
+func _enter_tree() -> void:
+	if singleton == null:
+		_singleton = self
+
+func _exit_tree() -> void:
+	if singleton == self:
+		_singleton.queue_free()
 
 func _ready() -> void:
-	$FallAnimation.set_current_animation("")
+	_fall_animation.set_current_animation("")
 
 
-func _physics_process(_delta: float) -> void:
-	move_and_slide()
-	position.y = 0
+func _physics_process(delta: float) -> void:
+	if can_user_control:
+		var input: float = Input.get_axis("player_left", "player_right")
+		update_character_animation(input)
+		velocity.x = input * speed
+	
+		move_and_slide()
+		position.y = 0
+	elif computer_target != null:
+		position = position.move_toward(computer_target, delta * speed)
 
-	for i in range(get_slide_collision_count()):
-		var collision: KinematicCollision2D = get_slide_collision(i)
-		var collider: Object = collision.get_collider()
+func is_at_target() -> bool:
+	return position.is_equal_approx(computer_target)  
 
-		if collider.is_in_group("Holes"):
-			trigger_animation()
-
-
-func trigger_animation() -> void:
-	$FallAnimation.play("HoleFall")
-
-
-func _process(_delta: float) -> void:
-	var input: float = Input.get_axis("player_left", "player_right")
-
-	if input > 0:
+func update_character_animation(direction: float) -> void:
+	if direction > 0:
 		character.animation = "right"
-	elif input < 0:
+	elif direction < 0:
 		character.animation = "left"
 	else:
 		character.animation = "straight"
 
+func trigger_hole_death(hole_position: Vector2) -> void:
+	computer_target = hole_position
+	can_user_control = false
+	_fall_animation.play("HoleFall")
 
-	velocity.x = input * speed
+func _on_fall_animation_animation_finished(_anim_name: StringName) -> void:
+	MainGame.singleton.scene_switcher(_death_scene)

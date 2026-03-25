@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 @onready var _root_node: Node = get_tree().root
 var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
@@ -6,13 +6,8 @@ var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
 
 
 func _ready() -> void:
-	_fade_animation_func()
-
-
-func _on_button_pressed() -> void:
-	_root_node.add_child(_main_scene.instantiate())
-	await _fade_animation_reverse()
-	queue_free()
+	await _fade_animation_func()
+	
 
 func _fade_animation_func() -> void:
 	_fade_animation.play("FadeAnimation")
@@ -21,3 +16,9 @@ func _fade_animation_func() -> void:
 func _fade_animation_reverse() -> void:
 	_fade_animation.play_backwards("FadeAnimation")
 	await _fade_animation.animation_finished
+
+
+func _on_texture_button_pressed() -> void:
+	_root_node.add_child(_main_scene.instantiate())
+	await _fade_animation_reverse()
+	queue_free()

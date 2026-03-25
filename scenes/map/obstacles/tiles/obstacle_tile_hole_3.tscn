@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_3nccx"]
 
-[node name="ObstacleTileHole3" unique_id=2133705382 groups=["Holes"] instance=ExtResource("1_3nccx")]
+[node name="ObstacleTileHole3" unique_id=2133705382 instance=ExtResource("1_3nccx")]
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 region_rect = Rect2(445, 345, 137, 88)
