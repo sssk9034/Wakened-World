@@ -32,15 +32,11 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	_moss_slug.target = _player.global_position
 	_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
-	
 
 func _on_moss_slug_caught_player() -> void:
 	if not _dead:
 		_dead = true
 		scene_switcher(_death_scene)
-
-func _on_obstacle_cleared(_obstacle: ObstacleTile) -> void:
-	pass
 
 func scene_switcher(scene: PackedScene) -> void:
 	get_tree().root.add_child(scene.instantiate())
