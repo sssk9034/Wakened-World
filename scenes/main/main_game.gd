@@ -11,7 +11,7 @@ static var _singleton: MainGame = null
 @onready var _map: Map = $Map
 
 var _death_scene: PackedScene = preload("res://ui/death/death_scene.tscn")
-var _dead: bool = false
+var _hole_death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
 
 const PLAYER_VELOCITY: float = 100.00
 const SLUG_VELOCITY: float = 90.00
@@ -34,10 +34,25 @@ func _physics_process(_delta: float) -> void:
 	_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
 
 func _on_moss_slug_caught_player() -> void:
-	if not _dead:
-		_dead = true
-		scene_switcher(_death_scene)
+	kill_player("slug")
 
 func scene_switcher(scene: PackedScene) -> void:
 	get_tree().root.add_child(scene.instantiate())
 	get_tree().create_timer(1.5).timeout.connect(queue_free)
+
+
+func kill_player(cause: String) -> void:
+	if _player.dead:
+		return
+	_player.dead = true
+	
+	if cause == "hole":
+		on_hole_death()
+	elif cause == "slug":
+		on_slug_death()
+
+func on_hole_death() -> void:
+	scene_switcher(_hole_death_scene)
+
+func on_slug_death() -> void:
+	scene_switcher(_death_scene)
