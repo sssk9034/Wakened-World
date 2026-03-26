@@ -1,5 +1,5 @@
-class_name ManualMapBuilder
-extends MapBuilder
+class_name ManualMapLayout
+extends MapLayout
 
 var tile_scenes_index: int = 0
 @export var tile_scenes: Array[PackedScene]:

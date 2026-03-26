@@ -1,5 +1,5 @@
 @abstract
-class_name MapBuilder
+class_name MapLayout
 extends Resource
 ## Class for building a map using MapTiles.
 

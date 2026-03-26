@@ -13,7 +13,6 @@ extends ObstacleLayout
 		return pos
 		
 @export var obstacle_builder: ObstacleBuilder
-
 @export var obstacle_rng: ProceduralRNG
 
 var _positions_index: int = 0

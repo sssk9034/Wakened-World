@@ -1,5 +1,5 @@
-class_name StartEndSceneMapBuilder
-extends MapBuilder
+class_name StartEndSceneMapLayout
+extends MapLayout
 
 func get_next_tile() -> MapTile:
 	return null
