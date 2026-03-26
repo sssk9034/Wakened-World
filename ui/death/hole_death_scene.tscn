@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dejwick1qoe5q"]
+
+[ext_resource type="Script" uid="uid://b4a8rp8gcfpxn" path="res://ui/death/hole_death_scene.gd" id="1_l262w"]
+[ext_resource type="Texture2D" uid="uid://vmfbknf8jok" path="res://entities/player/assets/player_sprites.png" id="2_6k5o2"]
+
+[sub_resource type="Animation" id="Animation_kd34d"]
+resource_name = "FallingInHoleAnimation"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.99),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(93, -22), Vector2(93, 136.055)]
+}
+
+[sub_resource type="Animation" id="Animation_0s2k4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(93, -22)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5q2mn"]
+_data = {
+&"FallingInHoleAnimation": SubResource("Animation_kd34d"),
+&"RESET": SubResource("Animation_0s2k4")
+}
+
+[node name="HoleDeathScene" type="CanvasLayer" unique_id=198883774]
+script = ExtResource("1_l262w")
+
+[node name="control" type="Control" parent="." unique_id=81903803]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="control" unique_id=457393593]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="control" unique_id=630115014]
+position = Vector2(93, -22)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6k5o2")
+region_enabled = true
+region_rect = Rect2(562, 1, 39, 83)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="control" unique_id=800312947]
+libraries/ = SubResource("AnimationLibrary_5q2mn")
+autoplay = &"FallingInHoleAnimation"
+
+[connection signal="animation_finished" from="control/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
