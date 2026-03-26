@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ObstacleBuilder" format=3 uid="uid://dy0thsd2mhxlm"]
+
+[ext_resource type="PackedScene" uid="uid://cg72lvrt8aa11" path="res://scenes/map/obstacles/tiles/obstacle_tile_blank.tscn" id="1_qq167"]
+[ext_resource type="PackedScene" uid="uid://cxx8j8o7ua1xp" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost_1.tscn" id="2_froti"]
+[ext_resource type="PackedScene" uid="uid://d03pr0gn7b51" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost_2.tscn" id="3_ykayj"]
+[ext_resource type="PackedScene" uid="uid://c5753ljgvufem" path="res://scenes/map/obstacles/tiles/obstacle_tile_hole_1.tscn" id="4_yj11d"]
+[ext_resource type="PackedScene" uid="uid://lgse4c7c4jvw" path="res://scenes/map/obstacles/tiles/obstacle_tile_hole_2.tscn" id="5_nonoj"]
+[ext_resource type="PackedScene" uid="uid://crumtli8sgew7" path="res://scenes/map/obstacles/tiles/obstacle_tile_hole_3.tscn" id="6_jide7"]
+[ext_resource type="PackedScene" uid="uid://bbnq4toyx4t27" path="res://scenes/map/obstacles/tiles/obstacle_tile_rock_1.tscn" id="7_pyeet"]
+[ext_resource type="PackedScene" uid="uid://c4u1sa4l0dbn" path="res://scenes/map/obstacles/tiles/obstacle_tile_rock_2.tscn" id="8_qy84p"]
+[ext_resource type="PackedScene" uid="uid://c67gn53ndq8jy" path="res://scenes/map/obstacles/tiles/obstacle_tile_rock_3.tscn" id="9_vinof"]
+[ext_resource type="PackedScene" uid="uid://b65g3tlp0gs5p" path="res://scenes/map/obstacles/tiles/obstacle_tile_rock_4.tscn" id="10_h0y78"]
+[ext_resource type="PackedScene" uid="uid://c1d3rmmgu6k25" path="res://scenes/map/obstacles/tiles/obstacle_tile_slow_1.tscn" id="11_7h23n"]
+[ext_resource type="PackedScene" uid="uid://bnp11nh28mkf6" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_1.tscn" id="12_p7i3o"]
+[ext_resource type="PackedScene" uid="uid://ceqdmlgrn5cjx" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_2.tscn" id="13_1kr17"]
+[ext_resource type="PackedScene" uid="uid://bdco5py8bthsq" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_3.tscn" id="14_kfxp3"]
+[ext_resource type="PackedScene" uid="uid://wc16dlmqvxnu" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_4.tscn" id="15_yjjyw"]
+[ext_resource type="PackedScene" uid="uid://cpf7kubn134ry" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_5.tscn" id="16_efsf7"]
+[ext_resource type="PackedScene" uid="uid://dfm8e61jvf4qp" path="res://scenes/map/obstacles/tiles/obstacle_tile_stump_6.tscn" id="17_wyckl"]
+[ext_resource type="Script" uid="uid://dqcu7nwaj1oix" path="res://scenes/map/obstacles/obstacle_builder.gd" id="18_7bl5k"]
+
+[resource]
+script = ExtResource("18_7bl5k")
+obstacle_list = Array[PackedScene]([ExtResource("2_froti"), ExtResource("3_ykayj"), ExtResource("4_yj11d"), ExtResource("5_nonoj"), ExtResource("6_jide7"), ExtResource("7_pyeet"), ExtResource("8_qy84p"), ExtResource("9_vinof"), ExtResource("10_h0y78"), ExtResource("11_7h23n"), ExtResource("12_p7i3o"), ExtResource("13_1kr17"), ExtResource("14_kfxp3"), ExtResource("15_yjjyw"), ExtResource("16_efsf7"), ExtResource("17_wyckl")])
+blank_obstacle = ExtResource("1_qq167")
+metadata/_custom_type_script = "uid://dqcu7nwaj1oix"

@@ -11,7 +11,9 @@ extends Node2D
 			if value != null:
 				value.changed.connect(queue_redraw)
 		obstacle_layout = value
-		queue_redraw()
+		
+		if Engine.is_editor_hint():
+			queue_redraw()
 
 var tile_count: int:
 	get:

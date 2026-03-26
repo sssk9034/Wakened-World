@@ -1,22 +1,6 @@
 [gd_scene format=3 uid="uid://dp7g5bqwshptc"]
 
 [ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_00rc0"]
-[ext_resource type="Script" uid="uid://bl6sr4efasv7j" path="res://scenes/map/obstacles/manual_obstacle_position.gd" id="2_erfqn"]
-[ext_resource type="PackedScene" uid="uid://d03pr0gn7b51" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost_2.tscn" id="3_5cgki"]
-[ext_resource type="Script" uid="uid://bboa6j0yse5tj" path="res://scenes/map/obstacles/manual_obstacle_layout.gd" id="4_tvvix"]
-
-[sub_resource type="Resource" id="Resource_ttvi6"]
-script = ExtResource("2_erfqn")
-tile_scene = ExtResource("3_5cgki")
-position = Vector2(520, 300)
-rotation = -0.5235987755982988
-metadata/_custom_type_script = "uid://bl6sr4efasv7j"
-
-[sub_resource type="Resource" id="Resource_y7f64"]
-resource_local_to_scene = true
-script = ExtResource("4_tvvix")
-positions = Array[ExtResource("2_erfqn")]([SubResource("Resource_ttvi6")])
-metadata/_custom_type_script = "uid://bboa6j0yse5tj"
 
 [node name="MapTileCornerRight1" unique_id=1407241641 instance=ExtResource("1_00rc0")]
 
@@ -44,6 +28,3 @@ polygon = PackedVector2Array(-146, -37, -144, 145, -39, 281, 149, 321, 320, 333,
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
 polygon = PackedVector2Array(159, -30, 111, 63, 168, 125, 324, 153, 471, 208, 665, 366, 798, 394, 783, -84)
-
-[node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
-obstacle_layout = SubResource("Resource_y7f64")

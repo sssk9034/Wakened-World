@@ -1,8 +1,21 @@
 [gd_scene format=3 uid="uid://wc16dlmqvxnu"]
 
 [ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_wa1f4"]
+[ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="2_spi5i"]
+[ext_resource type="Script" uid="uid://d8d6rw48bpds" path="res://scenes/map/obstacles/obstacle_type.gd" id="3_ixbru"]
+
+[sub_resource type="Resource" id="Resource_16t65"]
+script = ExtResource("2_spi5i")
+allowed_actions = Array[int]([1, 2])
+metadata/_custom_type_script = "uid://ba6kodwlyqon4"
+
+[sub_resource type="Resource" id="Resource_lglhs"]
+script = ExtResource("3_ixbru")
+allowed_next_to = SubResource("Resource_16t65")
+metadata/_custom_type_script = "uid://d8d6rw48bpds"
 
 [node name="ObstacleTileStump4" unique_id=2133705382 instance=ExtResource("1_wa1f4")]
+type = SubResource("Resource_lglhs")
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 offset = Vector2(16.395, 0)

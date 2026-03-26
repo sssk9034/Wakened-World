@@ -25,6 +25,15 @@ extends Resource
 		excluded_actions = value
 		emit_changed()
 
+## Returns true if the obstacle type is allowed.
+func test(type: ObstacleType) -> bool:
+	return (
+		_test_allowed(type.size, allowed_sizes)
+		and _test_exclude(type.size, excluded_sizes)
+		and _test_allowed(type.action, allowed_actions)
+		and _test_exclude(type.action, excluded_actions)
+	)
+
 ## ANDs this and another filter together and returns a new filter.
 ## For allowed values (whitelist) both values must exist in both filters (AND).
 ## For excluded values (blacklist) only one value has to exist (OR).
@@ -38,6 +47,15 @@ func filter_and(other: ObstacleFilter) -> ObstacleFilter:
 	
 	return new
 	
+## Returns true if value is allowed.
+func _test_allowed(value: Variant, array: Array) -> bool:
+	return array.size() <= 0 or value in array
+	
+
+## Returns false if value is excluded.
+func _test_exclude(value: Variant, array: Array) -> bool:
+	return array.size() <= 0 or not value in array
+
 	
 func _and_array(a: Array, b: Array) -> Array:
 	var new: Array = []
