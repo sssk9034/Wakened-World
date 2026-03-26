@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ProceduralRNG" format=3 uid="uid://b65qwbtmq5xhf"]
+
+[ext_resource type="Script" uid="uid://d1clhqi0y3lpg" path="res://scenes/map/procedural_rng.gd" id="1_322pd"]
+
+[resource]
+script = ExtResource("1_322pd")
+metadata/_custom_type_script = "uid://d1clhqi0y3lpg"

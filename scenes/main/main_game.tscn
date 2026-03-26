@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn" id="6_wmrn4"]
 [ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_right_1.tscn" id="7_wwv60"]
 [ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn" id="8_aqdx0"]
+[ext_resource type="Script" uid="uid://bfaxt2x3s67k5" path="res://scenes/map/procedural_rng_controller.gd" id="11_wmrn4"]
+[ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="12_wwv60"]
 
 [sub_resource type="Resource" id="Resource_esv8v"]
 script = ExtResource("3_bebfr")
@@ -26,3 +28,8 @@ map_builder = SubResource("Resource_esv8v")
 position = Vector2(0, -140)
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]
+
+[node name="ProceduralRNGController" type="Node" parent="." unique_id=1965903113]
+script = ExtResource("11_wmrn4")
+procedural_rng = ExtResource("12_wwv60")
+metadata/_custom_type_script = "uid://bfaxt2x3s67k5"

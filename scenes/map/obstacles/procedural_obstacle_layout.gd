@@ -22,6 +22,8 @@ func get_next_obstacle() -> ObstacleTile:
 	# AND all placed obstacles allowed_next_to filters in the same position_id
 	for t: ObstacleType in _position_ids_list.get(pos.position_id, []):
 		filter = filter.filter_and(t.allowed_next_to)
+		
+		
 	
 	var tile: ObstacleTile = null
 	
