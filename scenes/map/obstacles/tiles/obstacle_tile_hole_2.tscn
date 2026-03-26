@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://lgse4c7c4jvw"]
 
 [ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_qw7sm"]
+[ext_resource type="Script" uid="uid://rjr13bya3qpa" path="res://scenes/map/obstacles/tiles/obstacle_tile_hole.gd" id="2_qkspa"]
 
 [node name="ObstacleTileHole2" unique_id=2133705382 instance=ExtResource("1_qw7sm")]
+script = ExtResource("2_qkspa")
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 region_rect = Rect2(244, 344, 137, 89)

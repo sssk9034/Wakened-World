@@ -1,69 +1,61 @@
-extends CharacterBody2D
-
-
-#Make Player a class name so moss slug script can init player variable as type Player
 class_name Player
 
-#Add player speed as a variable in inspector
+extends CharacterBody2D
+
+static var singleton: Player:
+	get:
+		return _singleton
+static var _singleton: Player = null
+
 @export var speed: int = 200
 
-
-
-# We aren't using this variable right now but I suspect it will come in handy...maybe not
-#@onready var screensize: Vector2 = get_viewport_rect().size
-
-#create character variable for the Node as type Sprite2D
 @onready var character: AnimatedSprite2D = $Character
 
-#init position history list for moss slug script
-var position_history: PackedFloat32Array = []
+@onready var _fall_animation: AnimationPlayer = $FallAnimation
 
-# Called when the node enters the scene tree for the first time.
+var can_user_control: bool = true
+@export var computer_target: Vector2
+
+var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
+
+func _enter_tree() -> void:
+	if singleton == null:
+		_singleton = self
+
+func _exit_tree() -> void:
+	if singleton == self:
+		_singleton.queue_free()
+
 func _ready() -> void:
-	$FallAnimation.set_current_animation("")
+	_fall_animation.set_current_animation("")
 
-# How we are handling movement WITH Character2DBody (using move_and_slide)
-func _physics_process(_delta: float) -> void:
-	move_and_slide()
+
+func _physics_process(delta: float) -> void:
+	if can_user_control:
+		var input: float = Input.get_axis("player_left", "player_right")
+		update_character_animation(input)
+		velocity.x = input * speed
 	
-	# Lock y axis position
-	position.y = 0
-	
-	#Tracks player position for use in moss_slug script
-	position_history.append(global_position.x)
-	
-	#fall animation gets triggered when player collides with any hole obstacle
-	for i in range(get_slide_collision_count()):
-		var collision = get_slide_collision(i)
-		var collider = collision.get_collider()
-		
-		if collider.is_in_group("Holes"):
-			trigger_animation()
+		move_and_slide()
+		position.y = 0
+	elif computer_target != null:
+		position = position.move_toward(computer_target, delta * speed)
 
-func trigger_animation():
-	$FallAnimation.play("HoleFall")
+func is_at_target() -> bool:
+	return position.is_equal_approx(computer_target)  
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	var input: float = Input.get_axis("player_left", "player_right")
-
-#set sprite frame to left slide for left input, right frame for right input, straight frame for no input
-	if input > 0:
+func update_character_animation(direction: float) -> void:
+	if direction > 0:
 		character.animation = "right"
-	elif input < 0:
+	elif direction < 0:
 		character.animation = "left"
 	else:
 		character.animation = "straight"
-	
-	#Update velocity
-	velocity.x = input * speed
-	
-	
-# How we were handling movement before using CharacterBody2D
-	##apply velocity
-	#position += velocity * delta
-	#
-	##append players position to the position history list
-	#position_history.append(global_position.x)
-	
-	
+
+func trigger_hole_death(hole_position: Vector2) -> void:
+	computer_target = hole_position
+	can_user_control = false
+	_fall_animation.play("HoleFall")
+
+func _on_fall_animation_animation_finished(_anim_name: StringName) -> void:
+	MainGame.singleton.scene_switcher(_death_scene)

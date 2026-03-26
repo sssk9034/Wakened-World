@@ -100,6 +100,8 @@ func set_velocity(new_velocity: float) -> void:
 	velocity = new_velocity
 	_current_velocity = new_velocity
 
+func get_velocity() -> float:
+	return _current_velocity
 
 ## Adds a velocity modifier to the target velocity modifiers.
 ## Will be sorted in order of VelocityModifier.priority, from smallest to
