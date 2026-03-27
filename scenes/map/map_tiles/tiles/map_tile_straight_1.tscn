@@ -6,16 +6,16 @@
 [ext_resource type="Script" uid="uid://df2q2u608r5wy" path="res://scenes/map/obstacles/procedural_obstacle_layout.gd" id="3_iwm4v"]
 [ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="3_uiwsi"]
 
+[sub_resource type="Resource" id="Resource_cgwrf"]
+script = ExtResource("2_1avqh")
+position_id = 0
+position = Vector2(-60, 90)
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
+
 [sub_resource type="Resource" id="Resource_uiwsi"]
 script = ExtResource("2_1avqh")
 position_id = 0
 position = Vector2(50, 80)
-metadata/_custom_type_script = "uid://nwym1tseg7k0"
-
-[sub_resource type="Resource" id="Resource_cgwrf"]
-script = ExtResource("2_1avqh")
-position_id = 0
-position = Vector2(-50, 90)
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_1ik63"]
@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://nwym1tseg7k0"
 [sub_resource type="Resource" id="Resource_mlpn3"]
 resource_local_to_scene = true
 script = ExtResource("3_iwm4v")
-positions = Array[ExtResource("2_1avqh")]([SubResource("Resource_uiwsi"), SubResource("Resource_cgwrf"), SubResource("Resource_1ik63"), SubResource("Resource_i3r7t"), SubResource("Resource_1dcam")])
+positions = Array[ExtResource("2_1avqh")]([SubResource("Resource_cgwrf"), SubResource("Resource_uiwsi"), SubResource("Resource_1ik63"), SubResource("Resource_i3r7t"), SubResource("Resource_1dcam")])
 obstacle_builder = ExtResource("2_mlpn3")
 obstacle_rng = ExtResource("3_uiwsi")
 metadata/_custom_type_script = "uid://df2q2u608r5wy"
