@@ -18,6 +18,8 @@ var can_user_control: bool = true
 
 var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
 
+var dead: bool = false
+
 func _enter_tree() -> void:
 	if singleton == null:
 		_singleton = self
@@ -53,6 +55,10 @@ func update_character_animation(direction: float) -> void:
 		character.animation = "straight"
 
 func trigger_hole_death(hole_position: Vector2) -> void:
+	if dead:
+		return
+	dead = true
+	
 	computer_target = hole_position
 	can_user_control = false
 	_fall_animation.play("HoleFall")
