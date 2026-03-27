@@ -52,3 +52,4 @@ collision_mask = 0
 [node name="RightCollisionPolygon2D" type="CollisionPolygon2D" parent="MapTileWalls" unique_id=47519974]
 
 [node name="ObstacleLayer" parent="." unique_id=1756401816 instance=ExtResource("3_ai36d")]
+obstacle_layout = null

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bu13usk36vulp"]
+
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_xhxp2"]
+[ext_resource type="Texture2D" uid="uid://g4mi28mggtj4" path="res://scenes/map/map_tiles/texures/start_end_tileset.png" id="2_lasqu"]
+
+[node name="MapTileStart" unique_id=1407241641 instance=ExtResource("1_xhxp2")]
+
+[node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
+texture = ExtResource("2_lasqu")
+offset = Vector2(-1091, -54)
+region_rect = Rect2(32, 890, 1767, 826)
+
+[node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
+texture = ExtResource("2_lasqu")
+offset = Vector2(-1091, -54)
+region_rect = Rect2(32, 32, 1767, 826)
+
+[node name="LeftBackgroundTexture" parent="." index="2" unique_id=1526904559]
+visible = false
+texture = null
+region_enabled = false
+
+[node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
+visible = false
+texture = null
+
+[node name="NextTileMarker" parent="." index="4" unique_id=37438559]
+position = Vector2(7, 772)
+
+[node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
+polygon = PackedVector2Array(-267, 81, -109, 79, -150, 779, -271, 781)
+
+[node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
+polygon = PackedVector2Array(66, 87, 138, 777, 251, 777, 191, 85)

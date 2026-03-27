@@ -2,27 +2,46 @@
 
 [ext_resource type="Script" uid="uid://dutmkunr3pyn3" path="res://scenes/main/main_game.gd" id="1_exxld"]
 [ext_resource type="PackedScene" uid="uid://cs24mj8yauxd0" path="res://scenes/map/map.tscn" id="2_36pl1"]
-[ext_resource type="Script" uid="uid://cpqgpww4icaog" path="res://scenes/map/manual_map_builder.gd" id="3_bebfr"]
+[ext_resource type="PackedScene" uid="uid://b2ylvqip5ocxr" path="res://scenes/map/map_tiles/start_end_tiles/map_tile_end.tscn" id="3_xu7aq"]
+[ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn" id="4_25ngl"]
 [ext_resource type="PackedScene" uid="uid://bsgasasb5dgq5" path="res://entities/moss_slug/moss_slug.tscn" id="4_esv8v"]
-[ext_resource type="PackedScene" uid="uid://b28t8xmu454nn" path="res://scenes/map/map_tiles/tiles/map_tile_corner_left_1.tscn" id="4_uu6wu"]
-[ext_resource type="PackedScene" uid="uid://dp7g5bqwshptc" path="res://scenes/map/map_tiles/tiles/map_tile_corner_right_1.tscn" id="5_4d1xd"]
+[ext_resource type="PackedScene" uid="uid://b28t8xmu454nn" path="res://scenes/map/map_tiles/tiles/map_tile_corner_left_1.tscn" id="4_wmrn4"]
+[ext_resource type="Script" uid="uid://cdyoaitx4dfud" path="res://scenes/map/procedural_map_layout.gd" id="5_0wxsa"]
 [ext_resource type="PackedScene" uid="uid://3jj2diuimg1l" path="res://entities/player/player.tscn" id="5_bebfr"]
-[ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn" id="6_wmrn4"]
-[ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_right_1.tscn" id="7_wwv60"]
-[ext_resource type="PackedScene" uid="uid://c8gna8yf6stf4" path="res://scenes/map/map_tiles/tiles/map_tile_straight_1.tscn" id="8_aqdx0"]
+[ext_resource type="PackedScene" uid="uid://dp7g5bqwshptc" path="res://scenes/map/map_tiles/tiles/map_tile_corner_right_1.tscn" id="5_wwv60"]
+[ext_resource type="PackedScene" uid="uid://b03qwupxlw75p" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_left_1.tscn" id="6_aqdx0"]
+[ext_resource type="PackedScene" uid="uid://df4j4125ksytx" path="res://scenes/map/map_tiles/tiles/map_tile_diagonal_right_1.tscn" id="7_xu7aq"]
+[ext_resource type="Script" uid="uid://dwi04w481m566" path="res://scenes/map/start_end_scene_map_layout.gd" id="10_wwv60"]
+[ext_resource type="Script" uid="uid://bfaxt2x3s67k5" path="res://scenes/map/procedural_rng_controller.gd" id="11_wmrn4"]
+[ext_resource type="PackedScene" uid="uid://bu13usk36vulp" path="res://scenes/map/map_tiles/start_end_tiles/map_tile_start.tscn" id="12_iv5mf"]
+[ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="12_wwv60"]
 
-[sub_resource type="Resource" id="Resource_esv8v"]
-script = ExtResource("3_bebfr")
-tile_scenes = Array[PackedScene]([ExtResource("8_aqdx0"), ExtResource("6_wmrn4"), ExtResource("7_wwv60"), ExtResource("4_uu6wu"), ExtResource("5_4d1xd")])
-metadata/_custom_type_script = "uid://cpqgpww4icaog"
+[sub_resource type="Resource" id="Resource_aqdx0"]
+script = ExtResource("5_0wxsa")
+map_rng = ExtResource("12_wwv60")
+map_length = 1
+map_tile_list = Array[PackedScene]([ExtResource("4_wmrn4"), ExtResource("5_wwv60"), ExtResource("6_aqdx0"), ExtResource("7_xu7aq"), ExtResource("4_25ngl")])
+metadata/_custom_type_script = "uid://cdyoaitx4dfud"
+
+[sub_resource type="Resource" id="Resource_xu7aq"]
+script = ExtResource("10_wwv60")
+map_layout = SubResource("Resource_aqdx0")
+start_tile_scene = ExtResource("12_iv5mf")
+end_tile_scene = ExtResource("3_xu7aq")
+metadata/_custom_type_script = "uid://dwi04w481m566"
 
 [node name="MainGame" type="Node2D" unique_id=1490609936]
 script = ExtResource("1_exxld")
 
 [node name="Map" parent="." unique_id=1800559609 instance=ExtResource("2_36pl1")]
-map_builder = SubResource("Resource_esv8v")
+map_layout = SubResource("Resource_xu7aq")
 
 [node name="MossSlug" parent="." unique_id=390090232 instance=ExtResource("4_esv8v")]
 position = Vector2(0, -140)
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]
+
+[node name="ProceduralRNGController" type="Node" parent="." unique_id=1965903113]
+script = ExtResource("11_wmrn4")
+procedural_rng = ExtResource("12_wwv60")
+metadata/_custom_type_script = "uid://bfaxt2x3s67k5"

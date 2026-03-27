@@ -13,7 +13,14 @@ extends Resource
 		rotation = value
 		emit_changed()
 
-
 ## Returns a Transform2D object representing the position and rotation.
 func get_transform2d() -> Transform2D:
 	return Transform2D(-rotation, position)
+
+
+func get_position() -> Vector2:
+	return position
+
+
+func get_rotation() -> float:
+	return -rotation

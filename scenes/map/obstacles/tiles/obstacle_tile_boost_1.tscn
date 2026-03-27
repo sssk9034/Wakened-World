@@ -2,9 +2,24 @@
 
 [ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_re5gn"]
 [ext_resource type="Script" uid="uid://cvhcugtitohkm" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost.gd" id="2_3f5kd"]
+[ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="3_g6suq"]
+[ext_resource type="Script" uid="uid://d8d6rw48bpds" path="res://scenes/map/obstacles/obstacle_type.gd" id="4_j1slm"]
+
+[sub_resource type="Resource" id="Resource_mux2x"]
+script = ExtResource("3_g6suq")
+metadata/_custom_type_script = "uid://ba6kodwlyqon4"
+
+[sub_resource type="Resource" id="Resource_0qt2h"]
+script = ExtResource("4_j1slm")
+size = 2
+action = 1
+allowed_next_to = SubResource("Resource_mux2x")
+metadata/_custom_type_script = "uid://d8d6rw48bpds"
 
 [node name="ObstacleTileBoost1" unique_id=2133705382 instance=ExtResource("1_re5gn")]
 script = ExtResource("2_3f5kd")
+type = SubResource("Resource_0qt2h")
+probability = 0.05
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 region_rect = Rect2(82, 466, 59, 144)

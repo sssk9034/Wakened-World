@@ -2,6 +2,7 @@ class_name ObstacleType
 extends Resource
 
 enum ObstacleSizes {
+	ZERO, ## Obstacle has no collision
 	SMALL, ## Less than 1/4 of path width
 	MEDIUM, ## About 1/4 to 1/2 of path width
 	LARGE, ## Bigger than 1/2 of path width
@@ -30,7 +31,7 @@ enum ObstacleActions {
 ## ObstaclePosition.position_id's are the same.
 ## If empty, no obstacles are allowed next to this obstacle.
 ## Ex. If this obstacle prevents the player from moving through it
-## then it should only allow boost or hindrances next to it. 
+## then it should only allow boost or hindrances next to it.
 @export var allowed_next_to: ObstacleFilter:
 	set(value):
 		allowed_next_to = value

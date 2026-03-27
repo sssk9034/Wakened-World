@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://uuy58g84oq3m"]
 
 [ext_resource type="Script" uid="uid://bbxg3stkj6u70" path="res://scenes/map/obstacles/obstacle_layer.gd" id="1_17q1v"]
+[ext_resource type="Script" uid="uid://nwym1tseg7k0" path="res://scenes/map/obstacles/procedural_obstacle_position.gd" id="2_2fjm2"]
+[ext_resource type="Script" uid="uid://df2q2u608r5wy" path="res://scenes/map/obstacles/procedural_obstacle_layout.gd" id="3_hrpk4"]
+
+[sub_resource type="Resource" id="Resource_f8mf8"]
+resource_local_to_scene = true
+script = ExtResource("3_hrpk4")
+positions = Array[ExtResource("2_2fjm2")]([null])
+metadata/_custom_type_script = "uid://df2q2u608r5wy"
 
 [node name="ObstacleLayer" type="Node2D" unique_id=1756401816]
 script = ExtResource("1_17q1v")
+obstacle_layout = SubResource("Resource_f8mf8")

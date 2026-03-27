@@ -1,21 +1,43 @@
 [gd_scene format=3 uid="uid://b03qwupxlw75p"]
 
 [ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_iifhh"]
-[ext_resource type="Script" uid="uid://bl6sr4efasv7j" path="res://scenes/map/obstacles/manual_obstacle_position.gd" id="2_53a38"]
-[ext_resource type="PackedScene" uid="uid://cxx8j8o7ua1xp" path="res://scenes/map/obstacles/tiles/obstacle_tile_boost_1.tscn" id="3_53a38"]
-[ext_resource type="Script" uid="uid://bboa6j0yse5tj" path="res://scenes/map/obstacles/manual_obstacle_layout.gd" id="4_m6qt5"]
+[ext_resource type="Resource" uid="uid://dy0thsd2mhxlm" path="res://scenes/map/obstacles/tiles/obstacle_builder_all.tres" id="2_25xt4"]
+[ext_resource type="Script" uid="uid://nwym1tseg7k0" path="res://scenes/map/obstacles/procedural_obstacle_position.gd" id="2_vnvg3"]
+[ext_resource type="Script" uid="uid://df2q2u608r5wy" path="res://scenes/map/obstacles/procedural_obstacle_layout.gd" id="3_53a38"]
+[ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="3_m6qt5"]
+[ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="5_m6qt5"]
+
+[sub_resource type="Resource" id="Resource_x5o7p"]
+script = ExtResource("5_m6qt5")
+excluded_sizes = Array[int]([3])
+metadata/_custom_type_script = "uid://ba6kodwlyqon4"
 
 [sub_resource type="Resource" id="Resource_25xt4"]
-script = ExtResource("2_53a38")
-tile_scene = ExtResource("3_53a38")
-position = Vector2(30, 100)
-metadata/_custom_type_script = "uid://bl6sr4efasv7j"
+script = ExtResource("2_vnvg3")
+position_id = 0
+allowed_types = SubResource("Resource_x5o7p")
+position = Vector2(-25, 80)
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_m6qt5"]
+script = ExtResource("2_vnvg3")
+position_id = 0
+position = Vector2(10, 260)
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
+
+[sub_resource type="Resource" id="Resource_ltlje"]
+script = ExtResource("2_vnvg3")
+position_id = 0
+position = Vector2(-190, 240)
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
+
+[sub_resource type="Resource" id="Resource_w272o"]
 resource_local_to_scene = true
-script = ExtResource("4_m6qt5")
-positions = Array[ExtResource("2_53a38")]([SubResource("Resource_25xt4")])
-metadata/_custom_type_script = "uid://bboa6j0yse5tj"
+script = ExtResource("3_53a38")
+positions = Array[ExtResource("2_vnvg3")]([SubResource("Resource_25xt4"), SubResource("Resource_m6qt5"), SubResource("Resource_ltlje")])
+obstacle_builder = ExtResource("2_25xt4")
+obstacle_rng = ExtResource("3_m6qt5")
+metadata/_custom_type_script = "uid://df2q2u608r5wy"
 
 [node name="MapTileDiagonalLeft1" unique_id=1407241641 instance=ExtResource("1_iifhh")]
 
@@ -45,4 +67,4 @@ polygon = PackedVector2Array(-163, -26, -318, 402, -518, 395, -353, -16)
 polygon = PackedVector2Array(180, -15, 43, 411, 321, 406, 496, -26)
 
 [node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
-obstacle_layout = SubResource("Resource_m6qt5")
+obstacle_layout = SubResource("Resource_w272o")

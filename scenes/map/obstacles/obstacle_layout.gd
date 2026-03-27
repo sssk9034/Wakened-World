@@ -58,6 +58,10 @@ func get_positions() -> Array[ObstaclePosition]:
 ## Draws all obstacle positions. Mostly used in editor for viewing layout.
 func draw_layout(canvas: CanvasItem) -> void:
 	for obstacle: ObstaclePosition in get_positions():
-		canvas.draw_set_transform_matrix(obstacle.get_transform2d())
-		canvas.draw_multiline_colors(POS_INDICATOR_LINES, POS_INDICATOR_COLORS)
+		draw_obstacle(canvas, obstacle)
 		
+
+## Draws an obstacles position. Mostly used in editor for viewing layout.
+func draw_obstacle(canvas: CanvasItem, obstacle: ObstaclePosition) -> void:
+	canvas.draw_set_transform_matrix(obstacle.get_transform2d())
+	canvas.draw_multiline_colors(POS_INDICATOR_LINES, POS_INDICATOR_COLORS)

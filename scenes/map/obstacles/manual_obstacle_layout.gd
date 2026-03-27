@@ -14,7 +14,7 @@ extends ObstacleLayout
 
 var _positions_index: int = 0
 
-var _draw_node: Node = null
+var _draw_node: CanvasItem = null
 
 func get_next_obstacle() -> ObstacleTile:
 	var tile: ObstacleTile = positions[_positions_index].tile_scene.instantiate()
@@ -35,17 +35,23 @@ func draw_layout(canvas: CanvasItem) -> void:
 	if _draw_node != null:
 		_draw_node.queue_free()
 		
-	_draw_node = Node.new()
+	_draw_node = Node2D.new()
 	changed.connect(_draw_node.queue_free)
 	canvas.add_child(_draw_node)
 		
 	for obstacle: ManualObstaclePosition in get_positions():
-		if obstacle.tile_scene == null:
-			continue
-		var tile: ObstacleTile = obstacle.tile_scene.instantiate()
+		draw_obstacle(_draw_node as CanvasItem, obstacle)
 		
-		tile.position = obstacle.position
-		tile.rotation = obstacle.rotation
-		
-		_draw_node.add_child(tile)
-		
+
+## Draws an obstacles position. Mostly used in editor for viewing layout.
+func draw_obstacle(canvas: CanvasItem, obstacle: ObstaclePosition) -> void:
+	var manual_obstacle: ManualObstaclePosition = obstacle as ManualObstaclePosition
+	
+	if manual_obstacle.tile_scene == null:
+		return
+	var tile: ObstacleTile = manual_obstacle.tile_scene.instantiate()
+	
+	tile.position = obstacle.position
+	tile.rotation = obstacle.rotation
+	
+	canvas.add_child(tile)

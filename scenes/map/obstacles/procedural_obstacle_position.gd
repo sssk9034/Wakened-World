@@ -12,7 +12,10 @@ extends ObstaclePosition
 ## obstacle. Once found, that obstacles allowed_next_to will then be checked against
 ## the existing obstacles. 
 ## If position_id is -1, then it is not considered to be "next to" any other obstacle.
-@export var position_id: int = -1
+@export var position_id: int = -1:
+	set(value):
+		position_id = value
+		emit_changed()
 ## Filter obstacles that are allowed to be placed at this position.
 ## If empty, all obstacles are allowed.
 @export var allowed_types: ObstacleFilter:

@@ -13,7 +13,7 @@ static var singleton: Map:
 static var _singleton: Map = null
 
 @export_group("Generation")
-@export var map_builder: MapBuilder
+@export var map_layout: MapLayout
 
 @export_group("Movement")
 @export_range(1, 500, 0.01, "suffix:px/s²") var acceleration: float = 100.0
@@ -40,9 +40,9 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	# Build the _leading_map_layer
 	for i: int in TILES_PER_MAP_LAYER:
-		if not map_builder.has_next_tile():
+		if not map_layout.has_next_tile():
 			break
-		_leading_map_layer.add_tile(map_builder.get_next_tile())
+		_leading_map_layer.add_tile(map_layout.get_next_tile())
 	
 	# Schedule _following_map_layer for deferred build
 	_deferred_build_layer = _following_map_layer
@@ -153,11 +153,11 @@ func _do_deferred_build() -> void:
 		# No current deferred build layer
 		return
 		
-	if not map_builder.has_next_tile():
+	if not map_layout.has_next_tile():
 		# Map has been completed
 		return
 		
-	_deferred_build_layer.add_tile(map_builder.get_next_tile())
+	_deferred_build_layer.add_tile(map_layout.get_next_tile())
 	
 	if _deferred_build_layer.tile_count >= TILES_PER_MAP_LAYER:
 		# We have filled this layer

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c1d3rmmgu6k25"]
+
+[ext_resource type="PackedScene" uid="uid://cekem4e2lniw7" path="res://scenes/map/obstacles/obstacle_tile.tscn" id="1_2ubwh"]
+[ext_resource type="Script" uid="uid://pmqgfu77cg52" path="res://scenes/map/obstacles/tiles/obstacle_tile_slow.gd" id="2_7mgc3"]
+[ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="3_y0d3j"]
+[ext_resource type="Script" uid="uid://d8d6rw48bpds" path="res://scenes/map/obstacles/obstacle_type.gd" id="4_si8x2"]
+
+[sub_resource type="Resource" id="Resource_pcc1b"]
+script = ExtResource("3_y0d3j")
+metadata/_custom_type_script = "uid://ba6kodwlyqon4"
+
+[sub_resource type="Resource" id="Resource_qy6dl"]
+script = ExtResource("4_si8x2")
+action = 2
+allowed_next_to = SubResource("Resource_pcc1b")
+metadata/_custom_type_script = "uid://d8d6rw48bpds"
+
+[node name="ObstacleTileSlow1" unique_id=2133705382 instance=ExtResource("1_2ubwh")]
+script = ExtResource("2_7mgc3")
+type = SubResource("Resource_qy6dl")
+probability = 0.08
+
+[node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
+offset = Vector2(0, 1.325)
+region_rect = Rect2(475, 467, 63, 141)
+
+[node name="CollisionPolygon2D" parent="Area2D" parent_id_path=PackedInt32Array(271840421) index="0" unique_id=757952542]
+polygon = PackedVector2Array(2, -54, 25, -6, 5, 65, -2, 42, -25, -14)
+
+[node name="Timer" type="Timer" parent="." index="2" unique_id=1238356626]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
