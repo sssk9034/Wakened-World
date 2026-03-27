@@ -1,13 +1,19 @@
 class_name ProceduralMapLayout
 extends MapLayout
 
-## Set to 0 to generate based on map_seed
-@export_range(0, 100, 1, "or_greater") var map_length: int = 0
+@export var map_rng: ProceduralRNG
 
-@export var map_rng: ProceduralRNG:
+## Set to 0 to generate based on map_rng
+@export_range(0, 100, 1, "or_greater") var map_length: int = 0:
 	set(value):
-		map_rng = value
-		_update_map_length()
+		if value <= 0:
+			# Generate based on map_rng
+			map_length = map_rng.randi_range(10, 30)
+			print("[Map]: Generated map length: %s" % [map_length])
+		else:
+			# Use specified map length
+			map_length = value
+			print("[Map]: Using provided map length: %s" % [map_length])
 
 @export var map_tile_list: Array[PackedScene]:
 	set(value):
@@ -30,15 +36,4 @@ func get_next_tile() -> MapTile:
 func has_next_tile() -> bool:
 	return _count < map_length
 
-## Updates the map length.
-## If map_length is <= 0 then the length is determine by the rng
-## If map_length is >= 1 then it is used as the map_length
-func _update_map_length() -> void:
-	if map_length <= 0:
-		# Generate based on map_seed
-		map_length = map_rng.randi_range(10, 30)
-		print("[Map]: Generated map length: %s" % [map_length])
-	else:
-		# Use specified map length
-		print("[Map]: Using provided map length: %s" % [map_length])
 	

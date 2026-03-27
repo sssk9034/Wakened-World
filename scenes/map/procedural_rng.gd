@@ -14,6 +14,10 @@ extends Resource
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
+func reset() -> void:
+	rng_seed = rng_seed
+
+
 func set_state(state: int) -> void:
 	_rng.state = state
 	

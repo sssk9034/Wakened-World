@@ -77,8 +77,8 @@ func get_next_obstacle() -> ObstacleTile:
 		
 	tile = obstacle_builder.get_new_obstacle(tile_index)
 	
-	tile.position = pos.position
-	tile.rotation = pos.rotation
+	tile.position = pos.get_position()
+	tile.rotation = pos.get_rotation()
 	
 	# If position_id is -1, then it is not considered to be "next to" any other obstacle.
 	# If tile_index is equal to BLANK_TILE_INDEX then the obstacle is not "next to" anything,

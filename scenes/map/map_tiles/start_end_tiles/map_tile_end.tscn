@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b2ylvqip5ocxr"]
+
+[ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_6nlcx"]
+
+[node name="MapTileEnd" unique_id=1407241641 instance=ExtResource("1_6nlcx")]

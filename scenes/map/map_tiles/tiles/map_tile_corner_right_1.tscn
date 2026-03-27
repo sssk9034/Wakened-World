@@ -1,6 +1,38 @@
 [gd_scene format=3 uid="uid://dp7g5bqwshptc"]
 
 [ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_00rc0"]
+[ext_resource type="Resource" uid="uid://dy0thsd2mhxlm" path="res://scenes/map/obstacles/tiles/obstacle_builder_all.tres" id="2_tvvix"]
+[ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="3_ttvi6"]
+[ext_resource type="Script" uid="uid://nwym1tseg7k0" path="res://scenes/map/obstacles/procedural_obstacle_position.gd" id="4_y7f64"]
+[ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="5_n4xil"]
+[ext_resource type="Script" uid="uid://df2q2u608r5wy" path="res://scenes/map/obstacles/procedural_obstacle_layout.gd" id="6_xgeau"]
+
+[sub_resource type="Resource" id="Resource_332f6"]
+script = ExtResource("5_n4xil")
+allowed_actions = Array[int]([1])
+metadata/_custom_type_script = "uid://ba6kodwlyqon4"
+
+[sub_resource type="Resource" id="Resource_7e531"]
+script = ExtResource("4_y7f64")
+position_id = 0
+allowed_types = SubResource("Resource_332f6")
+position = Vector2(470, 240)
+rotation = 0.7853981633974483
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
+
+[sub_resource type="Resource" id="Resource_tvvix"]
+script = ExtResource("4_y7f64")
+position_id = 1
+position = Vector2(-25, 150)
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
+
+[sub_resource type="Resource" id="Resource_ttvi6"]
+resource_local_to_scene = true
+script = ExtResource("6_xgeau")
+positions = Array[ExtResource("4_y7f64")]([SubResource("Resource_7e531"), SubResource("Resource_tvvix")])
+obstacle_builder = ExtResource("2_tvvix")
+obstacle_rng = ExtResource("3_ttvi6")
+metadata/_custom_type_script = "uid://df2q2u608r5wy"
 
 [node name="MapTileCornerRight1" unique_id=1407241641 instance=ExtResource("1_00rc0")]
 
@@ -28,3 +60,6 @@ polygon = PackedVector2Array(-146, -37, -144, 145, -39, 281, 149, 321, 320, 333,
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
 polygon = PackedVector2Array(159, -30, 111, 63, 168, 125, 324, 153, 471, 208, 665, 366, 798, 394, 783, -84)
+
+[node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
+obstacle_layout = SubResource("Resource_ttvi6")

@@ -9,13 +9,13 @@
 [sub_resource type="Resource" id="Resource_uiwsi"]
 script = ExtResource("2_1avqh")
 position_id = 0
-position = Vector2(50, 100)
+position = Vector2(50, 80)
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_cgwrf"]
 script = ExtResource("2_1avqh")
 position_id = 0
-position = Vector2(-50, 100)
+position = Vector2(-50, 90)
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_1ik63"]
@@ -27,16 +27,16 @@ metadata/_custom_type_script = "uid://nwym1tseg7k0"
 [sub_resource type="Resource" id="Resource_i3r7t"]
 script = ExtResource("2_1avqh")
 position_id = 1
-position = Vector2(-60, 250)
+position = Vector2(-60, 220)
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_1dcam"]
 script = ExtResource("2_1avqh")
 position_id = 1
-position = Vector2(0, 300)
+position = Vector2(0, 280)
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
-[sub_resource type="Resource" id="Resource_7q4ab"]
+[sub_resource type="Resource" id="Resource_mlpn3"]
 resource_local_to_scene = true
 script = ExtResource("3_iwm4v")
 positions = Array[ExtResource("2_1avqh")]([SubResource("Resource_uiwsi"), SubResource("Resource_cgwrf"), SubResource("Resource_1ik63"), SubResource("Resource_i3r7t"), SubResource("Resource_1dcam")])
@@ -65,4 +65,4 @@ polygon = PackedVector2Array(118, -2, 245, -2, 248, 361, 121, 361)
 polygon = PackedVector2Array(-138, -1, -246, -1, -246, 358, -139, 359)
 
 [node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
-obstacle_layout = SubResource("Resource_7q4ab")
+obstacle_layout = SubResource("Resource_mlpn3")
