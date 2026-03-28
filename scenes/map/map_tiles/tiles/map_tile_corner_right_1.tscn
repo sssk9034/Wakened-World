@@ -56,10 +56,10 @@ region_rect = Rect2(3171, 812, 490, 358)
 position = Vector2(510, 358)
 
 [node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
-polygon = PackedVector2Array(-146, -37, -144, 145, -39, 281, 149, 321, 320, 333, 320, 404, -446, 438, -570, -47)
+polygon = PackedVector2Array(-146, -37, -144, 145, -39, 281, 149, 321, 320, 333, 329, 377, -739, 377, -730, -18)
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
-polygon = PackedVector2Array(159, -30, 111, 63, 168, 125, 324, 153, 471, 208, 665, 366, 798, 394, 783, -84)
+polygon = PackedVector2Array(159, -30, 111, 63, 168, 125, 324, 153, 471, 208, 665, 366, 1256, 372, 1276, -27)
 
 [node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
 obstacle_layout = SubResource("Resource_ttvi6")

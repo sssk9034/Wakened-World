@@ -32,9 +32,9 @@ texture = null
 region_enabled = false
 
 [node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
-polygon = PackedVector2Array(-118, -5, -149, 37, -167, 96, -167, 165, -119, 255, -35, 306, 4, 324, 3, 367, -259, 370, -255, -6)
+polygon = PackedVector2Array(-118, -5, -149, 37, -167, 96, -167, 165, -119, 255, -35, 306, 4, 324, 865, 511, -379, 524, -385, -11)
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
-polygon = PackedVector2Array(137, -3, 118, 38, 106, 102, 142, 154, 228, 204, 228, -2)
+polygon = PackedVector2Array(137, -3, 118, 38, 106, 102, 142, 154, 228, 204, 864, 220, 864, -9)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8" unique_id=954878925]
