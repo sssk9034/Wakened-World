@@ -89,6 +89,7 @@ func _start_exit_camera_pan() -> void:
 
 func _on_player_enter_exit_scene(tile: MapTileEnd) -> void:
 	if _player.can_user_control:
+		_player.character.animation = "straight"
 		_player.can_user_control = false
 	_player.speed = int(PLAYER_VELOCITY)
 	_map.set_velocity(0)
