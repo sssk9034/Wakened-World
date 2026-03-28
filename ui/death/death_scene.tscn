@@ -80,16 +80,15 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/margin_bottom = 5
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/AspectRatioContainer/MarginContainer" unique_id=979308122]
+[node name="Button" type="Button" parent="Control/VBoxContainer/AspectRatioContainer/MarginContainer" unique_id=1858692912]
 layout_mode = 2
-color = Color(0.18072194, 0.18072197, 0.18072191, 0.37254903)
-
-[node name="TextureButton" type="TextureButton" parent="Control/VBoxContainer/AspectRatioContainer/MarginContainer" unique_id=1222010068]
-layout_mode = 2
-texture_normal = ExtResource("3_btob0")
-stretch_mode = 5
+theme_override_font_sizes/font_size = 2
+text = "                                                                     "
+icon = ExtResource("3_btob0")
+icon_alignment = 1
+expand_icon = true
 
 [node name="FadeAnimation" type="AnimationPlayer" parent="." unique_id=672816947]
 libraries/ = SubResource("AnimationLibrary_btob0")
 
-[connection signal="pressed" from="Control/VBoxContainer/AspectRatioContainer/MarginContainer/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/AspectRatioContainer/MarginContainer/Button" to="." method="_on_button_pressed"]
