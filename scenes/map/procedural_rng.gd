@@ -30,24 +30,35 @@ func get_state() -> int:
 
 
 func rand_weighted(weights: PackedFloat32Array) -> int:
+	_on_use()
 	return _rng.rand_weighted(weights)
 	
 
 func randf() -> float:
+	_on_use()
 	return _rng.randf()
 
 
 func randf_range(from: float, to: float) -> float:
+	_on_use()
 	return _rng.randf_range(from, to)
 	
 
 func randfn(mean: float = 0.0, deviation: float = 1.0) -> float:
+	_on_use()
 	return _rng.randfn(mean, deviation)
 	
 	
 func randi() -> int:
+	_on_use()
 	return _rng.randi()
 	
 	
 func randi_range(from: int, to: int) -> int:
+	_on_use()
 	return _rng.randi_range(from, to)
+
+
+func _on_use() -> void:
+	pass
+	#print("[ProceduralRNG]: Used RNG")

@@ -9,6 +9,7 @@ extends MapLayout
 		if value <= 0:
 			# Generate based on map_rng
 			map_length = map_rng.randi_range(10, 30)
+			map_rng.reset()
 			print("[Map]: Generated map length: %s" % [map_length])
 		else:
 			# Use specified map length
