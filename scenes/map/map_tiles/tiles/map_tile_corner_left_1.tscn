@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://nwym1tseg7k0" path="res://scenes/map/obstacles/procedural_obstacle_position.gd" id="4_x7ec2"]
 [ext_resource type="Script" uid="uid://df2q2u608r5wy" path="res://scenes/map/obstacles/procedural_obstacle_layout.gd" id="5_mc50x"]
 [ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="5_trg0r"]
+[ext_resource type="Script" uid="uid://kb7ygl8wix1k" path="res://scenes/map/map_area_modifier.gd" id="7_x7ec2"]
 
 [sub_resource type="Resource" id="Resource_x7ec2"]
 script = ExtResource("5_trg0r")
@@ -63,3 +64,13 @@ polygon = PackedVector2Array(191, -21, 159, 140, 85, 294, -179, 358, -267, 350, 
 
 [node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
 obstacle_layout = SubResource("Resource_mc50x")
+
+[node name="MapAreaModifier" type="Area2D" parent="." index="7" unique_id=1138745495]
+collision_mask = 2
+monitorable = false
+script = ExtResource("7_x7ec2")
+metadata/_custom_type_script = "uid://kb7ygl8wix1k"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapAreaModifier" index="0" unique_id=1618621641]
+z_index = 50
+polygon = PackedVector2Array(110, 252, -177, 320, -323, 351, -311, 377, 108, 376)
