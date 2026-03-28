@@ -59,10 +59,10 @@ region_rect = Rect2(1602, 812, 490, 358)
 region_rect = Rect2(1602, 812, 490, 358)
 
 [node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
-polygon = PackedVector2Array(118, -2, 245, -2, 248, 361, 121, 361)
+polygon = PackedVector2Array(118, -2, 766, -3, 758, 366, 121, 361)
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
-polygon = PackedVector2Array(-138, -1, -246, -1, -246, 358, -139, 359)
+polygon = PackedVector2Array(-138, -1, -785, -8, -765, 363, -139, 359)
 
 [node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
 obstacle_layout = SubResource("Resource_mlpn3")
