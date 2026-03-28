@@ -32,8 +32,9 @@ var _deferred_build_layer: MapLayer = null
 
 
 func _enter_tree() -> void:
-	if singleton == null:
-		_singleton = self
+	if singleton != null:
+		_singleton.queue_free()
+	_singleton = self
 
 
 # Called when the node enters the scene tree for the first time.
@@ -88,6 +89,7 @@ func _physics_process(delta: float) -> void:
 func _exit_tree() -> void:
 	if singleton == self:
 		_singleton.queue_free()
+		_singleton = null
 
 
 ## Smoothly changes velocity to new_velocity by acceleration values.
