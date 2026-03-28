@@ -3,7 +3,7 @@ extends CanvasLayer
 var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
 
 @onready var _fade_animation: AnimationPlayer = $FadeAnimation
-@onready var _retry_button: Button = $Control/VBoxContainer/AspectRatioContainer/MarginContainer/Button
+@onready var _retry_button: Button = $Control/VBoxContainer/MarginContainer/AspectRatioContainer/Button
 
 func _ready() -> void:
 	_disable_retry_button()
