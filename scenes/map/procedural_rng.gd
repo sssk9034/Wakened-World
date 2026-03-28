@@ -7,15 +7,18 @@ extends Resource
 		
 		if rng_seed:
 			_rng.seed = rng_seed.hash()
+			_initial_state = _rng.state
 			print("[ProceduralRNG]: Using seed: %s" % [rng_seed])
 		else:
 			_rng.randomize()
 			print("[ProceduralRNG]: No seed provided, using random seed.")
 
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _initial_state: int
 
 func reset() -> void:
-	rng_seed = rng_seed
+	if rng_seed:
+		_rng.state = _initial_state
 
 
 func set_state(state: int) -> void:

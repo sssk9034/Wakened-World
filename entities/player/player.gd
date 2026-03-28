@@ -21,12 +21,14 @@ var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
 var dead: bool = false
 
 func _enter_tree() -> void:
-	if singleton == null:
-		_singleton = self
+	if singleton != null:
+		_singleton.queue_free()
+	_singleton = self
 
 func _exit_tree() -> void:
 	if singleton == self:
 		_singleton.queue_free()
+		_singleton = null
 
 func _ready() -> void:
 	_fall_animation.set_current_animation("")

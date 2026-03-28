@@ -17,12 +17,14 @@ const PLAYER_VELOCITY: float = 100.00
 const SLUG_VELOCITY: float = 90.00
 
 func _enter_tree() -> void:
-	if singleton == null:
-		_singleton = self
+	if singleton != null:
+		_singleton.queue_free()
+	_singleton = self
 
 func _exit_tree() -> void:
 	if singleton == self:
 		_singleton.queue_free()
+		_singleton = null
 
 func _ready() -> void:
 	_map.change_velocity(PLAYER_VELOCITY)
