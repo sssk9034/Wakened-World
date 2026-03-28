@@ -15,6 +15,10 @@ var _hole_death_scene: PackedScene = preload("res://ui/death/hole_death_scene.ts
 
 const PLAYER_VELOCITY: float = 100.00
 const SLUG_VELOCITY: float = 90.00
+const EXIT_TILE_TARGET: Vector2 = Vector2(41, 270)
+
+var _exit_tile: MapTileEnd = null
+var _exiting: bool = false
 
 func _enter_tree() -> void:
 	if singleton == null:
@@ -30,8 +34,17 @@ func _ready() -> void:
 	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
 
 func _physics_process(_delta: float) -> void:
-	_moss_slug.target = _player.global_position
-	_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
+	if not _exiting:
+		_moss_slug.target = _player.global_position
+		_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
+
+	if _exit_tile != null:
+		_player.computer_target = to_local(_exit_tile.to_global(EXIT_TILE_TARGET))
+		if _player.is_at_target():
+			_player.character.offset = Vector2(424, 40)
+			_player.character.animation = "exit"
+			_start_exit_camera_pan()
+			_exit_tile = null
 
 func _on_moss_slug_caught_player() -> void:
 	kill_player("slug")
@@ -56,3 +69,30 @@ func on_hole_death() -> void:
 
 func on_slug_death() -> void:
 	scene_switcher(_death_scene)
+
+func _start_exit_camera_pan() -> void:
+	var camera: Camera2D = _player.get_node("Camera2D")
+	camera.position.y = -20.0
+	var target_x: float = _player.character.offset.x * _player.character.scale.x + 45.0
+	var tween: Tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(camera, "position:x", target_x, 2.0) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(camera, "position:y", 30.0, 1.2) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(camera, "zoom", Vector2(1, 1), 2.0) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(_player.character, "scale", Vector2(0.55, 0.55), 2.0) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(_player.character, "offset:y", 80.0, 2.0) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+
+func _on_player_enter_exit_scene(tile: MapTileEnd) -> void:
+	if _player.can_user_control:
+		_player.character.animation = "straight"
+		_player.can_user_control = false
+	_player.speed = int(PLAYER_VELOCITY)
+	_map.set_velocity(0)
+	_moss_slug.velocity = Vector2.ZERO
+	_exiting = true
+	_exit_tile = tile
