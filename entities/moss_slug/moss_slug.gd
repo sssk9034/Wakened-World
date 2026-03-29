@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 func _update_moss_slug(delta: float) -> void:
 	var distance_x: float = target.x - global_position.x
 
-	start_roar(distance_x)
+#	start_roar(distance_x)
 
 
 	if abs(distance_x) > 1.0:
@@ -67,12 +67,6 @@ func _update_moss_slug(delta: float) -> void:
 		
 	_update_collision_shape(_slug_character.animation)
 
-
-func start_roar(distance: float) -> void:
-	if abs(distance) > 1.0:
-		var roar_state = true
-		if roar_state == false:
-			play_roar()
 
 func play_roar() -> void:
 	roar.stop()

@@ -27,3 +27,13 @@ func play_roar() -> void:
 
 func _reset_timer() -> void:
 	timer = randf_range(min_delay, max_delay)
+	
+	
+#Distance closing roar
+#func start_roar(distance: float) -> void:
+#	if abs(distance) > 1.0:
+#		var roar_state = true
+#		if roar_state == false:
+#			play_roar()
+
+#start_roar(distance_x)

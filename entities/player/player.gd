@@ -25,7 +25,6 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if singleton == self:
 		_singleton.queue_free()
-	_singleton = null
 
 func _ready() -> void:
 	_fall_animation.set_current_animation("")
