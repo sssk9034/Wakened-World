@@ -24,7 +24,6 @@ var _target_velocity: float = 0.0 # pixels/sec
 var _target_velocity_modifiers: Array[VelocityModifier] = []
 var _current_velocity: float = 0.0 # pixels/sec
 var _current_velocity_modifiers: Array[VelocityModifier] = []
-var _true_velocity: float = 0.0 # pixels/sec
 
 var _deferred_build_layer: MapLayer = null
 
@@ -55,26 +54,16 @@ func _physics_process(delta: float) -> void:
 	_target_velocity = velocity
 	
 	# Apply target velocity modifiers
-	for i: int in range(_target_velocity_modifiers.size() - 1, -1, -1):
-		if _target_velocity_modifiers[i].is_expired():
-			_remove_velocity_modifier_at_index(i, _target_velocity_modifiers)
-			continue
-		
-		_target_velocity = _target_velocity_modifiers[i].mod_velocity(_target_velocity, velocity)
+	for mod: VelocityModifier in _target_velocity_modifiers:
+		_target_velocity = mod.mod_velocity(_target_velocity, velocity)
 	
 	_calc_acceleration(delta)
 	
-	_true_velocity = _current_velocity
+	# Apply current velocity modifers
+	for mod: VelocityModifier in _current_velocity_modifiers:
+		_current_velocity = mod.mod_velocity(_current_velocity, velocity)
 	
-	# Apply current velocity modifiers
-	for i: int in range(_current_velocity_modifiers.size() - 1, -1, -1):
-		if _current_velocity_modifiers[i].is_expired():
-			_remove_velocity_modifier_at_index(i, _current_velocity_modifiers)
-			continue
-			
-		_true_velocity = _current_velocity_modifiers[i].mod_velocity(_true_velocity, velocity)
-	
-	_true_velocity = max(_true_velocity, 0) # Prevent moving backward
+	_current_velocity = max(_current_velocity, 0) # Prevent moving backward
 	
 	var can_swap: bool = _check_for_layer_swap()
 	var following_is_empty: bool = _following_map_layer.is_empty()
@@ -114,7 +103,7 @@ func set_velocity(new_velocity: float) -> void:
 	_current_velocity = new_velocity
 
 func get_velocity() -> float:
-	return _true_velocity
+	return _current_velocity
 
 ## Adds a velocity modifier to the target velocity modifiers.
 ## Will be sorted in order of VelocityModifier.priority, from smallest to
@@ -142,20 +131,14 @@ func remove_current_velocity_modifier(modifier: VelocityModifier) -> void:
 	_remove_velocity_modifier(modifier, _current_velocity_modifiers)
 
 
-## Adds a velocity modifier to the given array.
-## Note that internally the array is sorted backward, but is also iterated over
-## backward.
+## Adds a velocity modifer to the given array.
 func _add_velocity_modifier(modifier: VelocityModifier, array: Array[VelocityModifier]) -> void:
-	var index: int = array.bsearch_custom(modifier, VelocityModifier.sort_priority, true)
-	
+	var index: int = array.bsearch_custom(
+			modifier, VelocityModifier.sort_priority, false)
 	array.insert(index, modifier)
 	
-	modifier.active = true
-	
 
-## Removes a velocity modifier from the given array.
-## Note that internally the array is sorted backward, but is also iterated over
-## backward.
+# Removes a velocity modifer from the given array
 func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[VelocityModifier]) -> void:
 	var index: int = array.find(modifier)
 	
@@ -164,19 +147,7 @@ func _remove_velocity_modifier(modifier: VelocityModifier, array: Array[Velocity
 				% [modifier.priority])
 		return
 	
-	_remove_velocity_modifier_at_index(index, array)
-
-
-## Removes a velocity modifier from the given array at the given index.
-## Note that internally the array is sorted backward, but is also iterated over
-## backward.
-func _remove_velocity_modifier_at_index(index: int, array: Array[VelocityModifier]) -> void:
-	var mod: VelocityModifier = array[index]
-	
 	array.remove_at(index)
-	
-	if mod != null:
-		mod.active = false
 
 
 func _do_deferred_build() -> void:
@@ -212,7 +183,7 @@ func _calc_acceleration(delta: float) -> void:
 
 ## Moves map by current_velocity
 func _update_map_layer_position(delta: float) -> void:
-	_leading_map_layer.move_local_y(-_true_velocity * delta, false)
+	_leading_map_layer.move_local_y(-_current_velocity * delta, false)
 	_following_map_layer.position = _leading_map_layer.get_end_position()
 	
 
@@ -235,64 +206,16 @@ func _check_for_layer_swap() -> bool:
 ## Primarily to prevent conflics when two systems change the velocity.
 @abstract
 class VelocityModifier:
-	enum ModifierTypes {
-		TARGET,
-		CURRENT,
-	}
-	
 	## Sets the order in which modifiers will be applied. Modifiers with lower
 	## priority are applied first, and higher priority is applied last.
 	var priority: int = 0
 	
-	## Absolute time in milliseconds that this modifier should expire.
-	## Ex. to make expire in 1sec, add 1000 to Time.get_ticks_msec().
-	## Modifier does not expire when timeout is 0.
-	var timeout: int = 0
-	
-	## Whether the modifier is currently applied. If false, it is no longer
-	## part of the velocity modifiers.
-	var active: bool = false
-	
-	## When applying the modifier, which velocity value will it modify.
-	var type: ModifierTypes = ModifierTypes.TARGET
-	
 	## Sorts based on priority value. Higher priority values will be applied last,
 	## therefore giving them the ability to override other modifiers.
 	static func sort_priority(a: VelocityModifier, b: VelocityModifier) -> bool:
-		return a.priority > b.priority
+		return a.priority < b.priority
 	
 	## Override to modify velocity.
 	@abstract
 	func mod_velocity(old_velocity: float, _original_velocity: float) -> float
-	
-	## Resets the modifier to be reused again.
-	func reset() -> void:
-		timeout = 0
-	
-	## Sets the modifier to expire in msec milliseconds.
-	func set_timeout(msec: int) -> void:
-		timeout = Time.get_ticks_msec() + msec
-	
-	## Returns true if the timeout is expired.
-	## When timeout is disabled, returns false.
-	func is_expired() -> bool:
-		if timeout <= 0:
-			return false
-		
-		return timeout <= Time.get_ticks_msec()
-	
-	## Adds the velocity modifier to the map.
-	func add_velocity_modifier() -> void:
-		if active:
-			return
-		reset()
-		match type:
-			ModifierTypes.TARGET:
-				Map.singleton.add_target_velocity_modifier(self)
-			ModifierTypes.CURRENT:
-				Map.singleton.add_current_velocity_modifier(self)
-	
-	## Removes the velocity modifier from the map.
-	func remove_velocity_modifier() -> void:
-		set_timeout(0)
 	

@@ -20,10 +20,15 @@ metadata/_custom_type_script = "uid://d8d6rw48bpds"
 script = ExtResource("2_3f5kd")
 type = SubResource("Resource_0qt2h")
 probability = 0.05
-extra_time = 2000
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 region_rect = Rect2(82, 466, 59, 144)
 
 [node name="CollisionPolygon2D" parent="Area2D" parent_id_path=PackedInt32Array(271840421) index="0" unique_id=757952542]
 polygon = PackedVector2Array(17, -23, 5, -67, -21, -25, -27, 21, -9, 68, 10, 29, 22, 6)
+
+[node name="Timer" type="Timer" parent="." index="2" unique_id=158468068]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
