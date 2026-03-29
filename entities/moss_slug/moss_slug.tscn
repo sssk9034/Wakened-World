@@ -382,7 +382,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"intro",
-"speed": 12.0
+"speed": 14.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -500,8 +500,6 @@ frame_progress = 0.97799087
 sprite_frames = SubResource("SpriteFrames_nekj4")
 animation = &"intro"
 autoplay = "straight"
-frame = 16
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=981149837]
 shape = SubResource("RectangleShape2D_1uria")

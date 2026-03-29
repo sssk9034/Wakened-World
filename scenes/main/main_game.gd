@@ -22,12 +22,14 @@ const GAMEPLAY_CAMERA_ZOOM: Vector2 = Vector2(0.5, 0.5)
 const INTRO_CINEMATIC_ZOOM: Vector2 = Vector2(0.92, 0.92)
 const INTRO_CAMERA_PAN_Y: float = -102.0
 const INTRO_CAMERA_PAN_START_X_EXTRA: float = -365.0
-const INTRO_ZOOM_OUT_DURATION: float = 0.42
+const INTRO_CAMERA_DROP_ZOOM_DURATION: float = 0.42
+const SLUG_INTRO_AT_HORIZONTAL_PROGRESS: float = 0.70
 
 var _exit_tile: MapTileEnd = null
 var _exiting: bool = false
 var _intro_camera_active: bool = false
 var _intro_zoom_out_tween: Tween = null
+var _slug_intro_launched: bool = false
 
 func _enter_tree() -> void:
 	if singleton != null:
@@ -51,9 +53,11 @@ func _ready() -> void:
 	_player.intro_finished.connect(_finish_intro_camera_follow)
 
 func _physics_process(_delta: float) -> void:
-	if not _exiting and not _intro_camera_active:
+	if not _exiting and not _intro_camera_active and _player.can_user_control:
 		_moss_slug.target = _player.global_position
 		_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
+	else:
+		_moss_slug.velocity = Vector2.ZERO
 
 	if _exit_tile != null:
 		_player.computer_target = to_local(_exit_tile.to_global(EXIT_TILE_TARGET))
@@ -125,15 +129,31 @@ func _finish_intro_camera_follow() -> void:
 	_intro_camera_active = false
 	_map.change_velocity(PLAYER_VELOCITY)
 	var cam: Camera2D = _player.get_node("Camera2D") as Camera2D
-	cam.position = Vector2.ZERO
 	cam.offset = Vector2.ZERO
-	cam.position_smoothing_enabled = true
-	cam.drag_horizontal_enabled = true
+	cam.position = Vector2(0.0, INTRO_CAMERA_PAN_Y)
+	cam.position_smoothing_enabled = false
+	cam.drag_horizontal_enabled = false
+	if not _slug_intro_launched:
+		_moss_slug.play_intro_once_then_straight()
 	if _intro_zoom_out_tween != null and _intro_zoom_out_tween.is_valid():
 		_intro_zoom_out_tween.kill()
+	cam.zoom = INTRO_CINEMATIC_ZOOM
 	_intro_zoom_out_tween = create_tween()
-	_intro_zoom_out_tween.tween_property(cam, "zoom", GAMEPLAY_CAMERA_ZOOM, INTRO_ZOOM_OUT_DURATION) \
-		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	_intro_zoom_out_tween.set_parallel(true)
+	_intro_zoom_out_tween.tween_property(cam, "position:y", 0.0, INTRO_CAMERA_DROP_ZOOM_DURATION) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	_intro_zoom_out_tween.tween_property(cam, "zoom", GAMEPLAY_CAMERA_ZOOM, INTRO_CAMERA_DROP_ZOOM_DURATION) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	_intro_zoom_out_tween.chain()
+	_intro_zoom_out_tween.tween_callback(_on_intro_camera_drop_finished)
+
+
+func _on_intro_camera_drop_finished() -> void:
+	var cam: Camera2D = _player.get_node("Camera2D") as Camera2D
+	cam.position = Vector2.ZERO
+	cam.zoom = GAMEPLAY_CAMERA_ZOOM
+	cam.position_smoothing_enabled = true
+	cam.drag_horizontal_enabled = true
 
 
 func _apply_intro_camera_pan_x(pan_x: float) -> void:
@@ -154,6 +174,9 @@ func _update_intro_camera_from_intro_progress() -> void:
 	var start_x: float = INTRO_CHARACTER_OFFSET.x * ch.scale.x + INTRO_CAMERA_PAN_START_X_EXTRA
 	var pan_x: float = lerpf(start_x, 0.0, t)
 	_apply_intro_camera_pan_x(pan_x)
+	if not _slug_intro_launched and t >= SLUG_INTRO_AT_HORIZONTAL_PROGRESS:
+		_slug_intro_launched = true
+		_moss_slug.play_intro_once_then_straight()
 
 
 func _start_intro_camera_sequence() -> void:
@@ -163,6 +186,7 @@ func _start_intro_camera_sequence() -> void:
 	cam.drag_vertical_enabled = false
 	cam.zoom = INTRO_CINEMATIC_ZOOM
 	cam.offset = Vector2.ZERO
+	_slug_intro_launched = false
 	_intro_camera_active = true
 	_update_intro_camera_from_intro_progress()
 
