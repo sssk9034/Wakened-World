@@ -53,7 +53,10 @@ func _ready() -> void:
 	_player.intro_finished.connect(_finish_intro_camera_follow)
 
 func _physics_process(_delta: float) -> void:
-	if not _exiting and not _intro_camera_active and _player.can_user_control:
+	var slug_chase: bool = not _exiting and not _intro_camera_active \
+			and _player.can_user_control and not _player.dead
+	_moss_slug.chase_horizontally_enabled = slug_chase
+	if slug_chase:
 		_moss_slug.target = _player.global_position
 		_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
 	else:

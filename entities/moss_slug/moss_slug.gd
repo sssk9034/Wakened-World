@@ -15,6 +15,9 @@ var _active_shape: CollisionPolygon2D = null
 
 @export var target: Vector2
 
+## Set by gameplay (e.g. MainGame): horizontal chase uses global_position, not velocity.
+var chase_horizontally_enabled: bool = false
+
 signal caught_player
 
 const SLUG_INTRO_VISUAL_OFFSET_Y: float = 48.0
@@ -90,10 +93,8 @@ func _physics_process(delta: float) -> void:
 
 func _update_moss_slug(delta: float) -> void:
 	var distance_x: float = target.x - global_position.x
-	var can_chase: bool = Player.singleton != null and Player.singleton.can_user_control \
-			and not Player.singleton.dead
 
-	if can_chase and absf(distance_x) > 1.0:
+	if chase_horizontally_enabled and absf(distance_x) > 1.0:
 		global_position.x += sign(distance_x) * _slug_follow_speed * delta
 		if distance_x > 0.0:
 			_slug_character.animation = &"right"

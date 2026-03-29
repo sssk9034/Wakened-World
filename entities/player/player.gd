@@ -19,8 +19,6 @@ static var _singleton: Player = null
 var can_user_control: bool = true
 @export var computer_target: Vector2
 
-const _AUTO_WALK_ARRIVE_DIST_SQ: float = 100.0
-
 var _auto_walk_active: bool = false
 
 var _intro_world_position_locked: bool = false
@@ -76,8 +74,7 @@ func _physics_process(delta: float) -> void:
 		position.y = 0
 	elif _auto_walk_active:
 		position = position.move_toward(computer_target, delta * speed)
-		if position.is_equal_approx(computer_target) \
-				or position.distance_squared_to(computer_target) <= _AUTO_WALK_ARRIVE_DIST_SQ:
+		if position.is_equal_approx(computer_target):
 			position = computer_target
 			_auto_walk_active = false
 			reached_computer_target.emit()
