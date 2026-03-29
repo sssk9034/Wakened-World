@@ -19,6 +19,7 @@ metadata/_custom_type_script = "uid://d8d6rw48bpds"
 script = ExtResource("2_4xmy1")
 type = SubResource("Resource_satnm")
 probability = 0.08
+extra_time = 1000
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 offset = Vector2(3.345, -8.885)
@@ -27,8 +28,3 @@ region_rect = Rect2(292, 485, 48, 91)
 [node name="CollisionPolygon2D" parent="Area2D" parent_id_path=PackedInt32Array(271840421) index="0" unique_id=757952542]
 position = Vector2(1, -10)
 polygon = PackedVector2Array(9, -32, 20, 14, 15, 29, 3, 46, -15, 33, -19, 2)
-
-[node name="Timer" type="Timer" parent="." index="2" unique_id=1243501945]
-one_shot = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

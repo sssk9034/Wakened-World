@@ -32,8 +32,8 @@ func _on_area_2d_body_exited(_body: Node2D) -> void:
 
 
 func _apply_velocity_modifier() -> void:
-	Map.singleton.add_current_velocity_modifier(_velocity_modifier)
+	_velocity_modifier.add_velocity_modifier()
 	
 	
 func _remove_velocity_modifier() -> void:
-	Map.singleton.remove_current_velocity_modifier(_velocity_modifier)
+	_velocity_modifier.remove_velocity_modifier()
