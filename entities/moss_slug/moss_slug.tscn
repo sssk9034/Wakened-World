@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://tyg1ho2t551k" path="res://entities/moss_slug/assets/MossSlugDragPathAnimation_Right.png" id="3_wdytg"]
 [ext_resource type="Texture2D" uid="uid://c1ufpc52mb42u" path="res://entities/moss_slug/assets/MossSlugDragPathAnimation_Straight.png" id="4_0ixnn"]
 [ext_resource type="Texture2D" uid="uid://c2fydwj0vtlgu" path="res://entities/moss_slug/assets/MossSlugAnimation_Straight.png" id="4_0o316"]
+[ext_resource type="AudioStream" uid="uid://be33vkhc8apf1" path="res://monsterRoar.mp3" id="8_0ixnn"]
+[ext_resource type="Script" uid="uid://cgo4rwmct7lco" path="res://entities/moss_slug/roar.gd" id="8_wdytg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nekj4"]
 atlas = ExtResource("2_1uria")
@@ -379,5 +381,9 @@ autoplay = "straight"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=981149837]
 shape = SubResource("RectangleShape2D_1uria")
 disabled = true
+
+[node name="Roar" type="AudioStreamPlayer2D" parent="." unique_id=616040548]
+stream = ExtResource("8_0ixnn")
+script = ExtResource("8_wdytg")
 
 [connection signal="body_shape_entered" from="Slug2D" to="." method="_on_slug_2d_body_shape_entered"]
