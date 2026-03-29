@@ -96,3 +96,8 @@ func _on_player_enter_exit_scene(tile: MapTileEnd) -> void:
 	_moss_slug.velocity = Vector2.ZERO
 	_exiting = true
 	_exit_tile = tile
+
+func _on_player_enter_intro_scene(_tile: MapTileStart) -> void:
+	if _player.can_user_control:
+		_player.character.animation = "intro"
+		_player.can_user_control = false

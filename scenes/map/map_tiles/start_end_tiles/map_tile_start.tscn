@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bu13usk36vulp"]
 
 [ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_xhxp2"]
+[ext_resource type="Script" uid="uid://bky4nqt8cfeo1" path="res://scenes/map/map_tiles/start_end_tiles/map_tile_start.gd" id="2_l5utw"]
 [ext_resource type="Texture2D" uid="uid://g4mi28mggtj4" path="res://scenes/map/map_tiles/texures/start_end_tileset.png" id="2_lasqu"]
 
 [node name="MapTileStart" unique_id=1407241641 instance=ExtResource("1_xhxp2")]
+script = ExtResource("2_l5utw")
 
 [node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
 texture = ExtResource("2_lasqu")
