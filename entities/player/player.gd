@@ -1,4 +1,5 @@
 class_name Player
+
 extends CharacterBody2D
 
 static var singleton: Player:
@@ -9,12 +10,14 @@ static var _singleton: Player = null
 @export var speed: int = 200
 
 @onready var character: AnimatedSprite2D = $Character
+
 @onready var _fall_animation: AnimationPlayer = $FallAnimation
 
 var can_user_control: bool = true
 @export var computer_target: Vector2
 
 var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
+
 var dead: bool = false
 
 func _enter_tree() -> void:
@@ -25,28 +28,25 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if singleton == self:
 		_singleton.queue_free()
-	_singleton = null
+		_singleton = null
 
 func _ready() -> void:
 	_fall_animation.set_current_animation("")
 
+
 func _physics_process(delta: float) -> void:
 	if can_user_control:
-		var input: float = Input.get_axis("player_left","player_right")
-		if Input.is_action_just_pressed("player_left"):
-			$Sliding.play_slide()
-		if Input.is_action_just_pressed("player_right"):
-			$Sliding.play_slide()
-
+		var input: float = Input.get_axis("player_left", "player_right")
 		update_character_animation(input)
 		velocity.x = input * speed
+	
 		move_and_slide()
 		position.y = 0
 	elif computer_target != null:
 		position = position.move_toward(computer_target, delta * speed)
 
 func is_at_target() -> bool:
-	return position.is_equal_approx(computer_target)
+	return position.is_equal_approx(computer_target)  
 
 func update_character_animation(direction: float) -> void:
 	if direction > 0:
@@ -60,6 +60,7 @@ func trigger_hole_death(hole_position: Vector2) -> void:
 	if dead:
 		return
 	dead = true
+	
 	computer_target = hole_position
 	can_user_control = false
 	_fall_animation.play("HoleFall")
