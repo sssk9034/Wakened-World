@@ -757,10 +757,10 @@ script = ExtResource("1_rihsh")
 [node name="Character" type="AnimatedSprite2D" parent="." unique_id=196492017]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_gt4e4")
-animation = &"intro"
+animation = &"exit"
 autoplay = "straight"
-frame = 31
-frame_progress = 1.0
+frame = 24
+frame_progress = 0.29999977
 
 [node name="WallCollisionShape2D" type="CollisionShape2D" parent="." unique_id=37950386]
 shape = SubResource("CapsuleShape2D_sglur")

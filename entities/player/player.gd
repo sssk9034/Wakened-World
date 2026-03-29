@@ -2,6 +2,8 @@ class_name Player
 
 extends CharacterBody2D
 
+signal reached_computer_target
+
 static var singleton: Player:
 	get:
 		return _singleton
@@ -15,6 +17,10 @@ static var _singleton: Player = null
 
 var can_user_control: bool = true
 @export var computer_target: Vector2
+
+const _AUTO_WALK_ARRIVE_DIST_SQ: float = 100.0
+
+var _auto_walk_active: bool = false
 
 var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
 
@@ -32,6 +38,17 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	_fall_animation.set_current_animation("")
+	character.animation_finished.connect(_on_character_animation_finished)
+
+
+func _on_character_animation_finished() -> void:
+	if dead or can_user_control:
+		return
+	if character.animation != &"intro":
+		return
+	character.offset = Vector2.ZERO
+	character.animation = &"straight"
+	can_user_control = true
 
 
 func _physics_process(delta: float) -> void:
@@ -42,11 +59,17 @@ func _physics_process(delta: float) -> void:
 	
 		move_and_slide()
 		position.y = 0
-	elif computer_target != null:
+	elif _auto_walk_active:
 		position = position.move_toward(computer_target, delta * speed)
+		if position.is_equal_approx(computer_target) \
+				or position.distance_squared_to(computer_target) <= _AUTO_WALK_ARRIVE_DIST_SQ:
+			position = computer_target
+			_auto_walk_active = false
+			reached_computer_target.emit()
 
-func is_at_target() -> bool:
-	return position.is_equal_approx(computer_target)  
+
+func start_auto_walk() -> void:
+	_auto_walk_active = true
 
 func update_character_animation(direction: float) -> void:
 	if direction > 0:
@@ -63,6 +86,7 @@ func trigger_hole_death(hole_position: Vector2) -> void:
 	
 	computer_target = hole_position
 	can_user_control = false
+	start_auto_walk()
 	_fall_animation.play("HoleFall")
 
 func _on_fall_animation_animation_finished(_anim_name: StringName) -> void:
