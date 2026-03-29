@@ -790,6 +790,28 @@ drag_horizontal_enabled = true
 
 [node name="GameHud" parent="Camera2D/CanvasLayer" unique_id=1640925269 instance=ExtResource("3_sglur")]
 
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1528455711]
+layer = -1000
+
+[node name="Control" type="Control" parent="Camera2D/BackgroundCanvasLayer" unique_id=434181572]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/BackgroundCanvasLayer/Control" unique_id=174644007]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.019607844, 0.05882353, 0.078431375, 1)
+
 [node name="FallAnimation" type="AnimationPlayer" parent="." unique_id=924586342]
 libraries/ = SubResource("AnimationLibrary_fkugw")
 
