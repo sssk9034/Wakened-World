@@ -5,6 +5,8 @@ extends Node2D
 @export var type: ObstacleType
 @export var probability: float = 1.0
 
+@export_range(0, 5000, 1, "suffix:ms", "or_greater") var extra_time: int = 0
+
 var _velocity_modifier: Map.VelocityModifier = StopVelocityModifier.new()
 
 # Called when an Area2D enters the obstacle bounds.
@@ -28,16 +30,17 @@ func _on_area_2d_body_exited(_body: Node2D) -> void:
 
 
 func _apply_velocity_modifier() -> void:
-	Map.singleton.add_current_velocity_modifier(_velocity_modifier)
+	_velocity_modifier.add_velocity_modifier()
 	
 	
 func _remove_velocity_modifier() -> void:
-	Map.singleton.remove_current_velocity_modifier(_velocity_modifier)
+	_velocity_modifier.set_timeout(extra_time)
 
 
 class StopVelocityModifier extends Map.VelocityModifier:
 	func _init() -> void:
 		priority = 100
+		type = ModifierTypes.CURRENT
 	
 	func mod_velocity(_old_velocity: float, _original_velocity: float) -> float:
 		return 0.0
