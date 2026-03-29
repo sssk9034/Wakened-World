@@ -68,28 +68,30 @@ expand_mode = 5
 stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1947660132]
-layout_mode = 0
-offset_right = 192.0
-offset_bottom = 108.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/VBoxContainer" unique_id=525914124]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/AspectRatioContainer" unique_id=1465601364]
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer" unique_id=1465601364]
 layout_mode = 2
 theme_override_constants/margin_bottom = 5
 
-[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer/AspectRatioContainer/MarginContainer" unique_id=979308122]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/VBoxContainer/MarginContainer" unique_id=525914124]
 layout_mode = 2
-color = Color(0.18072194, 0.18072197, 0.18072191, 0.37254903)
 
-[node name="TextureButton" type="TextureButton" parent="Control/VBoxContainer/AspectRatioContainer/MarginContainer" unique_id=1222010068]
+[node name="Button" type="Button" parent="Control/VBoxContainer/MarginContainer/AspectRatioContainer" unique_id=1858692912]
 layout_mode = 2
-texture_normal = ExtResource("3_btob0")
-stretch_mode = 5
+theme_override_font_sizes/font_size = 2
+text = "                                                                     "
+icon = ExtResource("3_btob0")
+icon_alignment = 1
+expand_icon = true
 
 [node name="FadeAnimation" type="AnimationPlayer" parent="." unique_id=672816947]
 libraries/ = SubResource("AnimationLibrary_btob0")
 
-[connection signal="pressed" from="Control/VBoxContainer/AspectRatioContainer/MarginContainer/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/Button" to="." method="_on_button_pressed"]
