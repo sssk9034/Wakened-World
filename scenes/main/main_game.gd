@@ -20,7 +20,8 @@ const INTRO_CHARACTER_OFFSET: Vector2 = Vector2(-295, -70)
 
 const GAMEPLAY_CAMERA_ZOOM: Vector2 = Vector2(0.5, 0.5)
 const INTRO_CINEMATIC_ZOOM: Vector2 = Vector2(0.92, 0.92)
-const INTRO_CAMERA_PAN_Y: float = -80.0
+const INTRO_CAMERA_PAN_Y: float = -102.0
+const INTRO_CAMERA_PAN_START_X_EXTRA: float = -365.0
 const INTRO_ZOOM_OUT_DURATION: float = 0.42
 
 var _exit_tile: MapTileEnd = null
@@ -150,7 +151,7 @@ func _update_intro_camera_from_intro_progress() -> void:
 	if n <= 0:
 		return
 	var t: float = clampf((float(ch.frame) + ch.frame_progress) / float(n), 0.0, 1.0)
-	var start_x: float = INTRO_CHARACTER_OFFSET.x * ch.scale.x
+	var start_x: float = INTRO_CHARACTER_OFFSET.x * ch.scale.x + INTRO_CAMERA_PAN_START_X_EXTRA
 	var pan_x: float = lerpf(start_x, 0.0, t)
 	_apply_intro_camera_pan_x(pan_x)
 
