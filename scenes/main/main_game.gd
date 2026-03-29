@@ -18,8 +18,15 @@ const SLUG_VELOCITY: float = 90.00
 const EXIT_TILE_TARGET: Vector2 = Vector2(41, 270)
 const INTRO_CHARACTER_OFFSET: Vector2 = Vector2(-295, -70)
 
+const GAMEPLAY_CAMERA_ZOOM: Vector2 = Vector2(0.5, 0.5)
+const INTRO_CINEMATIC_ZOOM: Vector2 = Vector2(0.92, 0.92)
+const INTRO_CAMERA_PAN_Y: float = -80.0
+const INTRO_ZOOM_OUT_DURATION: float = 0.42
+
 var _exit_tile: MapTileEnd = null
 var _exiting: bool = false
+var _intro_camera_active: bool = false
+var _intro_zoom_out_tween: Tween = null
 
 func _enter_tree() -> void:
 	if singleton != null:
@@ -27,6 +34,10 @@ func _enter_tree() -> void:
 	_singleton = self
 
 func _exit_tree() -> void:
+	_intro_camera_active = false
+	if _intro_zoom_out_tween != null and _intro_zoom_out_tween.is_valid():
+		_intro_zoom_out_tween.kill()
+	_intro_zoom_out_tween = null
 	if singleton == self:
 		_singleton.queue_free()
 		_singleton = null
@@ -36,9 +47,10 @@ func _ready() -> void:
 	
 	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
 	_player.reached_computer_target.connect(_on_player_reached_computer_target)
+	_player.intro_finished.connect(_finish_intro_camera_follow)
 
 func _physics_process(_delta: float) -> void:
-	if not _exiting:
+	if not _exiting and not _intro_camera_active:
 		_moss_slug.target = _player.global_position
 		_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
 
@@ -106,8 +118,68 @@ func _on_player_enter_exit_scene(tile: MapTileEnd) -> void:
 	_exit_tile = tile
 	_player.start_auto_walk()
 
+func _finish_intro_camera_follow() -> void:
+	if not _intro_camera_active:
+		return
+	_intro_camera_active = false
+	_map.change_velocity(PLAYER_VELOCITY)
+	var cam: Camera2D = _player.get_node("Camera2D") as Camera2D
+	cam.position = Vector2.ZERO
+	cam.offset = Vector2.ZERO
+	cam.position_smoothing_enabled = true
+	cam.drag_horizontal_enabled = true
+	if _intro_zoom_out_tween != null and _intro_zoom_out_tween.is_valid():
+		_intro_zoom_out_tween.kill()
+	_intro_zoom_out_tween = create_tween()
+	_intro_zoom_out_tween.tween_property(cam, "zoom", GAMEPLAY_CAMERA_ZOOM, INTRO_ZOOM_OUT_DURATION) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+func _apply_intro_camera_pan_x(pan_x: float) -> void:
+	var cam: Camera2D = _player.get_node("Camera2D") as Camera2D
+	cam.position = Vector2(pan_x, INTRO_CAMERA_PAN_Y)
+
+
+func _update_intro_camera_from_intro_progress() -> void:
+	var ch: AnimatedSprite2D = _player.character
+	var sf: SpriteFrames = ch.sprite_frames
+	var anim: StringName = &"intro"
+	if sf == null or not sf.has_animation(anim):
+		return
+	var n: int = sf.get_frame_count(anim)
+	if n <= 0:
+		return
+	var t: float = clampf((float(ch.frame) + ch.frame_progress) / float(n), 0.0, 1.0)
+	var start_x: float = INTRO_CHARACTER_OFFSET.x * ch.scale.x
+	var pan_x: float = lerpf(start_x, 0.0, t)
+	_apply_intro_camera_pan_x(pan_x)
+
+
+func _start_intro_camera_sequence() -> void:
+	var cam: Camera2D = _player.get_node("Camera2D") as Camera2D
+	cam.position_smoothing_enabled = false
+	cam.drag_horizontal_enabled = false
+	cam.drag_vertical_enabled = false
+	cam.zoom = INTRO_CINEMATIC_ZOOM
+	cam.offset = Vector2.ZERO
+	_intro_camera_active = true
+	_update_intro_camera_from_intro_progress()
+
+
+func _process(_delta: float) -> void:
+	if not _intro_camera_active:
+		return
+	if _player.character.animation != &"intro":
+		return
+	_update_intro_camera_from_intro_progress()
+
+
 func _on_player_enter_intro_scene(_tile: MapTileStart) -> void:
 	if _player.can_user_control:
 		_player.character.offset = INTRO_CHARACTER_OFFSET
-		_player.character.animation = "intro"
+		_player.character.play(&"intro")
 		_player.can_user_control = false
+		_player.lock_intro_world_position()
+		_map.set_velocity(0)
+		_moss_slug.velocity = Vector2.ZERO
+		_start_intro_camera_sequence()

@@ -3,6 +3,7 @@ class_name Player
 extends CharacterBody2D
 
 signal reached_computer_target
+signal intro_finished
 
 static var singleton: Player:
 	get:
@@ -21,6 +22,9 @@ var can_user_control: bool = true
 const _AUTO_WALK_ARRIVE_DIST_SQ: float = 100.0
 
 var _auto_walk_active: bool = false
+
+var _intro_world_position_locked: bool = false
+var _intro_lock_global_position: Vector2
 
 var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
 
@@ -46,12 +50,23 @@ func _on_character_animation_finished() -> void:
 		return
 	if character.animation != &"intro":
 		return
+	_intro_world_position_locked = false
 	character.offset = Vector2.ZERO
 	character.animation = &"straight"
 	can_user_control = true
+	intro_finished.emit()
+
+
+func lock_intro_world_position() -> void:
+	_intro_lock_global_position = global_position
+	_intro_world_position_locked = true
 
 
 func _physics_process(delta: float) -> void:
+	if _intro_world_position_locked:
+		global_position = _intro_lock_global_position
+		velocity = Vector2.ZERO
+		return
 	if can_user_control:
 		var input: float = Input.get_axis("player_left", "player_right")
 		update_character_animation(input)
