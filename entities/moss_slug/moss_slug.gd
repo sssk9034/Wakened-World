@@ -123,14 +123,9 @@ func _on_slug_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_i
 func _check_roar_condition() -> void:
 	if not _can_roar:
 		return
-
-	var player := Player.singleton
 	
-	if player == null:
-		return
-
-	var distance := global_position.distance_to(player.global_position)
-
+	var distance: float = global_position.distance_to(target)
+	print("distance:", distance)
 	if distance <= roar_distance:
 		_play_roar_with_cooldown()
 		
