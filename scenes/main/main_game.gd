@@ -15,7 +15,7 @@ var _hole_death_scene: PackedScene = preload("res://ui/death/hole_death_scene.ts
 var _start_scene: PackedScene = preload("res://ui/start/start_scene.tscn")
 
 const PLAYER_VELOCITY: float = 100.00
-const SLUG_VELOCITY: float = 90.00
+const SLUG_VELOCITY: float = 95.00
 const EXIT_TILE_TARGET: Vector2 = Vector2(41, 270)
 const INTRO_CHARACTER_OFFSET: Vector2 = Vector2(-295, -70)
 
@@ -61,7 +61,12 @@ func _physics_process(_delta: float) -> void:
 	_moss_slug.chase_horizontally_enabled = slug_chase
 	if slug_chase:
 		_moss_slug.target = _player.global_position
-		_moss_slug.velocity = Vector2(0, SLUG_VELOCITY - _map.get_velocity())
+		
+		if _player.global_position.y < _moss_slug.global_position.y:
+			# Slug is ahead of player, stop slug
+			_moss_slug.velocity.y = 0
+		else:
+			_moss_slug.velocity.y = SLUG_VELOCITY - _map.get_velocity()
 	else:
 		_moss_slug.velocity = Vector2.ZERO
 

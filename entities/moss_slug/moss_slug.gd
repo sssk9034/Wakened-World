@@ -2,7 +2,8 @@ class_name MossSlug
 
 extends CharacterBody2D
 
-@export var _slug_follow_speed: float = 150.0
+@export_range(1, 500, 0.01, "suffix:px/s²") var acceleration_x_axis: float = 70.0
+@export_range(0, 200, 0.01, "suffix:px/s") var velocity_x_axis: float = 100.0
 
 @onready var _slug_character: AnimatedSprite2D = $Character
 @onready var _slug_drag_path: AnimatedSprite2D = $DragPath
@@ -15,6 +16,9 @@ var _active_shape: CollisionPolygon2D = null
 
 @export var target: Vector2
 
+var _target_velocity: float = 0.0
+var _current_velocity: float = 0.0
+
 #player distance based roar sound effect
 @export var roar_distance: float = 90.0   # distance threshold
 @export var roar_cooldown: float = 5.0     # seconds
@@ -22,12 +26,14 @@ var _active_shape: CollisionPolygon2D = null
 var _can_roar: bool = true
 @onready var _roar_player: AudioStreamPlayer2D = $Roar
 
+
 ## Set by gameplay (e.g. MainGame): horizontal chase uses global_position, not velocity.
 var chase_horizontally_enabled: bool = false
 
 signal caught_player
 
 const SLUG_INTRO_VISUAL_OFFSET_Y: float = 48.0
+const SLUG_ANIMATION_TRIGGER_VELOCITY: float = 20.0
 
 var _intro_reaction_active: bool = false
 var _slug_character_rest_y: float = 0.0
@@ -93,28 +99,52 @@ func _physics_process(delta: float) -> void:
 		_update_collision_shape("straight")
 		move_and_slide()
 		return
-
+		
 	_update_moss_slug(delta)
 	_check_roar_condition()
 	move_and_slide()
 
 
 func _update_moss_slug(delta: float) -> void:
-	var distance_x: float = target.x - global_position.x
-
-	if chase_horizontally_enabled and absf(distance_x) > 1.0:
-		global_position.x += sign(distance_x) * _slug_follow_speed * delta
-		if distance_x > 0.0:
-			_slug_character.animation = &"right"
-			_slug_drag_path.animation = &"right"
-		else:
-			_slug_character.animation = &"left"
-			_slug_drag_path.animation = &"left"
+	if chase_horizontally_enabled:
+		var distance_x: float = target.x - global_position.x
+		
+		_target_velocity = clamp(distance_x * 2, -velocity_x_axis, velocity_x_axis)
+		
+		_calc_acceleration(delta)
+		velocity.x = _current_velocity
+		
+	else:
+		_target_velocity = 0.0
+		_current_velocity = 0.0
+		velocity.x = 0.0
+		
+	if velocity.x > SLUG_ANIMATION_TRIGGER_VELOCITY:
+		_slug_character.animation = &"right"
+		_slug_drag_path.animation = &"right"
+	elif velocity.x < -SLUG_ANIMATION_TRIGGER_VELOCITY:
+		_slug_character.animation = &"left"
+		_slug_drag_path.animation = &"left"
 	else:
 		_slug_character.animation = &"straight"
 		_slug_drag_path.animation = &"straight"
 
 	_update_collision_shape(String(_slug_character.animation))
+
+
+## Updates _target_velocity if _current_velocity != _target_velocity, using acceleration values.
+func _calc_acceleration(delta: float) -> void:
+	if _target_velocity > _current_velocity:
+		# Increasing velocity
+		_current_velocity = min(
+				_current_velocity + (acceleration_x_axis * delta),
+				_target_velocity)
+				
+	elif _target_velocity < _current_velocity:
+		# Decreasing velocity
+		_current_velocity = max(
+				_current_velocity - (acceleration_x_axis * delta),
+				_target_velocity)
 
 
 func _on_slug_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:

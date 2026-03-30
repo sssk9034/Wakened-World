@@ -15,13 +15,12 @@
 [ext_resource type="Script" uid="uid://bfaxt2x3s67k5" path="res://scenes/map/procedural_rng_controller.gd" id="11_wmrn4"]
 [ext_resource type="PackedScene" uid="uid://bu13usk36vulp" path="res://scenes/map/map_tiles/start_end_tiles/map_tile_start.tscn" id="12_iv5mf"]
 [ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="12_wwv60"]
-[ext_resource type="AudioStream" uid="uid://dfkdfxtwstalj" path="res://jorisvermeer-ominous-horror-game-background-418850.mp3" id="16_iv5mf"]
 [ext_resource type="PackedScene" uid="uid://bwpauseovrlay" path="res://ui/pause/pause_overlay.tscn" id="13_pauseov"]
+[ext_resource type="AudioStream" uid="uid://dfkdfxtwstalj" path="res://jorisvermeer-ominous-horror-game-background-418850.mp3" id="16_iv5mf"]
 
 [sub_resource type="Resource" id="Resource_aqdx0"]
 script = ExtResource("5_0wxsa")
 map_rng = ExtResource("12_wwv60")
-map_length = 1
 map_tile_list = Array[PackedScene]([ExtResource("4_wmrn4"), ExtResource("5_wwv60"), ExtResource("6_aqdx0"), ExtResource("7_xu7aq"), ExtResource("4_25ngl")])
 metadata/_custom_type_script = "uid://cdyoaitx4dfud"
 
@@ -43,7 +42,7 @@ position = Vector2(0, -140)
 
 [node name="Player" parent="." unique_id=267217265 instance=ExtResource("5_bebfr")]
 
-[node name="PauseOverlay" parent="." instance=ExtResource("13_pauseov")]
+[node name="PauseOverlay" parent="." unique_id=1936713612 instance=ExtResource("13_pauseov")]
 
 [node name="ProceduralRNGController" type="Node" parent="." unique_id=1965903113]
 script = ExtResource("11_wmrn4")
