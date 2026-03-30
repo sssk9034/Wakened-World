@@ -125,7 +125,7 @@ func _check_roar_condition() -> void:
 		return
 	
 	var distance: float = global_position.distance_to(target)
-	print("distance:", distance)
+	
 	if distance <= roar_distance:
 		_play_roar_with_cooldown()
 		
