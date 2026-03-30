@@ -19,7 +19,6 @@
 [sub_resource type="Resource" id="Resource_aqdx0"]
 script = ExtResource("5_0wxsa")
 map_rng = ExtResource("12_wwv60")
-map_length = 1
 map_tile_list = Array[PackedScene]([ExtResource("4_wmrn4"), ExtResource("5_wwv60"), ExtResource("6_aqdx0"), ExtResource("7_xu7aq"), ExtResource("4_25ngl")])
 metadata/_custom_type_script = "uid://cdyoaitx4dfud"
 
