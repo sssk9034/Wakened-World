@@ -1,34 +1,98 @@
 [gd_scene format=3 uid="uid://bu13usk36vulp"]
 
 [ext_resource type="PackedScene" uid="uid://y4kmm78nykcc" path="res://scenes/map/map_tiles/map_tile.tscn" id="1_xhxp2"]
+[ext_resource type="Script" uid="uid://bky4nqt8cfeo1" path="res://scenes/map/map_tiles/start_end_tiles/map_tile_start.gd" id="2_l5utw"]
 [ext_resource type="Texture2D" uid="uid://g4mi28mggtj4" path="res://scenes/map/map_tiles/texures/start_end_tileset.png" id="2_lasqu"]
+[ext_resource type="Texture2D" uid="uid://dd4shrwhdo3xh" path="res://entities/moss_slug/assets/Moss Slug Animation-Sheet.png" id="4_5bf28"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0ru5"]
+atlas = ExtResource("4_5bf28")
+region = Rect2(0, 0, 225, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umdcq"]
+atlas = ExtResource("4_5bf28")
+region = Rect2(225, 0, 225, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q60by"]
+atlas = ExtResource("4_5bf28")
+region = Rect2(0, 144, 225, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je53h"]
+atlas = ExtResource("4_5bf28")
+region = Rect2(225, 144, 225, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obi2w"]
+atlas = ExtResource("4_5bf28")
+region = Rect2(0, 288, 225, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1plaa"]
+atlas = ExtResource("4_5bf28")
+region = Rect2(225, 288, 225, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l5utw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0ru5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umdcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q60by")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je53h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obi2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1plaa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="MapTileStart" unique_id=1407241641 instance=ExtResource("1_xhxp2")]
+script = ExtResource("2_l5utw")
 
 [node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
 texture = ExtResource("2_lasqu")
-offset = Vector2(-1091, -54)
+offset = Vector2(-1091, -160)
 region_rect = Rect2(32, 890, 1767, 826)
 
 [node name="TreeLayerTexture" parent="." index="1" unique_id=758751447]
 texture = ExtResource("2_lasqu")
-offset = Vector2(-1091, -54)
+offset = Vector2(-1091, -160)
 region_rect = Rect2(32, 32, 1767, 826)
 
 [node name="LeftBackgroundTexture" parent="." index="2" unique_id=1526904559]
 visible = false
 texture = null
+offset = Vector2(-735, -160)
 region_enabled = false
 
 [node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
 visible = false
 texture = null
+offset = Vector2(245, -160)
 
 [node name="NextTileMarker" parent="." index="4" unique_id=37438559]
-position = Vector2(7, 772)
+position = Vector2(7, 666)
 
 [node name="LeftCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="0" unique_id=2133401722]
+position = Vector2(16, -98)
 polygon = PackedVector2Array(-1130, 71, -109, 79, -150, 779, -1103, 783)
 
 [node name="RightCollisionPolygon2D" parent="MapTileWalls" parent_id_path=PackedInt32Array(566238000) index="1" unique_id=47519974]
+position = Vector2(-7, -107)
 polygon = PackedVector2Array(66, 87, 138, 777, 696, 785, 708, 80)
+
+[node name="MossSlugChasing" type="AnimatedSprite2D" parent="." index="7" unique_id=2034049982]
+position = Vector2(-628.03, -98)
+sprite_frames = SubResource("SpriteFrames_l5utw")
+autoplay = "default"
+frame = 5
+frame_progress = 0.08378905
