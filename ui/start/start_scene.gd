@@ -6,6 +6,8 @@ var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
 @onready var _start_button: TextureButton = $Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton
 
 var _press_tween: Tween
+var _ui_transitioning: bool = false
+var _keyboard_button_down: bool = false
 
 func _ready() -> void:
 	_start_button.resized.connect(_refresh_button_pivot)
@@ -24,6 +26,7 @@ func _kill_press_tween() -> void:
 	_press_tween = null
 
 func _disable_start_button() -> void:
+	_keyboard_button_down = false
 	_kill_press_tween()
 	_start_button.disabled = true
 	_start_button.modulate = Color(1, 1, 1, 0)
@@ -63,7 +66,32 @@ func _on_start_button_button_up() -> void:
 	_press_tween.tween_property(_start_button, "scale", Vector2.ONE, 0.1)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("confirm_menu"):
+		if event is InputEventKey and (event as InputEventKey).echo:
+			return
+		if _ui_transitioning or _start_button.disabled:
+			return
+		_keyboard_button_down = true
+		_on_start_button_button_down()
+		get_viewport().set_input_as_handled()
+		return
+
+	if event.is_action_released("confirm_menu"):
+		if not _keyboard_button_down:
+			return
+		_keyboard_button_down = false
+		get_viewport().set_input_as_handled()
+		if _ui_transitioning or _start_button.disabled:
+			return
+		_on_start_button_button_up()
+		await _on_start_button_pressed()
+
+
 func _on_start_button_pressed() -> void:
+	if _ui_transitioning:
+		return
+	_ui_transitioning = true
 	get_tree().root.add_child(_main_scene.instantiate())
 	await _fade_animation_reverse()
 	queue_free()
