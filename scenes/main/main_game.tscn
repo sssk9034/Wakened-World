@@ -49,3 +49,4 @@ metadata/_custom_type_script = "uid://bfaxt2x3s67k5"
 
 [node name="Background" type="AudioStreamPlayer2D" parent="." unique_id=526154212]
 stream = ExtResource("16_iv5mf")
+autoplay = true
