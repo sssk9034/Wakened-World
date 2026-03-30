@@ -29,6 +29,7 @@ var _death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
 
 var dead: bool = false
 
+
 func _enter_tree() -> void:
 	if singleton != null:
 		_singleton.queue_free()
@@ -71,6 +72,12 @@ func _physics_process(delta: float) -> void:
 		return
 	if can_user_control:
 		var input: float = Input.get_axis("player_left", "player_right")
+		
+		if Input.is_action_just_pressed("player_left"):
+			$Sliding.play_slide()
+		if Input.is_action_just_pressed("player_right"):
+			$Sliding.play_slide()
+		
 		update_character_animation(input)
 		velocity.x = input * speed
 	
