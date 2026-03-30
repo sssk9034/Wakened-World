@@ -5,18 +5,61 @@ var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
 @onready var _fade_animation: AnimationPlayer = $FadeAnimation
 @onready var _retry_button: Button = $Control/VBoxContainer/MarginContainer/AspectRatioContainer/Button
 
+var _press_tween: Tween
+var _ui_transitioning: bool = false
+var _keyboard_button_down: bool = false
+
 func _ready() -> void:
+	_retry_button.resized.connect(_refresh_button_pivot)
+	_refresh_button_pivot()
 	_disable_retry_button()
 	await _fade_animation_func()
-	
+
+
+func _refresh_button_pivot() -> void:
+	if _retry_button.size.x <= 0.0 or _retry_button.size.y <= 0.0:
+		return
+	_retry_button.pivot_offset = _retry_button.size * 0.5
+
+
+func _kill_press_tween() -> void:
+	if _press_tween != null and _press_tween.is_valid():
+		_press_tween.kill()
+	_press_tween = null
+
+
 func _disable_retry_button() -> void:
+	_keyboard_button_down = false
+	_kill_press_tween()
 	_retry_button.disabled = true
 	_retry_button.modulate = Color(1, 1, 1, 0)
-	
+	_retry_button.scale = Vector2.ONE
+
+
 func _fade_retry_button() -> void:
+	_refresh_button_pivot()
 	_retry_button.disabled = false
 	get_tree().create_tween() \
 		.tween_property(_retry_button, "modulate", Color.WHITE, 0.5)
+
+
+func _on_retry_button_button_down() -> void:
+	if _retry_button.disabled:
+		return
+	_kill_press_tween()
+	_press_tween = create_tween()
+	_press_tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_press_tween.tween_property(_retry_button, "scale", Vector2(0.94, 0.94), 0.07)
+
+
+func _on_retry_button_button_up() -> void:
+	if _retry_button.disabled:
+		return
+	_kill_press_tween()
+	_press_tween = create_tween()
+	_press_tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_press_tween.tween_property(_retry_button, "scale", Vector2.ONE, 0.1)
+
 
 func _fade_animation_func() -> void:
 	_fade_animation.play("FadeAnimation")
@@ -29,7 +72,37 @@ func _fade_animation_reverse() -> void:
 	await _fade_animation.animation_finished
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventKey:
+		return
+	var ke: InputEventKey = event as InputEventKey
+	if ke.keycode != KEY_SPACE and ke.physical_keycode != KEY_SPACE:
+		return
+
+	if ke.pressed:
+		if ke.echo:
+			return
+		if _ui_transitioning or _retry_button.disabled:
+			return
+		_keyboard_button_down = true
+		_on_retry_button_button_down()
+		get_viewport().set_input_as_handled()
+		return
+
+	if not _keyboard_button_down:
+		return
+	_keyboard_button_down = false
+	get_viewport().set_input_as_handled()
+	if _ui_transitioning or _retry_button.disabled:
+		return
+	_on_retry_button_button_up()
+	await _on_button_pressed()
+
+
 func _on_button_pressed() -> void:
+	if _ui_transitioning:
+		return
+	_ui_transitioning = true
 	get_tree().root.add_child(_main_scene.instantiate())
 	await _fade_animation_reverse()
 	queue_free()

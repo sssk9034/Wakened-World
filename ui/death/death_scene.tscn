@@ -94,4 +94,6 @@ expand_icon = true
 [node name="FadeAnimation" type="AnimationPlayer" parent="." unique_id=672816947]
 libraries/ = SubResource("AnimationLibrary_btob0")
 
+[connection signal="button_down" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/Button" to="." method="_on_retry_button_button_down"]
+[connection signal="button_up" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/Button" to="." method="_on_retry_button_button_up"]
 [connection signal="pressed" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/Button" to="." method="_on_button_pressed"]
