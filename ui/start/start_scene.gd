@@ -85,7 +85,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _ui_transitioning or _start_button.disabled:
 			return
 		_on_start_button_button_up()
-		_on_start_button_pressed()
+		await _on_start_button_pressed()
 
 
 func _on_start_button_pressed() -> void:

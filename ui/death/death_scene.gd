@@ -91,7 +91,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _ui_transitioning or _retry_button.disabled:
 			return
 		_on_retry_button_button_up()
-		_on_button_pressed()
+		await _on_button_pressed()
 
 
 func _on_button_pressed() -> void:
