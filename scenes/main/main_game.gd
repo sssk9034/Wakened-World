@@ -12,6 +12,7 @@ static var _singleton: MainGame = null
 
 var _death_scene: PackedScene = preload("res://ui/death/death_scene.tscn")
 var _hole_death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
+var _start_scene: PackedScene = preload("res://ui/start/start_scene.tscn")
 
 const PLAYER_VELOCITY: float = 100.00
 const SLUG_VELOCITY: float = 90.00
@@ -24,6 +25,7 @@ const INTRO_CAMERA_PAN_Y: float = -102.0
 const INTRO_CAMERA_PAN_START_X_EXTRA: float = -365.0
 const INTRO_CAMERA_DROP_ZOOM_DURATION: float = 0.42
 const SLUG_INTRO_AT_HORIZONTAL_PROGRESS: float = 0.70
+const HOLD_AFTER_EXIT_ANIM_BEFORE_START: float = 0.70
 
 var _exit_tile: MapTileEnd = null
 var _exiting: bool = false
@@ -51,6 +53,7 @@ func _ready() -> void:
 	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
 	_player.reached_computer_target.connect(_on_player_reached_computer_target)
 	_player.intro_finished.connect(_finish_intro_camera_follow)
+	_player.exit_finished.connect(_on_player_exit_finished)
 
 func _physics_process(_delta: float) -> void:
 	var slug_chase: bool = not _exiting and not _intro_camera_active \
@@ -88,6 +91,10 @@ func on_hole_death() -> void:
 
 func on_slug_death() -> void:
 	scene_switcher(_death_scene)
+
+func _on_player_exit_finished() -> void:
+	await get_tree().create_timer(HOLD_AFTER_EXIT_ANIM_BEFORE_START).timeout
+	scene_switcher(_start_scene)
 
 func _start_exit_camera_pan() -> void:
 	var camera: Camera2D = _player.get_node("Camera2D")

@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://7v70hde64l8n"]
+
+[ext_resource type="Script" uid="uid://c8k2n4m6p8q0r" path="res://ui/start/start_scene.gd" id="1_start"]
+[ext_resource type="Texture2D" uid="uid://dlmutvjrtp6pp" path="res://ui/start/assets/Start Screen UI Title (1).png" id="2_title"]
+[ext_resource type="Texture2D" uid="uid://6yevmcc7mepq" path="res://ui/start/assets/Start Screen UI Start Button.png" id="3_button"]
+
+[sub_resource type="Animation" id="Animation_4d1xd"]
+resource_name = "FadeAnimation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wmrn4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_btob0"]
+_data = {
+&"FadeAnimation": SubResource("Animation_4d1xd"),
+&"RESET": SubResource("Animation_wmrn4")
+}
+
+[node name="StartScene" type="CanvasLayer" unique_id=297058278]
+script = ExtResource("1_start")
+
+[node name="Control" type="Control" parent="." unique_id=1377792038]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Background" type="TextureRect" parent="Control" unique_id=366524662]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_title")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1713159937]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer" unique_id=1347564863]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/VBoxContainer/MarginContainer" unique_id=615180969]
+layout_mode = 2
+
+[node name="StartButton" type="TextureButton" parent="Control/VBoxContainer/MarginContainer/AspectRatioContainer" unique_id=870666733]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_button")
+stretch_mode = 5
+
+[node name="FadeAnimation" type="AnimationPlayer" parent="." unique_id=2115916511]
+libraries/ = SubResource("AnimationLibrary_btob0")
+
+[connection signal="button_down" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_up" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton" to="." method="_on_start_button_pressed"]
