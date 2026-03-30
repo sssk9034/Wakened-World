@@ -34,7 +34,6 @@ signal caught_player
 
 const SLUG_INTRO_VISUAL_OFFSET_Y: float = 48.0
 const SLUG_ANIMATION_TRIGGER_VELOCITY: float = 20.0
-const SLUG_WANDER_VELOCITY: float = 10.0
 
 var _intro_reaction_active: bool = false
 var _slug_character_rest_y: float = 0.0
