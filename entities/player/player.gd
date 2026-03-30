@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 signal reached_computer_target
 signal intro_finished
+signal exit_finished
 
 static var singleton: Player:
 	get:
@@ -45,6 +46,9 @@ func _ready() -> void:
 
 func _on_character_animation_finished() -> void:
 	if dead or can_user_control:
+		return
+	if character.animation == &"exit":
+		exit_finished.emit()
 		return
 	if character.animation != &"intro":
 		return
