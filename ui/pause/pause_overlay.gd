@@ -18,12 +18,9 @@ func _exit_tree() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not event is InputEventKey:
+	if not event.is_action_pressed("toggle_pause"):
 		return
-	var key_event: InputEventKey = event as InputEventKey
-	if not key_event.pressed or key_event.echo:
-		return
-	if key_event.keycode != KEY_ESCAPE and key_event.physical_keycode != KEY_ESCAPE:
+	if event is InputEventKey and (event as InputEventKey).echo:
 		return
 	get_viewport().set_input_as_handled()
 	if _paused:

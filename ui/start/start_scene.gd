@@ -67,14 +67,8 @@ func _on_start_button_button_up() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not event is InputEventKey:
-		return
-	var ke: InputEventKey = event as InputEventKey
-	if ke.keycode != KEY_SPACE and ke.physical_keycode != KEY_SPACE:
-		return
-
-	if ke.pressed:
-		if ke.echo:
+	if event.is_action_pressed("confirm_menu"):
+		if event is InputEventKey and (event as InputEventKey).echo:
 			return
 		if _ui_transitioning or _start_button.disabled:
 			return
@@ -83,14 +77,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
-	if not _keyboard_button_down:
-		return
-	_keyboard_button_down = false
-	get_viewport().set_input_as_handled()
-	if _ui_transitioning or _start_button.disabled:
-		return
-	_on_start_button_button_up()
-	await _on_start_button_pressed()
+	if event.is_action_released("confirm_menu"):
+		if not _keyboard_button_down:
+			return
+		_keyboard_button_down = false
+		get_viewport().set_input_as_handled()
+		if _ui_transitioning or _start_button.disabled:
+			return
+		_on_start_button_button_up()
+		_on_start_button_pressed()
 
 
 func _on_start_button_pressed() -> void:
