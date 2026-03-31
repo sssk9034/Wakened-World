@@ -27,7 +27,7 @@ position_id = 1
 position = Vector2(-25, 150)
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
-[sub_resource type="Resource" id="Resource_y7f64"]
+[sub_resource type="Resource" id="Resource_ttvi6"]
 resource_local_to_scene = true
 script = ExtResource("6_xgeau")
 positions = Array[ExtResource("4_y7f64")]([SubResource("Resource_7e531"), SubResource("Resource_tvvix")])
@@ -51,7 +51,7 @@ region_rect = Rect2(1602, 812, 490, 358)
 
 [node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
 offset = Vector2(742, 0)
-region_rect = Rect2(3171, 812, 490, 358)
+region_rect = Rect2(1602, 812, 490, 358)
 
 [node name="NextTileMarker" parent="." index="4" unique_id=37438559]
 position = Vector2(510, 358)
@@ -63,7 +63,7 @@ polygon = PackedVector2Array(-146, -37, -144, 145, -39, 281, 149, 321, 320, 333,
 polygon = PackedVector2Array(159, -30, 111, 63, 168, 125, 324, 153, 471, 208, 665, 366, 1256, 372, 1276, -27)
 
 [node name="ObstacleLayer" parent="." index="6" unique_id=1756401816]
-obstacle_layout = SubResource("Resource_y7f64")
+obstacle_layout = SubResource("Resource_ttvi6")
 
 [node name="MapAreaModifier" type="Area2D" parent="." index="7" unique_id=403007045]
 collision_mask = 2
