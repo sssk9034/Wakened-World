@@ -33,7 +33,7 @@ var chase_horizontally_enabled: bool = false
 signal caught_player
 
 const SLUG_INTRO_VISUAL_OFFSET_Y: float = 48.0
-const SLUG_ANIMATION_TRIGGER_VELOCITY: float = 20.0
+const SLUG_ANIMATION_TRIGGER: float = 20.0
 
 var _intro_reaction_active: bool = false
 var _slug_character_rest_y: float = 0.0
@@ -119,17 +119,22 @@ func _update_moss_slug(delta: float) -> void:
 		_current_velocity = 0.0
 		velocity.x = 0.0
 		
-	if velocity.x > SLUG_ANIMATION_TRIGGER_VELOCITY:
+	_update_animation()
+	_update_collision_shape(String(_slug_character.animation))
+
+
+func _update_animation() -> void:
+	var distance_x: float = target.x - global_position.x
+	
+	if distance_x > SLUG_ANIMATION_TRIGGER:
 		_slug_character.animation = &"right"
 		_slug_drag_path.animation = &"right"
-	elif velocity.x < -SLUG_ANIMATION_TRIGGER_VELOCITY:
+	elif distance_x < -SLUG_ANIMATION_TRIGGER:
 		_slug_character.animation = &"left"
 		_slug_drag_path.animation = &"left"
 	else:
 		_slug_character.animation = &"straight"
 		_slug_drag_path.animation = &"straight"
-
-	_update_collision_shape(String(_slug_character.animation))
 
 
 ## Updates _target_velocity if _current_velocity != _target_velocity, using acceleration values.

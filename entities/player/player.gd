@@ -55,7 +55,7 @@ func _on_character_animation_finished() -> void:
 		return
 	_intro_world_position_locked = false
 	character.offset = Vector2.ZERO
-	character.animation = &"straight"
+	character.play(&"straight") 
 	can_user_control = true
 	intro_finished.emit()
 
