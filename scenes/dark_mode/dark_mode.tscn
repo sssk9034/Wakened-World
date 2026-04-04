@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://o12vuwvcmkde"]
 
 [ext_resource type="Script" uid="uid://b4h4e05higkk8" path="res://scenes/dark_mode/dark_mode.gd" id="1_40m8p"]
+[ext_resource type="Script" uid="uid://bejr8co5rgmm8" path="res://scenes/dark_mode/flashlight.gd" id="2_ap6oj"]
 [ext_resource type="Texture2D" uid="uid://b6dnnrqitke8g" path="res://scenes/dark_mode/textures/flashlight_mask.png" id="2_lxxrc"]
-[ext_resource type="Script" uid="uid://crevph78ppsy0" path="res://scenes/dark_mode/player_flash_light.gd" id="3_ap6oj"]
-[ext_resource type="Texture2D" uid="uid://g4mi28mggtj4" path="res://scenes/map/map_tiles/texures/start_end_tileset.png" id="3_fij8u"]
 
 [sub_resource type="Gradient" id="Gradient_acxof"]
 interpolation_mode = 2
@@ -23,33 +22,37 @@ script = ExtResource("1_40m8p")
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1196813613]
 color = Color(0.28118676, 0.2811869, 0.28118682, 1)
 
-[node name="PlayerLights" type="Node2D" parent="." unique_id=1825816847]
+[node name="Flashlight" type="Node2D" parent="." unique_id=1825816847]
+rotation = 1.5707964
+script = ExtResource("2_ap6oj")
 
-[node name="PlayerPointLight" type="PointLight2D" parent="PlayerLights" unique_id=307613471]
+[node name="FlashlightPoint" type="PointLight2D" parent="Flashlight" unique_id=307613471]
+color = Color(1, 0.83137256, 0.7137255, 1)
 energy = 0.5
 range_z_max = 25
 texture = SubResource("GradientTexture2D_acxof")
 
-[node name="PlayerPointLightTreeLayer" type="PointLight2D" parent="PlayerLights/PlayerPointLight" unique_id=1586621388]
-energy = 0.3
+[node name="FlashlightPointTreeLayer" type="PointLight2D" parent="Flashlight/FlashlightPoint" unique_id=1586621388]
+color = Color(1, 0.83137256, 0.7137255, 1)
+energy = 0.2
 range_z_min = 26
 texture = SubResource("GradientTexture2D_acxof")
 
-[node name="PlayerFlashLight" type="PointLight2D" parent="PlayerLights" unique_id=1816225944]
+[node name="FlashlightBeam" type="PointLight2D" parent="Flashlight" unique_id=1816225944]
+color = Color(1, 0.83179665, 0.7124052, 1)
 range_z_max = 25
 texture = ExtResource("2_lxxrc")
-offset = Vector2(260, 0)
-script = ExtResource("3_ap6oj")
+offset = Vector2(110, 0)
 
-[node name="PlayerFlashLightTreeLayer" type="PointLight2D" parent="PlayerLights/PlayerFlashLight" unique_id=1074738572]
-energy = 0.3
+[node name="FlashlightBeamTreeLayer" type="PointLight2D" parent="Flashlight/FlashlightBeam" unique_id=1074738572]
+color = Color(1, 0.83137256, 0.7137255, 1)
+energy = 0.5
 range_z_min = 26
 texture = ExtResource("2_lxxrc")
-offset = Vector2(260, 0)
+offset = Vector2(110, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=947947772]
-visible = false
-texture = ExtResource("3_fij8u")
-offset = Vector2(-200, 0)
-region_enabled = true
-region_rect = Rect2(32, 890, 1767, 826)
+[node name="FlickerTimer" type="Timer" parent="Flashlight" unique_id=2078085396]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Flashlight/FlickerTimer" to="Flashlight" method="_on_flicker_timer_timeout" flags=18]
