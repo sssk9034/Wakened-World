@@ -16,6 +16,10 @@ run/main_scene="uid://7v70hde64l8n"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://bfw8u6k8ots2r"
 
+[autoload]
+
+Settings="*uid://cwc7m3mq6ruhc"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1

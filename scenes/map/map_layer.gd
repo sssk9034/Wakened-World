@@ -7,6 +7,9 @@ var tile_count: int:
 var _tile_count: int = 0
 var _next_tile_position: Vector2 = Vector2(0, 0)
 
+func _ready() -> void:
+	clear()
+
 ## Appends the given tile to the layer.
 func add_tile(tile: MapTile) -> void:
 	tile.position = _next_tile_position

@@ -3,7 +3,10 @@ extends CanvasLayer
 var _main_scene: PackedScene = load("res://scenes/main/main_game.tscn")
 
 @onready var _fade_animation: AnimationPlayer = $FadeAnimation
-@onready var _start_button: TextureButton = $Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton
+@onready var _start_button: TextureButton = $Control/MarginContainer/CenterContainer/GridContainer/StartButton
+@onready var _seed_edit: LineEdit = $Control/MarginContainer/CenterContainer/GridContainer/SeedEdit
+@onready var _dark_toggle: CheckButton = $Control/MarginContainer/CenterContainer/GridContainer/DarkMode
+@onready var _rng_controller: ProceduralRNGController = $ProceduralRNGController
 
 var _press_tween: Tween
 var _ui_transitioning: bool = false
@@ -92,6 +95,15 @@ func _on_start_button_pressed() -> void:
 	if _ui_transitioning:
 		return
 	_ui_transitioning = true
-	get_tree().root.add_child(_main_scene.instantiate())
+	
+	# Set seed
+	_rng_controller.procedural_rng.rng_seed = _seed_edit.text
+	
+	# Set dark mode
+	Settings.dark_mode_enabled = _dark_toggle.button_pressed
+	
+	var game: MainGame = _main_scene.instantiate()
+	
+	get_tree().root.add_child(game)
 	await _fade_animation_reverse()
 	queue_free()

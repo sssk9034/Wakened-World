@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://c8k2n4m6p8q0r" path="res://ui/start/start_scene.gd" id="1_start"]
 [ext_resource type="Texture2D" uid="uid://dlmutvjrtp6pp" path="res://ui/start/assets/Start Screen UI Title (1).png" id="2_title"]
 [ext_resource type="Texture2D" uid="uid://6yevmcc7mepq" path="res://ui/start/assets/Start Screen UI Start Button.png" id="3_button"]
+[ext_resource type="Script" uid="uid://bfaxt2x3s67k5" path="res://scenes/map/procedural_rng_controller.gd" id="4_x67tc"]
+[ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="5_wu5yw"]
 
 [sub_resource type="Animation" id="Animation_4d1xd"]
 resource_name = "FadeAnimation"
@@ -64,34 +66,64 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_title")
 expand_mode = 5
-stretch_mode = 6
+stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1713159937]
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1347564863]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -66.5
+offset_top = -40.0
+offset_right = 66.5
 grow_horizontal = 2
-grow_vertical = 2
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer" unique_id=1347564863]
-layout_mode = 2
+grow_vertical = 0
 theme_override_constants/margin_bottom = 5
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/VBoxContainer/MarginContainer" unique_id=615180969]
+[node name="CenterContainer" type="CenterContainer" parent="Control/MarginContainer" unique_id=699357023]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="StartButton" type="TextureButton" parent="Control/VBoxContainer/MarginContainer/AspectRatioContainer" unique_id=870666733]
+[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/CenterContainer" unique_id=836185650]
+layout_mode = 2
+theme_override_constants/v_separation = -2
+
+[node name="SeedEdit" type="LineEdit" parent="Control/MarginContainer/CenterContainer/GridContainer" unique_id=45547309]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 4
+placeholder_text = "Seed"
+alignment = 1
+emoji_menu_enabled = false
+caret_blink = true
+
+[node name="DarkMode" type="CheckButton" parent="Control/MarginContainer/CenterContainer/GridContainer" unique_id=1573717079]
+layout_mode = 2
+theme_override_constants/icon_max_width = 14
+theme_override_font_sizes/font_size = 4
+text = "Dark Mode"
+expand_icon = true
+
+[node name="StartButton" type="TextureButton" parent="Control/MarginContainer/CenterContainer/GridContainer" unique_id=870666733]
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("3_button")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="FadeAnimation" type="AnimationPlayer" parent="." unique_id=2115916511]
 libraries/ = SubResource("AnimationLibrary_btob0")
 
-[connection signal="button_down" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton" to="." method="_on_start_button_button_down"]
-[connection signal="button_up" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton" to="." method="_on_start_button_button_up"]
-[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/AspectRatioContainer/StartButton" to="." method="_on_start_button_pressed"]
+[node name="ProceduralRNGController" type="Node" parent="." unique_id=1040597184]
+script = ExtResource("4_x67tc")
+procedural_rng = ExtResource("5_wu5yw")
+metadata/_custom_type_script = "uid://bfaxt2x3s67k5"
+
+[connection signal="button_down" from="Control/MarginContainer/CenterContainer/GridContainer/StartButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_up" from="Control/MarginContainer/CenterContainer/GridContainer/StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="pressed" from="Control/MarginContainer/CenterContainer/GridContainer/StartButton" to="." method="_on_start_button_pressed"]
