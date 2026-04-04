@@ -47,7 +47,7 @@ region_rect = Rect2(1601, 422, 980, 358)
 
 [node name="LeftBackgroundTexture" parent="." index="2" unique_id=1526904559]
 offset = Vector2(-728, 0)
-region_rect = Rect2(1602, 812, 490, 358)
+region_rect = Rect2(1079, 812, 490, 358)
 
 [node name="RightBackgroundTexture" parent="." index="3" unique_id=456350986]
 offset = Vector2(742, 0)
