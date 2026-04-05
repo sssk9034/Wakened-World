@@ -4,22 +4,24 @@ Wakened world is a chase-scene style running game where our protagonist is dropp
 ## Features
 * Chase game
 * Unique art style
-* Procedural generation
+* Procedurally generated map
 
 ## Trailer
 [Youtube link for video](https://youtu.be/84FTBu7s_Zw)
 
 ## Tech Stack
-* **Languages**: gd script
+* **Languages**: GDScript
 * **Game Engine**: Godot
-* **Other Tools**: asperite
+* **Other Tools**: Asperite
 
-## controls
+## Controls
 | Action  | Key/Input |
 | ------------- |:-------------:|
-| Move left/right      | AD/→← Arrows |
-| Buttons      | click/space     |
-| Pause game      | Esc      |
+| Move left/right | A/D or Arrow keys |
+| Aim flashlight  | Mouse Cursor      |
+| UI Buttons      | Click or Space    |
+| Pause game      | Esc               |
+| Debug overlay   | F3                |
 
 ## Game Mechanics
 ### Objective
@@ -34,6 +36,19 @@ Move left and right to dodge obstacles and out-slide the Moss Slug monster to es
 	* It will slow you down for a little bit, making it easier for the moss slug to catch up.
 * **Holes**:
 	* If you fall in a hole, the moss slug will find you at the bottom of the hole and eat you.
+
+### Map Generation
+Enter a seed on the title screen to generate a map and obstacle layout based off of that seed.
+The seed can be any text you want.
+If left empty, a randomly generated seed is used.
+
+### Dark Mode
+Dark mode is a special game mode that takes place during night.
+
+The forest darkens to pitch black, and you are given only a weak unreliable flashlight to see ahead of you.
+You must use your mouse cursor to aim the flashlight to look for obstacles.
+Or you can use it to look back to see if the Moss Slug is catching up.
+But be warned, as you can only move your flashlight so fast.
 
 ## Creators
 * Ava Morris - Artist and Designer
