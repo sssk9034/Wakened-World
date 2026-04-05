@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://3x21kdofptpr" path="res://entities/player/assets/PCSlidingAnimationsSheetBigDragPath.png" id="2_sglur"]
 [ext_resource type="Texture2D" uid="uid://c8lehvmi2w44j" path="res://entities/player/assets/Intro Animation-Sheet.png" id="3_fkugw"]
 [ext_resource type="PackedScene" uid="uid://si18qr0v5vxh" path="res://ui/game_hud/game_hud.tscn" id="3_sglur"]
-[ext_resource type="AudioStream" uid="uid://cwv2bbwbnrp3l" path="res://sliding.wav" id="6_qiwj3"]
+[ext_resource type="AudioStream" uid="uid://cwv2bbwbnrp3l" path="res://entities/player/assets/sliding.wav" id="6_qiwj3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wq0jh"]
 atlas = ExtResource("2_bls4j")
@@ -818,6 +818,9 @@ libraries/ = SubResource("AnimationLibrary_fkugw")
 
 [node name="Sliding" type="AudioStreamPlayer2D" parent="." unique_id=373927470]
 stream = ExtResource("6_qiwj3")
-volume_db = -18.909
+volume_db = -19.607
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1220917592]
+current = true
 
 [connection signal="animation_finished" from="FallAnimation" to="." method="_on_fall_animation_animation_finished"]
