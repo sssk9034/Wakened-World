@@ -36,6 +36,7 @@ obstacle_rng = ExtResource("3_trg0r")
 metadata/_custom_type_script = "uid://df2q2u608r5wy"
 
 [node name="MapTileCornerLeft1" unique_id=1407241641 instance=ExtResource("1_g5dh2")]
+probability = 0.5
 
 [node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
 offset = Vector2(-745, 0)
