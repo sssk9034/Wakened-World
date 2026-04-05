@@ -10,4 +10,4 @@ class BoostVelocityModifier extends Map.VelocityModifier:
 		type = ModifierTypes.TARGET
 	
 	func mod_velocity(old_velocity: float, _original_velocity: float) -> float:
-		return old_velocity * 2
+		return old_velocity * 1.5

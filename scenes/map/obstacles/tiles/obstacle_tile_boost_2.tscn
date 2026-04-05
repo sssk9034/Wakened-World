@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://d8d6rw48bpds"
 script = ExtResource("2_4xmy1")
 type = SubResource("Resource_satnm")
 probability = 0.08
-extra_time = 1000
+extra_time = 500
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 offset = Vector2(3.345, -8.885)
