@@ -17,6 +17,7 @@ var _start_scene: PackedScene = preload("res://ui/start/start_scene.tscn")
 
 const PLAYER_VELOCITY: float = 100.00
 const SLUG_VELOCITY: float = 95.00
+const SLUG_MAX_DISTANCE: float = 250.0
 const EXIT_TILE_TARGET: Vector2 = Vector2(41, 270)
 const INTRO_CHARACTER_OFFSET: Vector2 = Vector2(-295, -70)
 
@@ -70,6 +71,10 @@ func _physics_process(_delta: float) -> void:
 			_moss_slug.velocity.y = 0
 		else:
 			_moss_slug.velocity.y = SLUG_VELOCITY - _map.get_velocity()
+
+		if (_player.global_position.y - _moss_slug.global_position.y) > SLUG_MAX_DISTANCE:
+			# Slug is too far from player, prevent moving farther away
+			_moss_slug.velocity.y = max(_moss_slug.velocity.y, 0.0)
 	else:
 		_moss_slug.velocity = Vector2.ZERO
 
