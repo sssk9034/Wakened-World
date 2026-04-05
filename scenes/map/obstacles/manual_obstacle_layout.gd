@@ -20,7 +20,9 @@ func get_next_obstacle() -> ObstacleTile:
 	var tile: ObstacleTile = positions[_positions_index].tile_scene.instantiate()
 	
 	tile.position = positions[_positions_index].position
-	tile.rotation = positions[_positions_index].rotation
+	
+	if tile.rotatable:
+		tile.rotation = positions[_positions_index].rotation
 	
 	_positions_index += 1
 	return tile

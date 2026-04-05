@@ -4,6 +4,7 @@ extends Node2D
 ## Defines information about the obstacle for the obstacle builder.
 @export var type: ObstacleType
 @export var probability: float = 1.0
+@export var rotatable: bool = false
 
 @export_range(0, 5000, 1, "suffix:ms", "or_greater") var extra_time: int = 0
 
