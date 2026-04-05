@@ -16,6 +16,7 @@ static var _singleton: Player = null
 @onready var character: AnimatedSprite2D = $Character
 
 @onready var _fall_animation: AnimationPlayer = $FallAnimation
+@onready var _slide_sound: AudioStreamPlayer2D = $Sliding
 
 var can_user_control: bool = true
 @export var computer_target: Vector2
@@ -73,10 +74,9 @@ func _physics_process(delta: float) -> void:
 	if can_user_control:
 		var input: float = Input.get_axis("player_left", "player_right")
 		
-		if Input.is_action_just_pressed("player_left"):
-			$Sliding.play_slide()
-		if Input.is_action_just_pressed("player_right"):
-			$Sliding.play_slide()
+		if (Input.is_action_just_pressed("player_left") 
+				or Input.is_action_just_pressed("player_right")):
+			_play_slide_sound()
 		
 		update_character_animation(input)
 		velocity.x = input * speed
@@ -111,6 +111,10 @@ func trigger_hole_death(hole_position: Vector2) -> void:
 	can_user_control = false
 	start_auto_walk()
 	_fall_animation.play("HoleFall")
+
+func _play_slide_sound() -> void:
+	_slide_sound.pitch_scale = randf_range(0.9, 1.1)
+	_slide_sound.play()
 
 func _on_fall_animation_animation_finished(_anim_name: StringName) -> void:
 	MainGame.singleton.scene_switcher(_death_scene)
