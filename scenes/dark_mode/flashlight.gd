@@ -1,17 +1,26 @@
 class_name Flashlight
 extends Node2D
 
-@export var enabled: bool = false
+@export var enabled: bool = false:
+	set(value):
+		enabled = value
+		_active = value
 @export_range(1, 20, 0.01, "suffix:°/s²") var acceleration: float = 20.0
 @export_range(1, 10, 0.01, "suffix:°/s") var velocity: float = 3.0
 
 var _target_velocity: float = 0.0
 var _current_velocity: float = 0.0
+var _active: bool = false:
+	set(value):
+		_active = value
+		visible = value
+		
+func _ready() -> void:
+	visible = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	visible = enabled
-	
 	if not enabled:
 		return
 		
@@ -26,11 +35,14 @@ func _process(delta: float) -> void:
 
 
 func flicker() -> void:
+	if not enabled:
+		return
+	
 	var tween: Tween = get_tree().create_tween()
 	
 	for i: int in randi_range(1, 2):
-		tween.tween_property(self, "enabled", false, randf_range(0.05, 0.3))
-		tween.tween_property(self, "enabled", true, 0.1)
+		tween.tween_property(self, "_active", false, randf_range(0.05, 0.3))
+		tween.tween_property(self, "_active", true, 0.1)
 	
 
 func _calc_acceleration(delta: float) -> void:
@@ -47,9 +59,5 @@ func _calc_acceleration(delta: float) -> void:
 				_target_velocity)
 
 
-func _on_flicker_timer_timeout(source: Timer) -> void:
-	source.start(randf_range(1.0, 10.0))
-	
-	if enabled:
-		flicker()
-	
+func _on_flicker_randomized_timer_timeout() -> void:
+	flicker()

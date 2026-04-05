@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b4h4e05higkk8" path="res://scenes/dark_mode/dark_mode.gd" id="1_40m8p"]
 [ext_resource type="Script" uid="uid://bejr8co5rgmm8" path="res://scenes/dark_mode/flashlight.gd" id="2_ap6oj"]
 [ext_resource type="Texture2D" uid="uid://b6dnnrqitke8g" path="res://scenes/dark_mode/textures/flashlight_mask.png" id="2_lxxrc"]
+[ext_resource type="Script" uid="uid://cpguq6x7hi8wc" path="res://utilites/randomized_timer.gd" id="4_ap6oj"]
 
 [sub_resource type="Gradient" id="Gradient_acxof"]
 interpolation_mode = 2
@@ -51,8 +52,11 @@ range_z_min = 26
 texture = ExtResource("2_lxxrc")
 offset = Vector2(110, 0)
 
-[node name="FlickerTimer" type="Timer" parent="Flashlight" unique_id=2078085396]
-one_shot = true
+[node name="FlickerRandomizedTimer" type="Timer" parent="Flashlight" unique_id=87278801]
 autostart = true
+script = ExtResource("4_ap6oj")
+min_wait_time = 5.0
+max_wait_time = 20.0
+metadata/_custom_type_script = "uid://cpguq6x7hi8wc"
 
-[connection signal="timeout" from="Flashlight/FlickerTimer" to="Flashlight" method="_on_flicker_timer_timeout" flags=18]
+[connection signal="timeout" from="Flashlight/FlickerRandomizedTimer" to="Flashlight" method="_on_flicker_randomized_timer_timeout"]

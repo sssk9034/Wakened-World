@@ -1,7 +1,14 @@
 class_name DarkMode
 extends Node2D
 
-@export var enabled: bool = false
+@export var enabled: bool = false:
+	set(value):
+		enabled = value
+		visible = value
+		if enabled:
+			process_mode = Node.PROCESS_MODE_INHERIT
+		else:
+			process_mode = Node.PROCESS_MODE_DISABLED
 @export var player: Node2D
 
 @onready var _flashlight: Flashlight = $Flashlight
@@ -9,10 +16,6 @@ extends Node2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if not enabled:
-		visible = false
-		process_mode = Node.PROCESS_MODE_DISABLED
-	
 	# Update position of player lights
 	_flashlight.global_position = player.global_position
 
