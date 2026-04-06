@@ -16,7 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://bu13usk36vulp" path="res://scenes/map/map_tiles/start_end_tiles/map_tile_start.tscn" id="12_iv5mf"]
 [ext_resource type="Resource" uid="uid://b65qwbtmq5xhf" path="res://scenes/map/game_rng.tres" id="12_wwv60"]
 [ext_resource type="PackedScene" uid="uid://bwpauseovrlay" path="res://ui/pause/pause_overlay.tscn" id="13_pauseov"]
-[ext_resource type="AudioStream" uid="uid://dfkdfxtwstalj" path="res://jorisvermeer-ominous-horror-game-background-418850.mp3" id="16_iv5mf"]
+[ext_resource type="AudioStream" uid="uid://dfkdfxtwstalj" path="res://scenes/main/assets/jorisvermeer-ominous-horror-game-background-418850.mp3" id="16_iv5mf"]
+[ext_resource type="PackedScene" uid="uid://o12vuwvcmkde" path="res://scenes/dark_mode/dark_mode.tscn" id="18_6ac48"]
 
 [sub_resource type="Resource" id="Resource_aqdx0"]
 script = ExtResource("5_0wxsa")
@@ -49,6 +50,12 @@ script = ExtResource("11_wmrn4")
 procedural_rng = ExtResource("12_wwv60")
 metadata/_custom_type_script = "uid://bfaxt2x3s67k5"
 
-[node name="Background" type="AudioStreamPlayer2D" parent="." unique_id=526154212]
+[node name="DarkMode" parent="." unique_id=326763503 node_paths=PackedStringArray("player") instance=ExtResource("18_6ac48")]
+visible = false
+player = NodePath("../Player")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1432286385]
 stream = ExtResource("16_iv5mf")
+volume_db = -6.98
 autoplay = true
+parameters/looping = true

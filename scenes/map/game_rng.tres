@@ -4,5 +4,4 @@
 
 [resource]
 script = ExtResource("1_322pd")
-rng_seed = "test"
 metadata/_custom_type_script = "uid://d1clhqi0y3lpg"

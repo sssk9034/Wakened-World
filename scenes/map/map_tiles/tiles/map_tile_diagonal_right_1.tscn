@@ -10,24 +10,28 @@
 script = ExtResource("4_h11tv")
 position_id = 0
 position = Vector2(-10, 150)
+rotation = 0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_byro8"]
 script = ExtResource("4_h11tv")
 position_id = 0
-position = Vector2(50, 100)
+position = Vector2(70, 100)
+rotation = 0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_de0um"]
 script = ExtResource("4_h11tv")
 position_id = 1
 position = Vector2(150, 250)
+rotation = 0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_lx567"]
 script = ExtResource("4_h11tv")
 position_id = 1
 position = Vector2(60, 280)
+rotation = 0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_h11tv"]

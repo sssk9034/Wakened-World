@@ -9,6 +9,7 @@ static var _singleton: MainGame = null
 @onready var _player: Player = $Player
 @onready var _moss_slug: MossSlug = $MossSlug
 @onready var _map: Map = $Map
+@onready var _dark_mode: DarkMode = $DarkMode
 
 var _death_scene: PackedScene = preload("res://ui/death/death_scene.tscn")
 var _hole_death_scene: PackedScene = preload("res://ui/death/hole_death_scene.tscn")
@@ -16,6 +17,7 @@ var _start_scene: PackedScene = preload("res://ui/start/start_scene.tscn")
 
 const PLAYER_VELOCITY: float = 100.00
 const SLUG_VELOCITY: float = 95.00
+const SLUG_MAX_DISTANCE: float = 250.0
 const EXIT_TILE_TARGET: Vector2 = Vector2(41, 270)
 const INTRO_CHARACTER_OFFSET: Vector2 = Vector2(-295, -70)
 
@@ -50,6 +52,8 @@ func _exit_tree() -> void:
 func _ready() -> void:
 	_map.change_velocity(PLAYER_VELOCITY)
 	
+	_dark_mode.enabled = Settings.dark_mode_enabled
+	
 	_moss_slug.caught_player.connect(_on_moss_slug_caught_player)
 	_player.reached_computer_target.connect(_on_player_reached_computer_target)
 	_player.intro_finished.connect(_finish_intro_camera_follow)
@@ -67,6 +71,10 @@ func _physics_process(_delta: float) -> void:
 			_moss_slug.velocity.y = 0
 		else:
 			_moss_slug.velocity.y = SLUG_VELOCITY - _map.get_velocity()
+
+		if (_player.global_position.y - _moss_slug.global_position.y) > SLUG_MAX_DISTANCE:
+			# Slug is too far from player, prevent moving farther away
+			_moss_slug.velocity.y = max(_moss_slug.velocity.y, 0.0)
 	else:
 		_moss_slug.velocity = Vector2.ZERO
 
@@ -128,6 +136,7 @@ func _on_player_reached_computer_target() -> void:
 
 
 func _on_player_enter_exit_scene(tile: MapTileEnd) -> void:
+	_dark_mode.switch_to_game_light()
 	if _player.can_user_control:
 		_player.character.animation = "straight"
 		_player.can_user_control = false
@@ -169,6 +178,8 @@ func _on_intro_camera_drop_finished() -> void:
 	cam.zoom = GAMEPLAY_CAMERA_ZOOM
 	cam.position_smoothing_enabled = true
 	cam.drag_horizontal_enabled = true
+	
+	_dark_mode.switch_to_player_light()
 
 
 func _apply_intro_camera_pan_x(pan_x: float) -> void:

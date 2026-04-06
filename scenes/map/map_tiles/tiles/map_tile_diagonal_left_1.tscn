@@ -17,18 +17,21 @@ script = ExtResource("2_vnvg3")
 position_id = 0
 allowed_types = SubResource("Resource_x5o7p")
 position = Vector2(-25, 80)
+rotation = -0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_m6qt5"]
 script = ExtResource("2_vnvg3")
 position_id = 0
-position = Vector2(10, 260)
+position = Vector2(0, 260)
+rotation = -0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_ltlje"]
 script = ExtResource("2_vnvg3")
 position_id = 0
-position = Vector2(-190, 240)
+position = Vector2(-180, 240)
+rotation = -0.4363323129985824
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_w272o"]

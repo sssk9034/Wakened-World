@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://d8d6rw48bpds"
 script = ExtResource("2_7mgc3")
 type = SubResource("Resource_qy6dl")
 probability = 0.08
-extra_time = 1000
+rotatable = true
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 offset = Vector2(0, 1.325)

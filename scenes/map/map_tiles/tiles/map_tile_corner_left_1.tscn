@@ -8,15 +8,15 @@
 [ext_resource type="Script" uid="uid://ba6kodwlyqon4" path="res://scenes/map/obstacles/obstacle_filter.gd" id="5_trg0r"]
 [ext_resource type="Script" uid="uid://kb7ygl8wix1k" path="res://scenes/map/map_area_modifier.gd" id="7_x7ec2"]
 
-[sub_resource type="Resource" id="Resource_x7ec2"]
+[sub_resource type="Resource" id="Resource_hap63"]
 script = ExtResource("5_trg0r")
-allowed_actions = Array[int]([1])
+excluded_sizes = Array[int]([3])
 metadata/_custom_type_script = "uid://ba6kodwlyqon4"
 
 [sub_resource type="Resource" id="Resource_pfxym"]
 script = ExtResource("4_x7ec2")
 position_id = 0
-allowed_types = SubResource("Resource_x7ec2")
+allowed_types = SubResource("Resource_hap63")
 position = Vector2(-470, 240)
 rotation = -0.7853981633974483
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
@@ -25,17 +25,32 @@ metadata/_custom_type_script = "uid://nwym1tseg7k0"
 script = ExtResource("4_x7ec2")
 position_id = 1
 position = Vector2(20, 150)
+rotation = -0.4363323129985824
+metadata/_custom_type_script = "uid://nwym1tseg7k0"
+
+[sub_resource type="Resource" id="Resource_w2184"]
+script = ExtResource("5_trg0r")
+excluded_sizes = Array[int]([3])
+metadata/_custom_type_script = "uid://ba6kodwlyqon4"
+
+[sub_resource type="Resource" id="Resource_x7ec2"]
+script = ExtResource("4_x7ec2")
+position_id = 1
+allowed_types = SubResource("Resource_w2184")
+position = Vector2(-140, 140)
+rotation = -0.8726646259971648
 metadata/_custom_type_script = "uid://nwym1tseg7k0"
 
 [sub_resource type="Resource" id="Resource_mc50x"]
 resource_local_to_scene = true
 script = ExtResource("5_mc50x")
-positions = Array[ExtResource("4_x7ec2")]([SubResource("Resource_pfxym"), SubResource("Resource_trg0r")])
+positions = Array[ExtResource("4_x7ec2")]([SubResource("Resource_pfxym"), SubResource("Resource_trg0r"), SubResource("Resource_x7ec2")])
 obstacle_builder = ExtResource("2_pfxym")
 obstacle_rng = ExtResource("3_trg0r")
 metadata/_custom_type_script = "uid://df2q2u608r5wy"
 
 [node name="MapTileCornerLeft1" unique_id=1407241641 instance=ExtResource("1_g5dh2")]
+probability = 0.5
 
 [node name="TerrainLayerTexture" parent="." index="0" unique_id=178507704]
 offset = Vector2(-745, 0)

@@ -8,8 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://c1ufpc52mb42u" path="res://entities/moss_slug/assets/MossSlugDragPathAnimation_Straight.png" id="4_0ixnn"]
 [ext_resource type="Texture2D" uid="uid://c2fydwj0vtlgu" path="res://entities/moss_slug/assets/MossSlugAnimation_Straight.png" id="4_0o316"]
 [ext_resource type="Texture2D" uid="uid://bxxyeepm2xjl1" path="res://entities/moss_slug/assets/Moss Slug Animation 2-Sheet.png" id="5_wdytg"]
-[ext_resource type="AudioStream" uid="uid://be33vkhc8apf1" path="res://monsterRoar.mp3" id="9_nkk4h"]
-[ext_resource type="Script" path="res://entities/moss_slug/roar.gd" id="10_lb6e6"]
+[ext_resource type="AudioStream" uid="uid://be33vkhc8apf1" path="res://entities/moss_slug/assets/monsterRoar.mp3" id="9_nkk4h"]
+[ext_resource type="Script" uid="uid://cgo4rwmct7lco" path="res://entities/moss_slug/roar_audio_stream_player_2d.gd" id="10_lb6e6"]
+[ext_resource type="Script" uid="uid://cpguq6x7hi8wc" path="res://utilites/randomized_timer.gd" id="11_lb6e6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nekj4"]
 atlas = ExtResource("2_1uria")
@@ -467,7 +468,7 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1uria"]
 
-[node name="slug" type="CharacterBody2D" unique_id=1938747038]
+[node name="MossSlug" type="CharacterBody2D" unique_id=1938747038]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_hd4k1")
@@ -512,4 +513,21 @@ stream = ExtResource("9_nkk4h")
 autoplay = true
 script = ExtResource("10_lb6e6")
 
+[node name="CooldownRandomizedTimer" type="Timer" parent="Roar" unique_id=26413021]
+one_shot = true
+script = ExtResource("11_lb6e6")
+min_wait_time = 5.0
+max_wait_time = 10.0
+metadata/_custom_type_script = "uid://cpguq6x7hi8wc"
+
+[node name="RoarRandomizedTimer" type="Timer" parent="Roar" unique_id=2091208635]
+autostart = true
+script = ExtResource("11_lb6e6")
+min_wait_time = 20.0
+max_wait_time = 30.0
+metadata/_custom_type_script = "uid://cpguq6x7hi8wc"
+
 [connection signal="body_shape_entered" from="Slug2D" to="." method="_on_slug_2d_body_shape_entered"]
+[connection signal="finished" from="Roar" to="Roar" method="_on_finished"]
+[connection signal="timeout" from="Roar/CooldownRandomizedTimer" to="Roar" method="_on_cooldown_randomized_timer_timeout"]
+[connection signal="timeout" from="Roar/RoarRandomizedTimer" to="Roar" method="_on_roar_randomized_timer_timeout"]

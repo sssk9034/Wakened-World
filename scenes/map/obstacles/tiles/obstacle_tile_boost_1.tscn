@@ -19,8 +19,9 @@ metadata/_custom_type_script = "uid://d8d6rw48bpds"
 [node name="ObstacleTileBoost1" unique_id=2133705382 instance=ExtResource("1_re5gn")]
 script = ExtResource("2_3f5kd")
 type = SubResource("Resource_0qt2h")
-probability = 0.05
-extra_time = 2000
+probability = 0.03
+rotatable = true
+extra_time = 1000
 
 [node name="ObstacleTexture" parent="." index="0" unique_id=1533905559]
 region_rect = Rect2(82, 466, 59, 144)

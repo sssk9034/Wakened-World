@@ -20,11 +20,9 @@ var _target_velocity: float = 0.0
 var _current_velocity: float = 0.0
 
 #player distance based roar sound effect
-@export var roar_distance: float = 90.0   # distance threshold
-@export var roar_cooldown: float = 5.0     # seconds
+@export var roar_distance: float = 100.0   # distance threshold
 
-var _can_roar: bool = true
-@onready var _roar_player: AudioStreamPlayer2D = $Roar
+@onready var _roar_sound: RoarAudioStreamPlayer2D = $Roar
 
 
 ## Set by gameplay (e.g. MainGame): horizontal chase uses global_position, not velocity.
@@ -155,20 +153,10 @@ func _calc_acceleration(delta: float) -> void:
 func _on_slug_2d_body_shape_entered(_body_rid: RID, _body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	caught_player.emit()
 
+
 func _check_roar_condition() -> void:
-	if not _can_roar:
-		return
-	
 	var distance: float = global_position.distance_to(target)
 	
 	if distance <= roar_distance:
-		_play_roar_with_cooldown()
+		_roar_sound.play_with_cooldown()
 		
-
-func _play_roar_with_cooldown() -> void:
-	if _roar_player != null:
-		_roar_player.play()
-
-	_can_roar = false
-	await get_tree().create_timer(roar_cooldown).timeout
-	_can_roar = true
