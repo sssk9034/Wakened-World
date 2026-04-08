@@ -9,7 +9,7 @@ Download the latest release through Github here:
 Releases are available for 
 [Linux](https://github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.Linux.x86_64), 
 [Windows](https://github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.Windows.zip),
-and [macOS](github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.macOS.zip).
+and [macOS](https://github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.macOS.zip).
 
 ## Features
 * Chase game
