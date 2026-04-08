@@ -1,6 +1,16 @@
 # Wakened World 
 Wakened world is a chase-scene style running game where our protagonist is dropped into a strange and vibrant world where everything is not what it seems. The twist? Nearly everything around you is a living creature. Players are quickly confronted by a monstrous Moss Slug that intends to chase them down for a tasty snack. In the chase, players will have to maneuver around obstacles, all of which are questionably living. Hitting something means slowing down, and slowing down means the Slug gets ever closer. Keep up the pace, or you’ll end up as just another pile of fertilizer. If you can avoid danger for long enough, you’ll eventually escape the reach of the Slug.
 
+## Download
+Download the latest release through Github here:
+
+[https://github.com/sssk9034/Wakened-World/releases/latest](https://github.com/sssk9034/Wakened-World/releases/latest)
+
+Releases are available for 
+[Linux](https://github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.Linux.x86_64), 
+[Windows](https://github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.Windows.zip),
+and [macOS](github.com/sssk9034/Wakened-World/releases/latest/download/Wakened.World.macOS.zip).
+
 ## Features
 * Chase game
 * Unique art style
